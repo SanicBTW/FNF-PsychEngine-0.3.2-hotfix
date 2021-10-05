@@ -267,13 +267,12 @@ class FreeplayState extends MusicBeatState
 		if (Math.abs(lerpRating - intendedRating) <= 0.01)
 			lerpRating = intendedRating;
 
-		/*
 		#if !web
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + Math.floor(lerpRating * 100) + '%)';
 		#else
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore;
-		#end*/
-		scoreText.text = 'No carga scores a partir de las 4 canciones bruh\npereza de meter mas weeks para cargar esto xd';
+		#end
+		//scoreText.text = 'No carga scores a partir de las 4 canciones bruh\npereza de meter mas weeks para cargar esto xd';
 
 		positionHighscore();
 
