@@ -9,11 +9,11 @@ import Controls;
 class ClientPrefs {
 	//TO DO: Redo ClientPrefs in a way that isn't too stupid
 	public static var downScroll:Bool = false;
-	public static var middleScroll:Bool = true;
+	public static var middleScroll:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
-	public static var noteSplashes:Bool = true;
+	public static var noteSplashes:Bool = false;
 	public static var lowQuality:Bool = false;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
@@ -30,7 +30,7 @@ class ClientPrefs {
 	public static var osubackalpha:Float = 0.5;
 	public static var verthealthbar:Bool = false;
 	public static var songbackgrounds:Bool = true;
-	public static var healthdecrease:Float = 0.005;
+	public static var healthdecrease:Float = 0.008;
 	public static var osusongs:Bool = true;
 	public static var noteskin:String = 'NOTE_assets';
 	public static var fullscreenxd:Bool = false;

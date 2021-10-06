@@ -239,14 +239,6 @@ class PlayState extends MusicBeatState
 	var chiritextbottom:FlxSprite;
 	var declife:FlxTimer;
 	var ZardyBackground:FlxSprite;
-	public var lastGrab:Float = 0;
-	public var grabbed:Bool = false;
-	public var mic:FlxSprite;
-	public var hand:FlxSprite;
-	public var otherHand:FlxSprite;
-	public var vine:FlxSprite;
-	public var lengthOfNotes = 4;
-	public var stopMoving = false;
 
 
 	override public function create()
@@ -521,27 +513,6 @@ class PlayState extends MusicBeatState
 					ZardyBackground.antialiasing = true;
 					ZardyBackground.animation.play('Maze');
 					add(ZardyBackground);
-
-					vine = new FlxSprite(155, 620);
-					vine.antialiasing = true;
-
-					hand = new FlxSprite(0,0).loadGraphic(Paths.image('modbackgrounds/bushwhack/Arm0', 'shared'));
-					mic = new FlxSprite(0,0).loadGraphic(Paths.image('modbackgrounds/bushwhack/Mic', 'shared'));
-
-					add(hand);
-					add(mic);
-					remove(hand);
-					remove(mic);
-
-					vine.frames = Paths.getSparrowAtlas('modbackgrounds/bushwhack/ZardyWeek2_Vines', 'shared');
-					//vine.animation.addByPrefix("vine", "Vine Whip instance", 24, false);
-					vine.animation.addByPrefix("vine", "Vine Whip instance", Math.floor(24 * 1.0), false);
-					vine.setGraphicSize(Std.int(vine.width * 0.85));
-
-					vine.alpha = 0;
-					
-					add(vine);
-
 				} else {
 					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					add(noback);
@@ -622,10 +593,13 @@ class PlayState extends MusicBeatState
 
 		if(!curStage.startsWith("osubackgrounds")) {
 			if(ClientPrefs.songbackgrounds){
+				ClientPrefs.middleScroll = false;
 				dadGroup.add(dad);
 				boyfriendGroup.add(boyfriend);
 			}
 			//gfGroup.add(gf);
+		} else {
+			ClientPrefs.middleScroll = true;
 		}
 		
 		var camPos:FlxPoint = new FlxPoint(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
@@ -897,6 +871,7 @@ class PlayState extends MusicBeatState
 		CoolUtil.precacheSound('missnotetouhou1');
 		CoolUtil.precacheSound('missnotetouhou2');
 		CoolUtil.precacheSound('missnotetouhou3');
+		CoolUtil.precacheSound('notehitsound');
 		
 		#if desktop
 		// Updating Discord Rich Presence.
@@ -1118,11 +1093,7 @@ class PlayState extends MusicBeatState
 			for (i in 0...opponentStrums.length) {
 				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
-				if(curStage.startsWith("osubackgrounds")){
-					opponentStrums.members[i].visible = false;
-				} else {
-					if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
-				}
+				if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
 			startedCountdown = true;
@@ -1710,68 +1681,6 @@ class PlayState extends MusicBeatState
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
 
-	function grabThatMF()
-		{
-	
-			trace("IM GRABBING THAT MF");
-	
-			grabbed = true;
-	
-			vine.alpha = 1;
-	
-			vine.animation.play("vine");
-	
-			boyfriend.animation.finishCallback = function(name)
-			{
-				// nothing
-			};
-	
-			trace("playin grab");
-		}
-	
-		var originalXX:Float = 0;
-		var originalYY:Float = 0;
-	
-		var funnyArray:Array<Note> = [];
-	
-		function generateAndShowRandomNotes(?length:Int = 4)
-		{
-			trace("creating da notes");
-			for(i in funnyArray)
-				remove(i);
-	
-			funnyArray = [];
-	
-			var randomNotes = [];
-			for(i in 0...length)
-				randomNotes.push(new FlxRandom().int(0,3));
-			
-			var index = 0;
-	
-			for(i in randomNotes)
-			{
-				trace("note " + i);
-				var pog = new Note(90000, i, null,false,false);
-				add(pog);
-	
-				pog.setGraphicSize(Std.int(pog.width * 0.75));
-	
-				funnyArray.push(pog);
-	
-				pog.alpha = 0;
-	
-				FlxTween.tween(pog,{alpha: 1},0.3);
-	
-				pog.x = boyfriend.x + (pog.width * index);
-				pog.y = boyfriend.y - 135;
-	
-				index++;
-			}
-	
-		}
-
-		public var grabInput = false;
-
 	override public function update(elapsed:Float)
 	{
 		#if !debug
@@ -1783,68 +1692,22 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 
+		#if !web
+		if(FlxG.keys.justPressed.F11){
+			FlxG.fullscreen;
+		}
+		#else
+		if(FlxG.keys.justPressed.THREE){
+			FlxG.fullscreen;
+		}
+		#end
+
 		callOnLuas('onUpdate', [elapsed]);
 
 		switch (curStage)
 		{
 			case 'zardy':
 				ZardyBackground.animation.play('Maze');
-		}
-
-		if(curStage.startsWith("zardyBruh") && !grabbed)
-		{
-			if (vine.animation.frameIndex == 0)
-			{
-				vine.animation.stop();
-				vine.alpha = 0;
-			}
-
-			if(curStage.startsWith("zardyBruh") && grabbed)
-			{
-				if (vine.animation.frameIndex >= 35 && vine.animation.frameIndex <= 37 && boyfriend.animation.curAnim.name != "heldByVine")
-				{
-					FlxG.sound.play(Paths.sound("bushwhacksounds/bf_grabbed_by_vine","shared"));
-					grabInput = true;
-					trace("AHH");
-					boyfriend.playAnim("heldByVine");
-					generateAndShowRandomNotes(lengthOfNotes);
-				}
-
-				if (vine.animation.frameIndex == 56 && !vine.animation.paused)
-				{
-					trace("pause!");
-					vine.animation.pause();
-				}
-			}
-
-			if (curStage == 'zardyBruh' && songStarted)
-			{
-				var notesToHit = false;
-		
-				for(i in notes)
-					if (i.mustPress && i.strumTime - Conductor.songPosition <= 3000 && i.strumTime - Conductor.songPosition >= -3000)
-						notesToHit = true;
-		
-				FlxG.watch.addQuick("Grab time", lastGrab - Conductor.songPosition);
-				FlxG.watch.addQuick("Notes?", notesToHit);
-				FlxG.watch.addQuick("Grabbed?", grabbed);
-		
-		
-				if (!notesToHit && lastGrab != -1 && lastGrab - Conductor.songPosition <= -20000 / 1.0 && !grabbed  && FlxG.sound.music.length - Conductor.songPosition > 6000)
-				{
-					boyfriend.playAnim("idle");
-					strumLineNotes.forEach(function(spr:FlxSprite)
-						{
-							if (spr.animation.finished)
-							{
-								spr.animation.play('static');
-								spr.centerOffsets();
-							}
-						});
-					lastGrab = -1;
-					grabThatMF();
-				}
-			}
 		}
 
 		if(!inCutscene) {
@@ -2278,94 +2141,6 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-		if (grabbed && grabInput)
-			{
-				var pressArray:Array<Bool> = [controls.NOTE_LEFT_P, controls.NOTE_DOWN_P, controls.NOTE_UP_P, controls.NOTE_RIGHT_P];
-	
-				var redo = false;
-	
-				var toRemoved = [];
-	
-				for (i in 0...pressArray.length)
-				{
-					var bool = pressArray[i];
-	
-					if (funnyArray.length != 0)
-						if (funnyArray[0].noteData == i && bool)
-						{
-							toRemoved.push(funnyArray[0]);
-						}
-						else if (bool)
-							redo = true;
-	
-					for (i in toRemoved)
-					{
-						if (funnyArray.contains(i))
-						{
-							funnyArray.remove(i);
-							FlxTween.tween(i, {alpha: 0}, 0.3, {
-								onComplete: function(tw)
-								{
-									remove(i);
-									i.destroy();
-								}
-							});
-						}
-					}
-					if (bool)
-						continue;
-				}
-	
-				if (funnyArray.length == 0)
-				{
-					grabbed = false;
-					lastGrab = Conductor.songPosition;
-					if (boyfriend.animation.name == "heldByVine")
-					{
-						boyfriend.playAnim("axe");
-					}
-	
-					// this entire if statement is so stupid and bad
-					// i'm really lazy so i'm doing this
-					// sorry
-	
-					new FlxTimer().start(0.2, function(time)
-					{
-						FlxG.sound.play(Paths.sound('bushwhacksounds/bf_vine_defeat', "shared"));
-						vine.animation.play("vine", true, true);
-					});
-	
-					new FlxTimer().start(1, function(time)
-					{
-						grabInput = false;
-					});
-	
-					boyfriend.animation.finishCallback = function(n:String)
-					{
-						if (n == "axe")
-						{
-							FlxG.sound.play(Paths.sound('bushwhacksounds/bf_axe_chop', "shared"));
-							boyfriend.playAnim("dodge");
-							trace("pog");
-						}
-					};
-				}
-	
-				if (redo)
-				{
-					health -= 0.15;
-					for(ii in funnyArray)
-					{
-						remove(ii);
-						ii.destroy();
-					}
-	
-					funnyArray = [];
-					generateAndShowRandomNotes();
-				}
-			}
-
-
 		while(eventNotes.length > 0) {
 			var early:Float = eventNoteEarlyTrigger(eventNotes[0]);
 			var leStrumTime:Float = eventNotes[0][0];
@@ -2388,7 +2163,7 @@ class PlayState extends MusicBeatState
 		if (!inCutscene) {
 			if(!cpuControlled) {
 				keyShit();
-			} else if(boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss') && !grabbed && !grabInput) {
+			} else if(boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
 				boyfriend.dance();
 			}
 		}
@@ -3151,120 +2926,106 @@ class PlayState extends MusicBeatState
 
 		// FlxG.watch.addQuick('asdfa', upP);
 		if (!boyfriend.stunned && generatedMusic)
-		{
-			if((left || down || up || right) && !endingSong) {
-				notes.forEachAlive(function(daNote:Note) {
-					if(daNote.isSustainNote && controlHoldArray[daNote.noteData] && daNote.canBeHit && daNote.mustPress) {
-						goodNoteHit(daNote);
-					}
-				});
-
-				#if ACHIEVEMENTS_ALLOWED
-				var achieve:Int = checkForAchievement([11]);
-				if(achieve > -1) {
-					startAchievement(achieve);
-				}
-				#end
-			} else if(boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing')
-			&& !boyfriend.animation.curAnim.name.endsWith('miss') && !grabbed && !grabInput) {
-				boyfriend.dance();
-			}
-
-			if((leftP || downP || upP || rightP) && !endingSong) {
-				if(!ClientPrefs.ghostTapping)
-					boyfriend.holdTimer = 0;
-
-				var canMiss:Bool = !ClientPrefs.ghostTapping;
-
-				var notesHitArray:Array<Note> = [];
-				var notesDatas:Array<Int> = [];
-				var dupeNotes:Array<Note> = [];
-				notes.forEachAlive(function(daNote:Note) {
-					if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit) {
-						if (notesDatas.indexOf(daNote.noteData) != -1) {
-							for (i in 0...notesHitArray.length) {
-								var prevNote = notesHitArray[i];
-								if (prevNote.noteData == daNote.noteData && Math.abs(daNote.strumTime - prevNote.strumTime) < 10) {
-									dupeNotes.push(daNote);
-								} else if (prevNote.noteData == daNote.noteData && daNote.strumTime < prevNote.strumTime) {
-									notesHitArray.remove(prevNote);
-									notesHitArray.push(daNote);
+			{
+				// rewritten inputs???
+				if ((controlHoldArray.contains(true) || controlArray.contains(true)) && !endingSong) {
+	
+					var canMiss:Bool = !ClientPrefs.ghostTapping;
+					if (controlArray.contains(true)) {
+						for (i in 0...controlArray.length) {
+							// heavily based on my own code LOL if it aint broke dont fix it
+							var pressNotes:Array<Note> = [];
+							var notesDatas:Array<Int> = [];
+							var notesStopped:Bool = false;
+	
+							var sortedNotesList:Array<Note> = [];
+							notes.forEachAlive(function(daNote:Note)
+							{
+								if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate 
+								&& !daNote.wasGoodHit && daNote.noteData == i) {
+									sortedNotesList.push(daNote);
+									notesDatas.push(daNote.noteData);
+									canMiss = true;
+								}
+							});
+							sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
+	
+							if (sortedNotesList.length > 0) {
+								for (epicNote in sortedNotesList)
+								{
+									for (doubleNote in pressNotes) {
+										if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 10) {
+											doubleNote.kill();
+											notes.remove(doubleNote, true);
+											doubleNote.destroy();
+										} else
+											notesStopped = true;
+									}
+										
+									// eee jack detection before was not super good
+									if (controlArray[epicNote.noteData] && !notesStopped) {
+										goodNoteHit(epicNote);
+										if (ClientPrefs.ghostTapping)
+											boyfriend.holdTimer = 0;
+	
+										pressNotes.push(epicNote);
+									}
+	
 								}
 							}
-						} else {
-							notesHitArray.push(daNote);
-							notesDatas.push(daNote.noteData);
-						}
-						canMiss = true;
-					}
-				});
-
-				for (i in 0...dupeNotes.length) {
-					var daNote = dupeNotes[i];
-					daNote.kill();
-					notes.remove(daNote, true);
-					daNote.destroy();
-				}
-				notesHitArray.sort(sortByShit);
-
-				if (perfectMode)
-					goodNoteHit(notesHitArray[0]);
-				else if (notesHitArray.length > 0) {
-					for (i in 0...controlArray.length) {
-						if(controlArray[i] && notesDatas.indexOf(i) == -1) {
-							if(canMiss) {
-								badNoteHit();
-							}
+							else if (canMiss) 
+								ghostMiss(controlArray[i], i, true);
+	
+							// I dunno what you need this for but here you go
+							if (!keysPressed[i] && controlArray[i]) 
+								keysPressed[i] = true;
+							//
+	
 						}
 					}
-					for (i in 0...notesHitArray.length) {
-						var daNote = notesHitArray[i];
-						if(controlArray[daNote.noteData]) {
+					
+					// go through all hold notes now lolll
+					notes.forEachAlive(function(daNote:Note)
+					{
+						// hold note functions
+						if (daNote.isSustainNote && controlHoldArray[daNote.noteData] && daNote.canBeHit 
+						&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit) {
 							goodNoteHit(daNote);
-							if(ClientPrefs.ghostTapping)
-								boyfriend.holdTimer = 0;
 						}
+					});
+	
+					#if ACHIEVEMENTS_ALLOWED
+					var achieve:Int = checkForAchievement([11]);
+					if (achieve > -1) {
+						startAchievement(achieve);
 					}
-				} else if(canMiss) {
-					badNoteHit();
-				}
-
-				for (i in 0...keysPressed.length) {
-					if(!keysPressed[i] && controlArray[i]) keysPressed[i] = true;
-				}
+					#end
+				} else if (boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing')
+				&& !boyfriend.animation.curAnim.name.endsWith('miss'))
+					boyfriend.dance();
 			}
+	
+			playerStrums.forEach(function(spr:StrumNote)
+			{
+				if(controlArray[spr.ID] && spr.animation.curAnim.name != 'confirm') {
+					spr.playAnim('pressed');
+					spr.resetAnim = 0;
+				}
+				if(controlReleaseArray[spr.ID]) {
+					spr.playAnim('static');
+					spr.resetAnim = 0;
+				}
+			});
 		}
 
-		playerStrums.forEach(function(spr:StrumNote)
-		{
-			if(controlArray[spr.ID] && spr.animation.curAnim.name != 'confirm') {
-				spr.playAnim('pressed');
-				spr.resetAnim = 0;
-			}
-			if(controlReleaseArray[spr.ID]) {
-				spr.playAnim('static');
-				spr.resetAnim = 0;
-			}
-		});
-	}
-
-	function badNoteHit():Void {
-		/*
-		var controlArray:Array<Bool> = [controls.NOTE_LEFT_P, controls.NOTE_DOWN_P, controls.NOTE_UP_P, controls.NOTE_RIGHT_P];
-		for (i in 0...controlArray.length) {
-			if(controlArray[i]) {
-				noteMiss(i);
-				callOnLuas('noteMissPress', [i]);
-			}
-		}
-		*/
-		var controlArray:Array<Bool> = [controls.NOTE_LEFT_P, controls.NOTE_DOWN_P, controls.NOTE_UP_P, controls.NOTE_RIGHT_P];
-		for (i in 0...controlArray.length) {
-			if(controlArray[i]) noteMiss(i);
+	function ghostMiss(statement:Bool = false, direction:Int = 0, ?ghostMiss:Bool = false) {
+		if (statement) {
+			noteMiss(direction, ghostMiss);
+			callOnLuas('noteMissPress', [direction]);
 		}
 	}
 
-	function noteMiss(direction:Int = 1):Void
+	function noteMiss(direction:Int = 1, ?ghostMiss:Bool = false):Void
 	{
 		if (!boyfriend.stunned)
 		{
@@ -3276,22 +3037,21 @@ class PlayState extends MusicBeatState
 			combo = 0;
 
 			if(!practiceMode) songScore -= 10;
-			if(!endingSong) songMisses++;
+			if(!endingSong) {
+				songMisses++;
+			}
 			RecalculateRating();
 
-
 			FlxG.sound.play(Paths.soundRandom(ClientPrefs.curmisssound, 1, 3), FlxG.random.float(0.1, 0.2));
-			//FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-			//FlxG.sound.play(Paths.sound('missnote1'), 1, false);
+			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
 
-			boyfriend.stunned = true;
-
+			/*boyfriend.stunned = true;
 			// get stunned for 1/60 of a second, makes you able to
 			new FlxTimer().start(1 / 60, function(tmr:FlxTimer)
 			{
 				boyfriend.stunned = false;
-			});
+			});*/
 
 			switch (direction)
 			{
@@ -3626,53 +3386,6 @@ class PlayState extends MusicBeatState
 
 	var lastBeatHit:Int = -1;
 
-	function cableSpawn()
-		{
-			trace("cable boy");
-	
-			FlxTween.tween(camGame,{zoom: 1.6},1 / 1.0);
-			
-			FlxTween.tween(dad,{x: -80},1 / 1.0);
-			mic.alpha = 1;
-			mic.x = dad.x;
-			remove(otherHand);
-			FlxG.sound.play(Paths.sound("bushwhacksounds/micfuckinhit","shared"));
-			FlxTween.tween(mic,{x: mic.x + 3400},2 / 1.0,{
-			onUpdate: function(tw) {
-				if (mic.overlaps(boyfriend) && grabbed && health != 0)
-				{
-					FlxG.sound.play(Paths.sound("bushwhacksounds/bf_mic_hit","shared"));
-					health = 0;
-					lastGrab = Conductor.songPosition;
-					FlxG.camera.flash(FlxColor.RED,1,null,true);
-					boyfriend.playAnim("dead");
-	
-					if (FlxG.sound.music != null)
-					{
-						FlxG.sound.music.stop();
-						vocals.stop();
-					}
-				}
-				mic.angle += 4;
-			},
-			onComplete: function(tw) {
-				remove(mic);
-				if (health != 0)
-				{
-					stopMoving = false;
-					FlxTween.tween(camGame,{zoom: defaultCamZoom},0.4 / 1.0);
-					remove(iconP2);
-					iconP2 = new HealthIcon(dad.curCharacter,false);
-					iconP2.y = healthBar.y - (iconP2.height / 2);
-					iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
-					iconP2.alpha = 0;
-					iconP2.cameras = [camHUD];
-					add(iconP2);
-					FlxTween.tween(iconP2,{alpha:1},0.3);
-				}
-			}});
-		}
-
 	override function beatHit()
 	{
 		super.beatHit();
@@ -3788,75 +3501,6 @@ class PlayState extends MusicBeatState
 				case 736:
 					//dad.alpha = 0;
 					FlxTween.tween(dad, {alpha:0}, 0.4);
-			}
-		}
-
-		if (curSong == "bushwhack" || curStage == "zardyBruh")
-		{
-			
-		if (lastStep != curStep && curStage == "zardyBruh")
-			{
-				if (curStep == 1910)
-				{
-					FlxTween.tween(dad,{alpha:0},0.3);
-					FlxTween.tween(iconP2,{alpha:0},0.3);
-					mic = new FlxSprite(dad.x+ 300,dad.y - 100).loadGraphic(Paths.image("modbackgrounds/bushwhack/Mic","shared"));
-					mic.alpha = 0;
-	
-					mic.setGraphicSize(Std.int(mic.width * 0.4));
-	
-					mic.antialiasing = true;
-	
-					hand = new FlxSprite(mic.x - hand.width,mic.y).loadGraphic(Paths.image("modbackgrounds/bushwhack/Arm0","shared"));
-					hand.y += 40;
-	
-					hand.alpha = 0;
-	
-					hand.setGraphicSize(Std.int(hand.width * 0.4));
-	
-					add(hand);
-	
-					otherHand = new FlxSprite(hand.x,hand.y).loadGraphic(Paths.image("modbackgrounds/bushwhack/Grab","shared"));
-					otherHand.setGraphicSize(Std.int(otherHand.width * 0.4));
-					otherHand.alpha = 0;
-					add(otherHand);
-	
-					FlxTween.tween(mic,{alpha: 1},0.1 / 1.0);
-	
-					add(mic);
-				}
-	
-				if (curStep == 1920)
-				{
-					// cable crow stuff
-					remove(dad);
-	
-					stopMoving = true;
-					var newX = dad.x - 1300;
-					var newY = dad.y - 135;
-					dad.destroy();
-					dad = new Character(newX,newY,"cableCrowPog");
-					add(dad);
-	
-					hand.alpha = 1;
-	
-					/*
-					FlxTween.tween(hand,
-						{x: mic.x - 2600},1 / songMultiplier,{onComplete: function (tw) {
-						remove(hand);
-						FlxG.sound.play(Paths.sound("bushwhacksounds/cable_claw_impact","shared"));
-						otherHand.x = hand.x - 335;
-						otherHand.y = hand.y;
-						otherHand.alpha = 1;
-						mic.alpha = 0;
-						FlxG.sound.play(Paths.sound("bushwhacksounds/cable_claw_retract","shared"));
-						FlxTween.tween(otherHand,{x: dad.x - 2700},0.8 / songMultiplier, {onComplete: function (fuck:FlxTween) {
-							cableSpawn();
-						}});
-					}});*/
-	
-				}
-	
 			}
 		}
 

@@ -5,17 +5,19 @@ class WeekData {
 	//Go to FreeplayState.hx and add the head icons
 	//Go to StoryMenuState.hx and add the characters/backgrounds
 	public static var songsNames:Array<Dynamic> = [
-		['Tutorial'],								//Tutorial, this one isn't added to Freeplay, instead it is added from assets/preload/freeplaySonglist.txt
-		['rumiastheme', 'amazemeisakura', 'potentialcurve', 'equilibrium'], //Week-99
-		['chirumiru', 'defeat', 'split', 'foolhardy'], //Week-98
-		['bushwhack', 'wish-i-could-care-less', 'accelerant'], //Week-97
+		['Tutorial'],
+		['rumiastheme', 'amazemeisakura', 'potentialcurve', 'equilibrium'],
+		['four-veiled-stars'],
+		['chirumiru', 'defeat', 'split', 'foolhardy'],
+		['bushwhack', 'accelerant'],
 	];
 
 	public static var noosusongNames:Array<Dynamic> = [
 		['Tutorial'],
 		[],
-		['chirumiru', 'defeat', 'split', 'foolhardy',], //Week-98, using the same as the default song names
-		['bushwhack', 'wish-i-could-care-less', 'accelerant'], //Week-97 using the same as the default song names
+		[],
+		['chirumiru', 'defeat', 'split', 'foolhardy',],
+		['bushwhack', 'accelerant'],
 	];
 
 	public static var easysongNames:Array<Dynamic> = [
@@ -23,8 +25,9 @@ class WeekData {
 		[],
 		[],
 		[],
-		['guns', 'stress', 'bopeebo', 'headache', ], //Week-96
-		['nerves', 'release'], //Week-95
+		[],
+		['guns', 'stress', 'bopeebo', 'headache', ],
+		['nerves', 'release'],
 	];
 
 	// Custom week number, used for your week's score not being overwritten by a new vanilla week when the game updates

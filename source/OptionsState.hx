@@ -357,7 +357,9 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 {
 	private static var curSelected:Int = 0;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grpNotes:FlxTypedGroup<FlxSprite>;
 	var leText:String;
+	var note:FlxSprite;
 
 	var nextAccept:Int = 5;
 
@@ -372,6 +374,8 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 		super();
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
+		grpNotes = new FlxTypedGroup<FlxSprite>();
+		add(grpNotes);
 
 		for (i in 0...noteskins.length){
 			var isCentered:Bool = true;
@@ -383,14 +387,13 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 				optionText.screenCenter(X);
 				//optionText.forceX = optionText.x;
 				optionText.forceX = 10;
-				optionText.yAdd = -55;
+				optionText.yAdd = -100;
 			} else {
 				optionText.forceX = 200;
 			}
 			optionText.yMult = 60;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
-
 		}
 
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
@@ -446,6 +449,7 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 	}
 
 	function changeSelection(change:Int = 0){
+
 		curSelected += change;
 		if (curSelected < 0){
 			curSelected = noteskins.length - 1;
@@ -461,6 +465,46 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 			if(curSelected == i){
 				item.alpha = 1;
 				item.scale.set(1.2, 1.2);
+				trace("Curselected int: " + i + " Curitem:" + item);
+			}
+			switch(i)
+			{
+				case 0:
+
+					note = new FlxSprite(30, 0);
+					note.antialiasing = ClientPrefs.globalAntialiasing;
+					grpNotes.add(note);
+
+					note.frames = Paths.getSparrowAtlas("NOTE_assets");
+					note.animation.addByPrefix('idle', 'blue0');
+					note.animation.play('idle');
+				case 1:
+
+					note = new FlxSprite(30, 0);
+					note.antialiasing = ClientPrefs.globalAntialiasing;
+					grpNotes.add(note);
+
+					note.frames = Paths.getSparrowAtlas("NOTECIRCLE_assets");
+					note.animation.addByPrefix('idle', 'blue0');
+					note.animation.play('idle');
+				case 2:
+
+					note = new FlxSprite(30, 0);
+					note.antialiasing = ClientPrefs.globalAntialiasing;
+					grpNotes.add(note);
+
+					note.frames = Paths.getSparrowAtlas("NOTESM_assets");
+					note.animation.addByPrefix('idle', 'blue0');
+					note.animation.play('idle');
+				case 3:
+
+					note = new FlxSprite(30, 0);
+					note.antialiasing = ClientPrefs.globalAntialiasing;
+					grpNotes.add(note);
+
+					note.frames = Paths.getSparrowAtlas("NOTERECTANGLE_assets");
+					note.animation.addByPrefix('idle', 'blue0');
+					note.animation.play('idle');
 			}
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -1020,14 +1064,14 @@ class PreferencesSubstate extends MusicBeatSubstate
 		//'Persistent Cached Data',
 		'Vertical Health Bar',
 		'Song Backgrounds',
-		'Fullscreen',
+		//'Fullscreen',
 		//'Strum Background',
 		#if !html5
 		'Framerate', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
 		'Gameplay',
 		'Downscroll',
-		'Middlescroll',
+		//'Middlescroll',
 		'Note Hit Sound',
 		//'Ghost Tapping',
 		//'Note Delay',
@@ -1239,7 +1283,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'OSU! Songs':
 						ClientPrefs.osusongs = !ClientPrefs.osusongs;
-
+					
+					/*
 					case 'Fullscreen':
 						ClientPrefs.fullscreenxd = !ClientPrefs.fullscreenxd;
 						FlxG.fullscreen = ClientPrefs.fullscreenxd;
@@ -1247,7 +1292,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 							ClientPrefs.fullscreenxd = true;
 						} else {
 							ClientPrefs.fullscreenxd = false;
-						}
+						}*/
 
 					case 'Note Hit Sound':
 						ClientPrefs.notehitsound = !ClientPrefs.notehitsound;
@@ -1290,8 +1335,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Health Decrease':
 						var custmaddh:Float = controls.UI_LEFT ? -0.001 : 0.001;
 						ClientPrefs.healthdecrease += custmaddh;
-						if(ClientPrefs.healthdecrease < 0.001) ClientPrefs.healthdecrease = 0.001;
-						else if (ClientPrefs.healthdecrease > 0.008) ClientPrefs.healthdecrease= 0.008;
+						if(ClientPrefs.healthdecrease < 0.008) ClientPrefs.healthdecrease = 0.008;
+						else if (ClientPrefs.healthdecrease > 0.025) ClientPrefs.healthdecrease= 0.025;
 				}
 				reloadValues();
 
@@ -1341,7 +1386,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 			case 'Vertical Health Bar':
 				daText = "The name says it all, vertical health bar";
 			case 'Song Backgrounds':
-				daText = "If unchecked no backgrounds or players will be displayed\nOnly song, strum line and health bar";
+				daText = "If unchecked no backgrounds or players will be displayed\nOnly song, strum line and health bar\nDOESN'T WORK ATM";
 			case 'Health Decrease':
 				daText = "The health decrease value,\nif higher the health will decrease faster\nif lower it will do the opposite";
 			case 'OSU! Songs':

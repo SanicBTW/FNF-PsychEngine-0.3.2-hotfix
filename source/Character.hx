@@ -486,7 +486,18 @@ class Character extends FlxSprite
 				animation.addByPrefix('deathLoop', "BF Dead Loop instance", 24, false);
 				animation.addByPrefix('deathConfirm', "BF Dead confirm instance", 24, false);
 	
-				//offsets
+				addOffset('idle', -5, 0);
+				addOffset("singUP", -29, 27);
+				addOffset("singRIGHT", -38, -7);
+				addOffset("singLEFT", 12, -6);
+				addOffset("singDOWN", -10, -50);
+				addOffset("singUPmiss", -29, 27);
+				addOffset("singRIGHTmiss", -30, 21);
+				addOffset("singLEFTmiss", 12, 24);
+				addOffset("singDOWNmiss", -11, -19);
+				addOffset('firstDeath', 37, 11);
+				addOffset('deathLoop', 37, 5);
+				addOffset('deathConfirm', 37, 69);
 	
 				playAnim('idle');
 				
@@ -516,7 +527,7 @@ class Character extends FlxSprite
 				healthIcon = "cableCrowPog";
 				healthColorArray = [255, 160, 0];
 				cameraPosition = [1, 140];
-				positionArray = [-120, 140];
+				positionArray = [-120, 120];
 
 				var tex = Paths.getSparrowAtlas('characters/Cablecrow','shared');
 				frames = tex;

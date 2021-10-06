@@ -23,24 +23,27 @@ class FreeplayState extends MusicBeatState
 {
 	//Character head icons for your songs
 	static var songsHeads:Array<Dynamic> = [
-		['bf', 'bf', 'bf', 'bf', //osu songs
-		'cirno', 'black', 'bf', 'zardyMyBeloved', //chirumiru, defeat, split, foolhardy
-		'zardyButDARK', 'bf', //bushwhack, wish i could care less
-		
-		],
+		['bf', 'bf', 'bf', 'bf'], //osu songs
+		['bf'], //more osu ig
+		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
+		['zardyButDARK', 'bf',], //bushwhack, wish i could care less
 	];
 
 	static var noosusongHeads:Array<Dynamic> = [
-		['cirno', 'black', 'bf', 'zardyMyBeloved', //chirumiru, defeat, split, foolhardy
-		'zardyButDARK', 'bf', //bushwhack, wish i could care less
+		[],
+		[],
+		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
+		['zardyButDARK', 'bf',], //bushwhack, wish i could care less
 		
-		],
 	];
 
 	static var easysongHeads:Array<Dynamic> = [
-		['tankman', 'tankman', 'matt', 'garcello', // guns, stress, bopeebo/matt, headache
-		'garcellotired', 'garcellodead', //nerves, release
-		],
+		[],
+		[],
+		[],
+		[],
+		['tankman', 'tankman', 'matt', 'garcello'], // guns, stress, bopeebo/matt, headache
+		['garcellotired', 'garcellodead'], //nerves, release
 	];
 
 	var songs:Array<SongMetadata> = [];
@@ -191,35 +194,57 @@ class FreeplayState extends MusicBeatState
 			trace(md);
 		 */
 
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
-		textBG.alpha = 0.6;
-		add(textBG);
+		var primtextBG:FlxSprite = new FlxSprite(0, FlxG.height - 56).makeGraphic(FlxG.width, 56, 0xFF000000);
+		primtextBG.alpha = 0.6;
+		add(primtextBG);
+		var secondtextBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		secondtextBG.alpha = 0.6;
+		add(secondtextBG);
 		/*
 		#if PRELOAD_ALL
 		var leText:String = "Press SPACE to listen to this Song / Press RESET to Reset your Score and Accuracy.";
 		#else
 		var leText:String = "Press RESET to Reset your Score and Accuracy. ";
 		#end*/
+
 		if (ClientPrefs.osusongs){
 			if(ClientPrefs.cursongdif == "Hard"){
-				var leText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / OSU! Songs are enabled  / You can change this in settings";
-				var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, 18);
-				text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-				text.scrollFactor.set();
-				add(text);
+				var prileText:String = "Press RESET to Reset your Score and Accuracy.";
+				var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
+				pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+				pritext.scrollFactor.set();
+				add(pritext);
+	
+				var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / OSU! Songs are enabled  / You can change this in settings";
+				var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
+				secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+				secondtext.scrollFactor.set();
+				add(secondtext);
 			} else if (ClientPrefs.cursongdif == "Easy") {
-				var leText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / OSU! Songs are enabled (Not showing)  / You can change this in settings";
-				var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, 18);
-				text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-				text.scrollFactor.set();
-				add(text);
+				var prileText:String = "Press RESET to Reset your Score and Accuracy.";
+				var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
+				pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+				pritext.scrollFactor.set();
+				add(pritext);
+	
+				var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / OSU! Songs are enabled (Not showing)  / You can change this in settings";
+				var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
+				secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+				secondtext.scrollFactor.set();
+				add(secondtext);
 			}
 		} else {
-			var leText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / You can change this in settings";
-			var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, 18);
-			text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-			text.scrollFactor.set();
-			add(text);
+			var prileText:String = "Press RESET to Reset your Score and Accuracy.";
+			var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
+			pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+			pritext.scrollFactor.set();
+			add(pritext);
+
+			var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / You can change this in settings";
+			var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
+			secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+			secondtext.scrollFactor.set();
+			add(secondtext);
 		}
 
 		super.create();
