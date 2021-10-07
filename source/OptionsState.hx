@@ -127,7 +127,7 @@ class OptionsState extends MusicBeatState
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0.6;
+			item.alpha = 0.4;
 			if (item.targetY == 0) {
 				item.alpha = 1;
 			}
@@ -233,7 +233,7 @@ class MissSoundSubstate extends MusicBeatSubstate
 
 		for(i in 0...grpOptions.length){
 			var item = grpOptions.members[i];
-			item.alpha = 0.6;
+			item.alpha = 0.4;
 			item.scale.set(1, 1);
 			if(curSelected == i){
 				item.alpha = 1;
@@ -342,7 +342,7 @@ class DiffSongsSubstate extends MusicBeatSubstate
 
 		for(i in 0...grpOptions.length){
 			var item = grpOptions.members[i];
-			item.alpha = 0.6;
+			item.alpha = 0.4;
 			item.scale.set(1, 1);
 			if(curSelected == i){
 				item.alpha = 1;
@@ -357,9 +357,7 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 {
 	private static var curSelected:Int = 0;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private var grpNotes:FlxTypedGroup<FlxSprite>;
 	var leText:String;
-	var note:FlxSprite;
 
 	var nextAccept:Int = 5;
 
@@ -374,8 +372,6 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 		super();
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
-		grpNotes = new FlxTypedGroup<FlxSprite>();
-		add(grpNotes);
 
 		for (i in 0...noteskins.length){
 			var isCentered:Bool = true;
@@ -430,15 +426,19 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 			switch(curSelected){
 				case 0:
 					ClientPrefs.noteskin = 'NOTE_assets';
+					FlxG.sound.play(Paths.sound('cancelMenu'));
 					close();
 				case 1:
 					ClientPrefs.noteskin = "NOTECIRCLE_assets";
+					FlxG.sound.play(Paths.sound('cancelMenu'));
 					close();
 				case 2:
 					ClientPrefs.noteskin = "NOTESM_assets";
+					FlxG.sound.play(Paths.sound('cancelMenu'));
 					close();
 				case 3:
 					ClientPrefs.noteskin = "NOTERECTANGLE_assets";
+					FlxG.sound.play(Paths.sound('cancelMenu'));
 					close();
 			}
 		}
@@ -460,51 +460,12 @@ class NoteSkinsSubstate extends MusicBeatSubstate
 
 		for(i in 0...grpOptions.length){
 			var item = grpOptions.members[i];
-			item.alpha = 0.6;
+			item.alpha = 0.4;
 			item.scale.set(1, 1);
 			if(curSelected == i){
 				item.alpha = 1;
 				item.scale.set(1.2, 1.2);
 				trace("Curselected int: " + i + " Curitem:" + item);
-			}
-			switch(i)
-			{
-				case 0:
-
-					note = new FlxSprite(30, 0);
-					note.antialiasing = ClientPrefs.globalAntialiasing;
-					grpNotes.add(note);
-
-					note.frames = Paths.getSparrowAtlas("NOTE_assets");
-					note.animation.addByPrefix('idle', 'blue0');
-					note.animation.play('idle');
-				case 1:
-
-					note = new FlxSprite(30, 0);
-					note.antialiasing = ClientPrefs.globalAntialiasing;
-					grpNotes.add(note);
-
-					note.frames = Paths.getSparrowAtlas("NOTECIRCLE_assets");
-					note.animation.addByPrefix('idle', 'blue0');
-					note.animation.play('idle');
-				case 2:
-
-					note = new FlxSprite(30, 0);
-					note.antialiasing = ClientPrefs.globalAntialiasing;
-					grpNotes.add(note);
-
-					note.frames = Paths.getSparrowAtlas("NOTESM_assets");
-					note.animation.addByPrefix('idle', 'blue0');
-					note.animation.play('idle');
-				case 3:
-
-					note = new FlxSprite(30, 0);
-					note.antialiasing = ClientPrefs.globalAntialiasing;
-					grpNotes.add(note);
-
-					note.frames = Paths.getSparrowAtlas("NOTERECTANGLE_assets");
-					note.animation.addByPrefix('idle', 'blue0');
-					note.animation.play('idle');
 			}
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));

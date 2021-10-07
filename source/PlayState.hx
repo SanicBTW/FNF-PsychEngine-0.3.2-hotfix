@@ -1692,16 +1692,6 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 
-		#if !web
-		if(FlxG.keys.justPressed.F11){
-			FlxG.fullscreen;
-		}
-		#else
-		if(FlxG.keys.justPressed.THREE){
-			FlxG.fullscreen;
-		}
-		#end
-
 		callOnLuas('onUpdate', [elapsed]);
 
 		switch (curStage)
