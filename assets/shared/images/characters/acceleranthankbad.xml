@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="acceleranthankbad.png">
+	<!-- Created with Adobe Animate version 21.0.3.38773 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Idle0000" x="0" y="0" width="425" height="593" frameX="0" frameY="0" frameWidth="427" frameHeight="595"/>
+	<SubTexture name="Sing Down0000" x="2914" y="0" width="528" height="654" frameX="-12" frameY="0" frameWidth="543" frameHeight="654"/>
+	<SubTexture name="Sing Down0001" x="3442" y="0" width="540" height="654" frameX="-3" frameY="0" frameWidth="543" frameHeight="654"/>
+	<SubTexture name="Sing Left0000" x="5594" y="0" width="633" height="608" frameX="-94" frameY="0" frameWidth="744" frameHeight="610"/>
+	<SubTexture name="Sing Left0001" x="6227" y="0" width="716" height="608" frameX="-11" frameY="0" frameWidth="744" frameHeight="610"/>
+	<SubTexture name="Sing Right0000" x="4603" y="654" width="607" height="603" frameX="-24" frameY="0" frameWidth="631" frameHeight="603"/>
+	<SubTexture name="Sing Right0001" x="5210" y="654" width="615" height="603" frameX="0" frameY="0" frameWidth="631" frameHeight="603"/>
+	<SubTexture name="Sing Up0000" x="7669" y="654" width="412" height="601" frameX="0" frameY="0" frameWidth="417" frameHeight="601"/>
+	<SubTexture name="Sing Up0001" x="0" y="1264" width="409" height="601" frameX="-8" frameY="0" frameWidth="417" frameHeight="601"/>
+</TextureAtlas>

@@ -400,6 +400,29 @@ class Character extends FlxSprite
 		
 				playAnim('idle');
 
+				//it is really fucking bad
+			case 'acceleranthankbad':
+				healthIcon = "face";
+				healthColorArray = [43, 43, 43];
+				cameraPosition = [0, 0];
+				positionArray = [-80, 140];
+
+				var tex = Paths.getSparrowAtlas('characters/acceleranthankbad','shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'Idle', 14);
+				animation.addByPrefix('singUP', 'Sing Up', 24);
+				animation.addByPrefix('singRIGHT', 'Sing Right', 24);
+				animation.addByPrefix('singDOWN', 'Sing Down', 24);
+				animation.addByPrefix('singLEFT', 'Sing Left', 24);
+	
+				addOffset('idle');
+				addOffset("singUP", -80, -10);
+				addOffset("singRIGHT", -65, 5);
+				addOffset("singLEFT", 130, 5);
+				addOffset("singDOWN", -2, -26);
+	
+				playAnim('idle');
+
 			case 'matt':
 				healthIcon = "bf";
 				healthColorArray = [255, 165, 0];
