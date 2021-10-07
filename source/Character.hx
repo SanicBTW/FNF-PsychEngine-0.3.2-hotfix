@@ -369,10 +369,10 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
 				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
 
-				animation.addByPrefix('singUP-alt', 'BF NOTE UP MISS', 24, false);
-				animation.addByPrefix('singLEFT-alt', 'BF NOTE LEFT MISS', 24, false);
-				animation.addByPrefix('singRIGHT-alt', 'BF NOTE RIGHT MISS', 24, false);
-				animation.addByPrefix('singDOWN-alt', 'BF NOTE DOWN MISS', 24, false);
+				animation.addByPrefix('singUP-alt', 'boyfriend dodge', 24, false);
+				animation.addByPrefix('singLEFT-alt', 'boyfriend dodge', 24, false);
+				animation.addByPrefix('singRIGHT-alt', 'boyfriend dodge', 24, false);
+				animation.addByPrefix('singDOWN-alt', 'boyfriend dodge', 24, false);
 		
 				animation.addByPrefix('firstDeath', "BF dies", 24, false);
 				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
@@ -383,10 +383,17 @@ class Character extends FlxSprite
 				addOffset("singRIGHT", -38, -7);
 				addOffset("singLEFT", 12, -6);
 				addOffset("singDOWN", -10, -50);
+
 				addOffset("singUPmiss", -29, 27);
 				addOffset("singRIGHTmiss", -30, 21);
 				addOffset("singLEFTmiss", 12, 24);
 				addOffset("singDOWNmiss", -11, -19);
+
+				addOffset("singUP-alt", -10, -20);
+				addOffset("singRIGHT-alt", -10, -20);
+				addOffset("singLEFT-alt", -10, -20);
+				addOffset("singDOWN-alt", -10, -20);
+
 				addOffset('firstDeath', 37, 11);
 				addOffset('deathLoop', 37, 5);
 				addOffset('deathConfirm', 37, 69);
