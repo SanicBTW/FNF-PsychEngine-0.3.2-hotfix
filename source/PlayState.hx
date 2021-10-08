@@ -382,7 +382,6 @@ class PlayState extends MusicBeatState
 				defaultCamZoom = 1;
 
 				if(ClientPrefs.songbackgrounds){
-					trace("oopsie doopsie, gonna take a while to load if theres a different note skin");
 					var bg:BGSprite = new BGSprite('modbackgrounds/cirno/cirnobg', -200, -200, 0, 0);
 					add(bg);
 	
@@ -1486,7 +1485,8 @@ class PlayState extends MusicBeatState
 					}
 
 				default:
-					var skin:String = ClientPrefs.noteskin;
+					//var skin:String = ClientPrefs.noteskin;
+					var skin:String = 'NOTE_assets';
 					if(SONG.arrowSkin != null && SONG.arrowSkin.length > 1) skin = SONG.arrowSkin;
 
 					babyArrow.frames = Paths.getSparrowAtlas(skin);
@@ -1691,6 +1691,10 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.swapOldIcon();
 		}*/
+
+		if (FlxG.keys.justPressed.SPACE){
+			boyfriend.animation.play('hey');
+		}
 
 		callOnLuas('onUpdate', [elapsed]);
 
@@ -3063,6 +3067,26 @@ class PlayState extends MusicBeatState
 		if (!note.wasGoodHit)
 		{
 			switch(note.noteType) {
+				case 4: //Warning note
+				if(cpuControlled) return;
+
+				if(!boyfriend.stunned){
+					
+					boyfriend.playAnim('bfdodge', true);
+					dad.playAnim('bfattack', true);
+
+					note.wasGoodHit = true;
+
+					if (!note.isSustainNote)
+						{
+							note.kill();
+							notes.remove(note, true);
+							note.destroy();
+						}
+				}
+
+				return;
+
 				case 3: //Hurt note
 					if(cpuControlled) return;
 

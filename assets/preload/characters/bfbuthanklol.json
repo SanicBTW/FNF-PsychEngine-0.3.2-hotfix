@@ -117,9 +117,9 @@
 				-10,
 				-20
 			],
-			"anim": "bfdodge",
+			"anim": "bfattack",
 			"fps": 24,
-			"name": "boyfriend dodge",
+			"name": "boyfriend attack",
 			"indices": []
 		},
 
@@ -185,7 +185,7 @@
 		0,
 		350
 	],
-	"healthicon": "bf",
+	"healthicon": "black",
 	"flip_x": true,
 	"healthbar_colors": [
 		49,

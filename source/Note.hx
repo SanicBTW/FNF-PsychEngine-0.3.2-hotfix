@@ -41,6 +41,12 @@ class Note extends FlxSprite
 	private function set_noteType(value:Int):Int {
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 4: //Warning Note thingy
+					reloadNote('WARNING');
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+
 				case 3: //Hurt note
 					reloadNote('HURT');
 					colorSwap.hue = 0;
@@ -81,25 +87,6 @@ class Note extends FlxSprite
 
 		switch (daStage)
 		{
-			case 'school' | 'schoolEvil':
-				if (isSustainNote)
-				{
-					loadGraphic(Paths.image('weeb/pixelUI/NOTE_assetsENDS'));
-					width = width / 4;
-					height = height / 2;
-					loadGraphic(Paths.image('weeb/pixelUI/NOTE_assetsENDS'), true, Math.floor(width), Math.floor(height));
-				} else {
-					loadGraphic(Paths.image('weeb/pixelUI/NOTE_assets'));
-					width = width / 4;
-					height = height / 5;
-					loadGraphic(Paths.image('weeb/pixelUI/NOTE_assets'), true, Math.floor(width), Math.floor(height));
-				}
-				loadPixelNoteAnims();
-
-				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
-				updateHitbox();
-				isPixel = true;
-
 			default:
 				frames = Paths.getSparrowAtlas(ClientPrefs.noteskin);
 				loadNoteAnims();
@@ -195,23 +182,9 @@ class Note extends FlxSprite
 		}
 
 		var blahblah:String = prefix + skin + suffix;
-		if(isPixel) {
-			if(isSustainNote) {
-				loadGraphic(Paths.image('weeb/pixelUI/' + blahblah + 'ENDS'));
-				width = width / 4;
-				height = height / 2;
-				loadGraphic(Paths.image('weeb/pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
-			} else {
-				loadGraphic(Paths.image('weeb/pixelUI/' + blahblah));
-				width = width / 4;
-				height = height / 5;
-				loadGraphic(Paths.image('weeb/pixelUI/' + blahblah), true, Math.floor(width), Math.floor(height));
-			}
-			loadPixelNoteAnims();
-		} else {
-			frames = Paths.getSparrowAtlas(blahblah);
-			loadNoteAnims();
-		}
+		frames = Paths.getSparrowAtlas(blahblah);
+		loadNoteAnims();
+		
 		animation.play(animName, true);
 
 		if(inEditor) {
@@ -241,25 +214,6 @@ class Note extends FlxSprite
 
 		setGraphicSize(Std.int(width * 0.7));
 		updateHitbox();
-	}
-
-	function loadPixelNoteAnims() {
-		if(isSustainNote) {
-			animation.add('purpleholdend', [PURP_NOTE + 4]);
-			animation.add('greenholdend', [GREEN_NOTE + 4]);
-			animation.add('redholdend', [RED_NOTE + 4]);
-			animation.add('blueholdend', [BLUE_NOTE + 4]);
-
-			animation.add('purplehold', [PURP_NOTE]);
-			animation.add('greenhold', [GREEN_NOTE]);
-			animation.add('redhold', [RED_NOTE]);
-			animation.add('bluehold', [BLUE_NOTE]);
-		} else {
-			animation.add('greenScroll', [GREEN_NOTE + 4]);
-			animation.add('redScroll', [RED_NOTE + 4]);
-			animation.add('blueScroll', [BLUE_NOTE + 4]);
-			animation.add('purpleScroll', [PURP_NOTE + 4]);
-		}
 	}
 
 	override function update(elapsed:Float)

@@ -31,7 +31,8 @@ using StringTools;
 class OptionsState extends MusicBeatState
 {
 	//var options:Array<String> = ['Notes', 'Controls', 'Preferences'];
-	var options:Array<String> = ['Controls', 'Preferences', 'Note Skins', 'Songs Difficulty', 'Miss Note Sound', 'Placeholder', 'Placeholder', 'Placeholder', 'Placeholder'];
+	//var options:Array<String> = ['Controls', 'Preferences', 'Note Skins', 'Songs Difficulty', 'Miss Note Sound', 'Placeholder', 'Placeholder', 'Placeholder', 'Placeholder'];
+	var options:Array<String> = ['Controls', 'Preferences', 'Songs Difficulty', 'Miss Note Sound'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -102,8 +103,8 @@ class OptionsState extends MusicBeatState
 				case 'Preferences':
 					openSubState(new PreferencesSubstate());
 
-				case 'Note Skins':
-					openSubState(new NoteSkinsSubstate());
+				//case 'Note Skins':
+					//openSubState(new NoteSkinsSubstate());
 
 				case 'Songs Difficulty':
 					openSubState(new DiffSongsSubstate());
