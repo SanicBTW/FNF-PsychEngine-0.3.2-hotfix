@@ -595,8 +595,8 @@ class PlayState extends MusicBeatState
 				ClientPrefs.middleScroll = false;
 				dadGroup.add(dad);
 				boyfriendGroup.add(boyfriend);
+				gfGroup.add(gf);
 			}
-			//gfGroup.add(gf);
 		} else {
 			ClientPrefs.middleScroll = true;
 		}
@@ -2097,6 +2097,11 @@ class PlayState extends MusicBeatState
 								});
 
 								switch(daNote.noteType) {
+									case 4:
+										health -= 100;
+										songMisses++;
+										vocals.volume = 0;
+
 									case 3:
 										//Hurt note, does nothing.
 
@@ -3059,12 +3064,6 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
 			vocals.volume = 0;
-
-			if(!daNote.ignoreNote && daNote.mustPress){
-				health -= 100;
-				songMisses++;
-				RecalculateRating();
-			}
 		}
 	}
 
@@ -3082,6 +3081,7 @@ class PlayState extends MusicBeatState
 					dad.playAnim('bfattack', true);
 
 					note.wasGoodHit = true;
+					trace("BEAT HIT: " + curBeat + ", STEP SHIT: " + curStep + ", CUR NOTE NUMBER OR SOMETHING: ");
 
 					if (!note.isSustainNote)
 					{
