@@ -43,6 +43,7 @@ class Note extends FlxSprite
 			switch(value) {
 				case 4: //Warning Note thingy
 					reloadNote('WARNING');
+					mustPress = true;
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;

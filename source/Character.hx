@@ -369,10 +369,7 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
 				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
 
-				animation.addByPrefix('singUP-alt', 'boyfriend dodge', 24, false);
-				animation.addByPrefix('singLEFT-alt', 'boyfriend dodge', 24, false);
-				animation.addByPrefix('singRIGHT-alt', 'boyfriend dodge', 24, false);
-				animation.addByPrefix('singDOWN-alt', 'boyfriend dodge', 24, false);
+				animation.addByPrefix('bfdodge', 'boyfriend dodge', 24, false);
 		
 				animation.addByPrefix('firstDeath', "BF dies", 24, false);
 				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
@@ -389,10 +386,7 @@ class Character extends FlxSprite
 				addOffset("singLEFTmiss", 12, 24);
 				addOffset("singDOWNmiss", -11, -19);
 
-				addOffset("singUP-alt", -10, -20);
-				addOffset("singRIGHT-alt", -10, -20);
-				addOffset("singLEFT-alt", -10, -20);
-				addOffset("singDOWN-alt", -10, -20);
+				addOffset("bfdodge", -10, -20);
 
 				addOffset('firstDeath', 37, 11);
 				addOffset('deathLoop', 37, 5);
@@ -401,25 +395,28 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 				//it is really fucking bad
-			case 'acceleranthankbad':
+			case 'bfbuthanklol':
+				flipX = true;
 				healthIcon = "face";
 				healthColorArray = [43, 43, 43];
 				cameraPosition = [0, 0];
-				positionArray = [-80, 140];
+				positionArray = [0, 350];
 
-				var tex = Paths.getSparrowAtlas('characters/acceleranthankbad','shared');
+				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND','preload');
 				frames = tex;
-				animation.addByPrefix('idle', 'Idle', 14);
-				animation.addByPrefix('singUP', 'Sing Up', 24);
-				animation.addByPrefix('singRIGHT', 'Sing Right', 24);
-				animation.addByPrefix('singDOWN', 'Sing Down', 24);
-				animation.addByPrefix('singLEFT', 'Sing Left', 24);
-	
-				addOffset('idle');
-				addOffset("singUP", -80, -10);
-				addOffset("singRIGHT", -65, 5);
-				addOffset("singLEFT", 130, 5);
-				addOffset("singDOWN", -2, -26);
+				animation.addByPrefix('idle', 'BF idle dance', 24, false);
+				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
+				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
+				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
+				animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
+				animation.addByPrefix('bfattack', 'boyfriend attack', 24, false);
+
+				addOffset('idle', -5);
+				addOffset("singUP", -29, 27);
+				addOffset("singRIGHT", -38, -7);
+				addOffset("singLEFT", 12, -6);
+				addOffset("singDOWN", -10, -50);
+				addOffset("bfattack", -10, -20);
 	
 				playAnim('idle');
 

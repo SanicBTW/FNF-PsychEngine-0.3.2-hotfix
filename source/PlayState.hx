@@ -3019,7 +3019,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function noteMiss(direction:Int = 1, ?ghostMiss:Bool = false):Void
+	function noteMiss(direction:Int = 1, ?ghostMiss:Bool = false, ?daNote:Note):Void
 	{
 		if (!boyfriend.stunned)
 		{
@@ -3059,6 +3059,12 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
 			vocals.volume = 0;
+
+			if(!daNote.ignoreNote && daNote.mustPress){
+				health -= 100;
+				songMisses++;
+				RecalculateRating();
+			}
 		}
 	}
 
@@ -3078,11 +3084,12 @@ class PlayState extends MusicBeatState
 					note.wasGoodHit = true;
 
 					if (!note.isSustainNote)
-						{
-							note.kill();
-							notes.remove(note, true);
-							note.destroy();
-						}
+					{
+						note.kill();
+						notes.remove(note, true);
+						note.destroy();
+					}
+
 				}
 
 				return;
