@@ -2098,7 +2098,7 @@ class PlayState extends MusicBeatState
 
 								switch(daNote.noteType) {
 									case 4:
-										health -= 100;
+										health -= 0.5;
 										songMisses++;
 										vocals.volume = 0;
 

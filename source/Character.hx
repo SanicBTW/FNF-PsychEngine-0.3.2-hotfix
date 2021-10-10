@@ -370,6 +370,7 @@ class Character extends FlxSprite
 				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
 
 				animation.addByPrefix('bfdodge', 'boyfriend dodge', 24, false);
+				animation.addByPrefix('hey', 'BF HEY', 24, false);
 		
 				animation.addByPrefix('firstDeath', "BF dies", 24, false);
 				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
@@ -387,6 +388,7 @@ class Character extends FlxSprite
 				addOffset("singDOWNmiss", -11, -19);
 
 				addOffset("bfdodge", -10, -20);
+				addOffset('hey', 2, 12);
 
 				addOffset('firstDeath', 37, 11);
 				addOffset('deathLoop', 37, 5);
