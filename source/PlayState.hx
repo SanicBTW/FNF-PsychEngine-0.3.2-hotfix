@@ -299,7 +299,7 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song.toLowerCase())
 		{
-			case 'rumiastheme':
+			case 'rumias-theme':
 				curStage = "osubackgrounds";
 
 				health = 2;
@@ -314,7 +314,7 @@ class PlayState extends MusicBeatState
 					add(noback);
 				}
 
-			case 'amazemeisakura':
+			case 'amaze-meisakura':
 				curStage = "osubackgrounds";
 
 				health = 2;
@@ -329,7 +329,7 @@ class PlayState extends MusicBeatState
 					add(noback);
 				}
 
-			case 'potentialcurve':
+			case 'potential-curve':
 				curStage = "osubackgrounds";
 
 				health = 2;
