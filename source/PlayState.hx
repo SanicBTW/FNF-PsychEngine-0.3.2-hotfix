@@ -359,6 +359,21 @@ class PlayState extends MusicBeatState
 					add(noback);
 				}
 
+			case 'four-veiled-stars':
+				curStage = "osubackgrounds";
+
+				health = 2;
+
+				if(ClientPrefs.osubackgrounds){
+					osuback = new BGSprite('osubackgroundsig/fourveiledstarsbg', 0, 0, 0, 0);
+					osuback.alpha = ClientPrefs.osubackalpha;
+					osuback.updateHitbox();
+					add(osuback);
+				} else {
+					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					add(noback);
+				}
+
 			case 'defeat':
 				curStage = "defeat";
 

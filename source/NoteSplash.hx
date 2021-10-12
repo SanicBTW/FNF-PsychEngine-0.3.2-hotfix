@@ -34,6 +34,9 @@ class NoteSplash extends FlxSprite
 			if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
 
 			switch(noteType) {
+				case 4:
+					loadAnims(skin);
+					
 				case 3: //Hurt note
 					loadAnims('HURT' + skin);
 
