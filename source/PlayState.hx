@@ -606,13 +606,22 @@ class PlayState extends MusicBeatState
 		boyfriend.y += boyfriend.positionArray[1];
 
 		if(!curStage.startsWith("osubackgrounds")) {
-			if(ClientPrefs.songbackgrounds){
-				ClientPrefs.middleScroll = false;
-				dadGroup.add(dad);
-				boyfriendGroup.add(boyfriend);
-				gfGroup.add(gf);
+			if(curStage.startsWith("zardyBruh")){
+				if(ClientPrefs.songbackgrounds){
+					ClientPrefs.middleScroll = false;
+					dadGroup.add(dad);
+					boyfriendGroup.add(boyfriend);
+					//gfGroup.add(gf);
+				}
+			} else {
+				if(ClientPrefs.songbackgrounds){
+					ClientPrefs.middleScroll = false;
+					dadGroup.add(dad);
+					boyfriendGroup.add(boyfriend);
+					gfGroup.add(gf);
+				}
 			}
-		} else {
+		} else if (curStage.startsWith("osubackgrounds")) {
 			ClientPrefs.middleScroll = true;
 		}
 		
@@ -2743,37 +2752,21 @@ class PlayState extends MusicBeatState
 		{
 			daRating = 'shit';
 			score = 50;
-			//play note hit sound
-			if(ClientPrefs.notehitsound){
-				FlxG.sound.play(Paths.sound('notehitsound', 'preload'));
-			}
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'bad';
 			score = 100;
-			//play note hit sound
-			if(ClientPrefs.notehitsound){
-				FlxG.sound.play(Paths.sound('notehitsound', 'preload'));
-			}
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.25)
 		{
 			daRating = 'good';
 			score = 200;
-			//play note hit sound
-			if(ClientPrefs.notehitsound){
-				FlxG.sound.play(Paths.sound('notehitsound', 'preload'));
-			}
 		}
 
 		if(daRating == 'sick')
 		{
 			spawnNoteSplashOnNote(note);
-			//play note hit sound
-			if(ClientPrefs.notehitsound){
-				FlxG.sound.play(Paths.sound('notehitsound', 'preload'));
-			}
 		}
 
 		if(!practiceMode && !cpuControlled) {
@@ -3093,10 +3086,14 @@ class PlayState extends MusicBeatState
 				if(!boyfriend.stunned){
 					
 					boyfriend.playAnim('bfdodge', true);
-					dad.playAnim('bfattack', true);
+					//dad.playAnim('bfattack', true);
 
 					note.wasGoodHit = true;
-					trace("BEAT HIT: " + curBeat + ", STEP SHIT: " + curStep + ", CUR NOTE NUMBER OR SOMETHING: ");
+					#if !web
+					trace("BEAT HIT: " + curBeat + ", STEP SHIT: " + curStep);
+					#else
+					FlxG.log.add("BEAT HIT: " + curBeat + ", STEP SHIT: " + curStep);
+					#end
 
 					if (!note.isSustainNote)
 					{
@@ -3214,6 +3211,11 @@ class PlayState extends MusicBeatState
 				note.kill();
 				notes.remove(note, true);
 				note.destroy();
+				
+				if(ClientPrefs.notehitsound){
+					FlxG.sound.play(Paths.sound('notehitsound', 'preload'));
+				}
+
 			} else if(cpuControlled) {
 				var targetHold:Float = Conductor.stepCrochet * 0.001 * boyfriend.singDuration;
 				if(boyfriend.holdTimer + 0.2 > targetHold) {
@@ -3482,7 +3484,7 @@ class PlayState extends MusicBeatState
 			dad.dance();
 		}
 
-		if (curSong == "rumiastheme")
+		if (curSong == "rumias-theme")
 		{
 			switch(curBeat)
 			{
@@ -3497,7 +3499,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == "amazemeisakura")
+		if (curSong == "amaze-meisakura")
 		{
 			switch(curBeat)
 			{
@@ -3506,7 +3508,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == "potentialcurve")
+		if (curSong == "potential-curve")
 		{
 			switch(curBeat)
 			{
@@ -3537,6 +3539,19 @@ class PlayState extends MusicBeatState
 				case 736:
 					//dad.alpha = 0;
 					FlxTween.tween(dad, {alpha:0}, 0.4);
+			}
+		}
+
+		if (curSong == "bushwhack" || curStage == "zardyBruh")
+		{
+			switch(curBeat)
+			{
+				case 480:
+					FlxTween.tween(dad, {alpha:0}, 0.4);
+					startCharacterPos(dad);
+
+				case 490:
+					FlxTween.tween(dad, {alpha:1}, 0.4);
 			}
 		}
 

@@ -60,7 +60,7 @@
 	"image": "characters/Cablecrow",
 	"position": [
 		-80,
-		140
+		110
 	],
 	"healthicon": "cableCrowPog",
 	"flip_x": false,

@@ -396,29 +396,26 @@ class Character extends FlxSprite
 		
 				playAnim('idle');
 
-				//it is really fucking bad
-			case 'bfbuthanklol':
+			case 'hankbutnoshoot':
 				flipX = true;
-				healthIcon = "face";
+				healthIcon = "hank";
 				healthColorArray = [43, 43, 43];
 				cameraPosition = [0, 0];
 				positionArray = [0, 350];
 
-				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND','preload');
+				var tex = Paths.getSparrowAtlas('characters/acceleranthankbutnoshoot','shared');
 				frames = tex;
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
 				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
 				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
 				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
 				animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
-				animation.addByPrefix('bfattack', 'boyfriend attack', 24, false);
 
 				addOffset('idle', -5);
 				addOffset("singUP", -29, 27);
 				addOffset("singRIGHT", -38, -7);
 				addOffset("singLEFT", 12, -6);
 				addOffset("singDOWN", -10, -50);
-				addOffset("bfattack", -10, -20);
 	
 				playAnim('idle');
 

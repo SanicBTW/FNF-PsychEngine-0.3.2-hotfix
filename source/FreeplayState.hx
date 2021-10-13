@@ -24,16 +24,16 @@ class FreeplayState extends MusicBeatState
 	//Character head icons for your songs
 	static var songsHeads:Array<Dynamic> = [
 		['bf', 'bf', 'bf', 'bf'], //osu songs
-		['bf'], //more osu ig
+		['bf', 'bf'], //more osu ig
 		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
-		['zardyButDARK', 'bf',], //bushwhack, wish i could care less
+		['zardyButDARK', 'hank',], //bushwhack, accelerant
 	];
 
 	static var noosusongHeads:Array<Dynamic> = [
 		[],
 		[],
 		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
-		['zardyButDARK', 'bf',], //bushwhack, wish i could care less
+		['zardyButDARK', 'hank',], //bushwhack, accelerant
 		
 	];
 
@@ -170,7 +170,7 @@ class FreeplayState extends MusicBeatState
 
 		add(scoreText);
 
-		bg.color = songs[curSelected].color;
+		//bg.color = songs[curSelected].color;
 		intendedColor = bg.color;
 		changeSelection();
 		//changeDiff();
