@@ -42,6 +42,5 @@ build_script:
   # haxelib run lime build linux
 
 artifacts:
-  - path: export/release/html5/bin
+  - path: export/release/html5/bin/PsychEngine-HTML5.zip
     name: PsychEngine-HTML5
-    type: zip
