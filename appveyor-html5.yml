@@ -47,5 +47,4 @@ after_build:
 
 #absolute path cuz im dumb
 artifacts:
-  - path: c:\projects\fnf-psychengine-0-3-2-hotfix\export\debug\html5\bin\PsychEngine-HTML5.zip
-    name: PsychEngine-HTML5
+  - path: export\debug\html5\bin\PsychEngine-HTML5.zip
