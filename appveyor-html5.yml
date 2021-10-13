@@ -41,9 +41,11 @@ build_script:
   - haxelib run lime build html5 -v -debug
   # haxelib run lime build linux
 
+#absolute path cuz im dumb
 after_build:
   - 7z a PsychEngine-HTML5.zip c:/projects/fnf-psychengine-0-3-2-hotfix/export/debug/html5/bin/
 
+#absolute path cuz im dumb
 artifacts:
-  - path: export/debug/html5/bin/PsychEngine-HTML5.zip
+  - path: c:/projects/fnf-psychengine-0-3-2-hotfix/export/debug/html5/bin/PsychEngine-HTML5.zip
     name: PsychEngine-HTML5
