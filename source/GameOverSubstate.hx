@@ -43,6 +43,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			case 'stress':
 				daBf = "bfholdinggf";
+			case 'infinigger':
+				daBf = "bf-alt";
 		}
 
 		super();

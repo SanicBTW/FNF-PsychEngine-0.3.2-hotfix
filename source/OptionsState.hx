@@ -1017,6 +1017,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Note Delay',
 		'OSU! Back Alpha',
 		'Health Decrease',
+		'Note Hit Volume',
 	];
 
 	static var options:Array<String> = [
@@ -1035,6 +1036,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Downscroll',
 		//'Middlescroll',
 		'Note Hit Sound',
+		'Note Hit Volume',
 		//'Ghost Tapping',
 		//'Note Delay',
 		//'Note Splashes',
@@ -1238,7 +1240,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Vertical Health Bar':
 						ClientPrefs.verthealthbar = !ClientPrefs.verthealthbar;
 
-					case 'Song backgrounds':
+					case 'Song Backgrounds':
 						ClientPrefs.songbackgrounds = !ClientPrefs.songbackgrounds;
 					//case 'Strum Background':
 						//ClientPrefs.strumbackground = !ClientPrefs.strumbackground;
@@ -1298,7 +1300,13 @@ class PreferencesSubstate extends MusicBeatSubstate
 						var custmaddh:Float = controls.UI_LEFT ? -0.001 : 0.001;
 						ClientPrefs.healthdecrease += custmaddh;
 						if(ClientPrefs.healthdecrease < 0.008) ClientPrefs.healthdecrease = 0.008;
-						else if (ClientPrefs.healthdecrease > 0.025) ClientPrefs.healthdecrease= 0.025;
+						else if (ClientPrefs.healthdecrease > 0.020) ClientPrefs.healthdecrease = 0.020;
+
+					case 'Note Hit Volume':
+						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
+						ClientPrefs.notehitvolume += custmadd;
+						if(ClientPrefs.notehitvolume < 0.1) ClientPrefs.notehitvolume = 0.1;
+						else if (ClientPrefs.notehitvolume > 1) ClientPrefs.notehitvolume = 1;
 				}
 				reloadValues();
 
@@ -1381,6 +1389,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "The name says it all, fullscreen xd";
 			case 'Note Hit Sound':
 				daText = "Plays a hit sound when hitting a note";
+			case 'Note Hit Volume':
+				daText = "Literally the note hit volume";
 		}
 		descText.text = daText;
 
@@ -1497,6 +1507,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daText = '' + ClientPrefs.osubackalpha;
 					case 'Health Decrease':
 						daText = '' + ClientPrefs.healthdecrease;
+					case 'Note Hit Volume':
+						daText = '' + ClientPrefs.notehitvolume;
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;

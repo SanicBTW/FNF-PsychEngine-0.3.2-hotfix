@@ -605,13 +605,20 @@ class PlayState extends MusicBeatState
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
 
+		//I'm really sorry for this 
 		if(!curStage.startsWith("osubackgrounds")) {
-			if(curStage.startsWith("zardyBruh")){
+			if(curStage.startsWith("zardyBruh") || curStage.startsWith("zardy") || curStage.startsWith("cirnoday")){
 				if(ClientPrefs.songbackgrounds){
 					ClientPrefs.middleScroll = false;
 					dadGroup.add(dad);
 					boyfriendGroup.add(boyfriend);
 					//gfGroup.add(gf);
+				}
+			} else if (curStage.startsWith("defeat")){
+				if(ClientPrefs.songbackgrounds){
+					ClientPrefs.middleScroll = true;
+					dadGroup.add(dad);
+					boyfriendGroup.add(boyfriend);
 				}
 			} else {
 				if(ClientPrefs.songbackgrounds){
@@ -1722,11 +1729,14 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onUpdate', [elapsed]);
 
-		switch (curStage)
-		{
-			case 'zardy':
-				ZardyBackground.animation.play('Maze');
+		if(ClientPrefs.songbackgrounds){
+			switch (curStage)
+			{
+				case 'zardy':
+					ZardyBackground.animation.play('Maze');
+			}
 		}
+
 
 		if(!inCutscene) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4, 0, 1);
@@ -2122,7 +2132,22 @@ class PlayState extends MusicBeatState
 
 								switch(daNote.noteType) {
 									case 4:
-										health -= 0.5;
+										if (FlxG.random.bool(50)){
+											#if !web
+											trace(FlxG.random.bool(50));
+											#else
+											FlxG.log.add(FlxG.random.bool(50));
+											#end
+											health -= 0.999999;
+										} else {
+											#if !web
+											trace(FlxG.random.bool(50));
+											#else
+											FlxG.log.add(FlxG.random.bool(50));
+											#end
+											health -= 0.5;
+										}
+										boyfriend.playAnim("hurt", true);
 										songMisses++;
 										vocals.volume = 0;
 
@@ -3080,6 +3105,27 @@ class PlayState extends MusicBeatState
 		if (!note.wasGoodHit)
 		{
 			switch(note.noteType) {
+				case 5:
+				if(cpuControlled) return;
+
+				if(!boyfriend.stunned)
+					{
+						noteMiss(note.noteData);
+						var ebolatimer = new FlxTimer().start(0.1, function(tmr:FlxTimer)
+						{
+							health -= 0.01;
+						}, 0);
+
+						note.wasGoodHit = true;
+
+						if (!note.isSustainNote)
+						{
+							note.kill();
+							notes.remove(note, true);
+							note.destroy();
+						}
+					}
+					return;
 				case 4: //Warning note
 				if(cpuControlled) return;
 
@@ -3213,7 +3259,7 @@ class PlayState extends MusicBeatState
 				note.destroy();
 				
 				if(ClientPrefs.notehitsound){
-					FlxG.sound.play(Paths.sound('notehitsound', 'preload'));
+					FlxG.sound.play(Paths.sound('notehitsound', 'preload'), ClientPrefs.notehitvolume);
 				}
 
 			} else if(cpuControlled) {
@@ -3526,7 +3572,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == "foolhardy" || curStage == "zardy")
+		if (curSong == "foolhardy" || curStage == "zardy" && ClientPrefs.songbackgrounds)
 		{
 			switch(curBeat)
 			{
@@ -3542,7 +3588,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == "bushwhack" || curStage == "zardyBruh")
+		if (curSong == "bushwhack" || curStage == "zardyBruh" && ClientPrefs.songbackgrounds)
 		{
 			switch(curBeat)
 			{
@@ -3555,7 +3601,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == 'Chirumiru')  //CHIRUMIRU BEATHITS
+		if (curSong == 'Chirumiru' && ClientPrefs.songbackgrounds)  //CHIRUMIRU BEATHITS
 			{
 				switch (curBeat)
 				{

@@ -37,6 +37,7 @@ class ClientPrefs {
 	public static var cursongdif:String = "Hard";
 	public static var curmisssound:String = "missnotetouhou";
 	public static var notehitsound:Bool = true;
+	public static var notehitvolume:Float = 1;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
@@ -103,6 +104,7 @@ class ClientPrefs {
 		FlxG.save.data.cursongdif = cursongdif;
 		FlxG.save.data.curmisssound = curmisssound;
 		FlxG.save.data.notehitsound = notehitsound;
+		FlxG.save.data.notehitvolume = notehitvolume;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -226,6 +228,10 @@ class ClientPrefs {
 
 		if (FlxG.save.data.notehitsound != null){
 			notehitsound = FlxG.save.data.notehitsound;
+		}
+
+		if (FlxG.save.data.notehitvolume != null){
+			notehitvolume = FlxG.save.data.notehitvolume;
 		}
 
 		var save:FlxSave = new FlxSave();

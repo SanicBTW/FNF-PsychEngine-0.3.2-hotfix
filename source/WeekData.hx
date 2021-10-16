@@ -6,26 +6,36 @@ class WeekData {
 	//Go to StoryMenuState.hx and add the characters/backgrounds
 	public static var songsNames:Array<Dynamic> = [
 		['Tutorial'],
+
 		['rumias-theme', 'amaze-meisakura', 'potential-curve', 'equilibrium'],
 		['four-veiled-stars', 'crossing-delta'],
+
 		['chirumiru', 'defeat', 'split', 'foolhardy'],
-		['bushwhack', 'accelerant'],
+		['bushwhack', 'accelerant', 'infinigger', 'target-practice'],
+		['sporting', ],
 	];
 
 	public static var noosusongNames:Array<Dynamic> = [
 		['Tutorial'],
+
 		[],
 		[],
+
 		['chirumiru', 'defeat', 'split', 'foolhardy',],
-		['bushwhack', 'accelerant'],
+		['bushwhack', 'accelerant', 'infinigger', 'target-practice'],
+		['sporting', ],
 	];
 
 	public static var easysongNames:Array<Dynamic> = [
 		['Tutorial'],
+
+		[],
+		[],
+
 		[],
 		[],
 		[],
-		[],
+
 		['guns', 'stress', 'bopeebo', 'headache', ],
 		['nerves', 'release'],
 	];

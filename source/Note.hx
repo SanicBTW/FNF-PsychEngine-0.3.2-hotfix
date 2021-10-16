@@ -41,9 +41,14 @@ class Note extends FlxSprite
 	private function set_noteType(value:Int):Int {
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 5:
+					reloadNote('EBOLA');
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					
 				case 4: //Warning Note thingy
 					reloadNote('WARNING');
-					mustPress = true;
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;

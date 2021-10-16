@@ -23,25 +23,32 @@ class FreeplayState extends MusicBeatState
 {
 	//Character head icons for your songs
 	static var songsHeads:Array<Dynamic> = [
-		['bf', 'bf', 'bf', 'bf'], //osu songs
-		['bf', 'bf'], //more osu ig
+
+		['osubruh', 'osubruh', 'osubruh', 'osubruh'], //osu songs
+		['osubruh', 'osubruh'], //more osu ig
+
 		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
-		['zardyButDARK', 'hank',], //bushwhack, accelerant
+		['zardyButDARK', 'hank', 'cancer', 'matt'], //bushwhack, accelerant, infinigger, target practice
+		['matt', ], //sporting
 	];
 
 	static var noosusongHeads:Array<Dynamic> = [
 		[],
 		[],
+
 		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
-		['zardyButDARK', 'hank',], //bushwhack, accelerant
-		
+		['zardyButDARK', 'hank', 'cancer', 'matt'], //bushwhack, accelerant, infinigger, target practice
+		['matt'],
 	];
 
 	static var easysongHeads:Array<Dynamic> = [
 		[],
 		[],
+
 		[],
 		[],
+		[],
+
 		['tankman', 'tankman', 'matt', 'garcello'], // guns, stress, bopeebo/matt, headache
 		['garcellotired', 'garcellodead'], //nerves, release
 	];

@@ -53,12 +53,12 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/matt_assets",
+	"image": "characters/wiifunkin/matt_assets",
 	"position": [
 		0,
 		300
 	],
-	"healthicon": "bf",
+	"healthicon": "matt",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,
