@@ -239,6 +239,7 @@ class PlayState extends MusicBeatState
 	var chiritextbottom:FlxSprite;
 	var declife:FlxTimer;
 	var ZardyBackground:FlxSprite;
+	var ebolatimer:FlxTimer;
 
 
 	override public function create()
@@ -914,6 +915,9 @@ class PlayState extends MusicBeatState
 		if (curStage == "osubackgrounds"){
 			healthBar.createFilledBar(FlxColor.fromRGB(255, 0, 0),
 			FlxColor.fromRGB(0, 128, 0));
+		} else if (ebolatimer != null){
+			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+			FlxColor.fromRGB(255, 255, 0));
 		} else {
 			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
@@ -1785,7 +1789,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (FlxG.keys.justPressed.SEVEN && !endingSong)
+		//Im sorry for the extra justpressed six, i need it on this shitty laptop
+		if (FlxG.keys.justPressed.SEVEN || FlxG.keys.justPressed.SIX && !endingSong)
 		{
 			persistentUpdate = false;
 			paused = true;
@@ -2131,6 +2136,9 @@ class PlayState extends MusicBeatState
 								});
 
 								switch(daNote.noteType) {
+									case 5:
+										//Ebola note, does nothing.
+
 									case 4:
 										if (FlxG.random.bool(50)){
 											#if !web
@@ -3111,7 +3119,7 @@ class PlayState extends MusicBeatState
 				if(!boyfriend.stunned)
 					{
 						noteMiss(note.noteData);
-						var ebolatimer = new FlxTimer().start(0.1, function(tmr:FlxTimer)
+						ebolatimer = new FlxTimer().start(0.1, function(tmr:FlxTimer)
 						{
 							health -= 0.01;
 						}, 0);
@@ -3125,6 +3133,7 @@ class PlayState extends MusicBeatState
 							note.destroy();
 						}
 					}
+					reloadHealthBarColors();
 					return;
 				case 4: //Warning note
 				if(cpuControlled) return;
