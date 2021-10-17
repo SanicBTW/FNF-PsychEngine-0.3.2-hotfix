@@ -55,8 +55,6 @@
 	"no_antialiasing": false,
 	"image": "characters/vs4chanig/cancer",
 	"position": [
-		0,
-		0
 	],
 	"healthicon": "cancer",
 	"flip_x": false,
@@ -66,8 +64,6 @@
 		240
 	],
 	"camera_position": [
-		1,
-		140
 	],
 	"sing_duration": 4,
 	"scale": 1

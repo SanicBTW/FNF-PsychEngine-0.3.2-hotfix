@@ -138,8 +138,6 @@
 	"no_antialiasing": false,
 	"image": "characters/vs4chanig/bfalt",
 	"position": [
-		10,
-		260
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -149,8 +147,6 @@
 		209
 	],
 	"camera_position": [
-		190,
-		-210
 	],
 	"sing_duration": 4,
 	"scale": 1

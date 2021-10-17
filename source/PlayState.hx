@@ -533,6 +533,26 @@ class PlayState extends MusicBeatState
 					add(noback);
 				}
 
+			case 'infinigger':
+				curStage = "cancstage";
+
+				defaultCamZoom = 0.7;
+
+				if(ClientPrefs.songbackgrounds){
+					var whitebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/whitebg', 0, 0, 0.9, 0.9);
+					whitebg.antialiasing = true;
+					whitebg.active = false;
+					add(whitebg);
+
+					var basebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/base', 0, 0, 0.9, 0.9);
+					basebg.antialiasing = true;
+					basebg.active = false;
+					add(basebg);
+				} else {
+					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					add(noback);
+				}
+
 			default:
 				defaultCamZoom = 0.9;
 				curStage = 'stage';
@@ -608,7 +628,7 @@ class PlayState extends MusicBeatState
 
 		//I'm really sorry for this 
 		if(!curStage.startsWith("osubackgrounds")) {
-			if(curStage.startsWith("zardyBruh") || curStage.startsWith("zardy") || curStage.startsWith("cirnoday")){
+			if(curStage.startsWith("zardyBruh") || curStage.startsWith("zardy") || curStage.startsWith("cirnoday") || curStage.startsWith("cancstage")){
 				if(ClientPrefs.songbackgrounds){
 					ClientPrefs.middleScroll = false;
 					dadGroup.add(dad);
@@ -756,6 +776,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 
+		//This is really fucking bad, i should rework this as its literally made since i began the project
 		if(ClientPrefs.verthealthbar == true){
 			healthBarBG = new AttachedSprite('verthealthBar');
 			healthBarBG.y = 55;
@@ -902,7 +923,6 @@ class PlayState extends MusicBeatState
 		CoolUtil.precacheSound('missnotetouhou1');
 		CoolUtil.precacheSound('missnotetouhou2');
 		CoolUtil.precacheSound('missnotetouhou3');
-		CoolUtil.precacheSound('notehitsound');
 		
 		#if desktop
 		// Updating Discord Rich Presence.
