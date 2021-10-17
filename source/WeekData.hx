@@ -8,7 +8,7 @@ class WeekData {
 		['Tutorial'],
 
 		['rumias-theme', 'amaze-meisakura', 'potential-curve', 'equilibrium'],
-		['four-veiled-stars', 'crossing-delta'],
+		['four-veiled-stars', 'crossing-delta', 'cirnos-perfect-math-class'],
 
 		['chirumiru', 'defeat', 'split', 'foolhardy'],
 		['bushwhack', 'accelerant', 'infinigger', 'target-practice'],

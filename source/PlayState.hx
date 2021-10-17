@@ -349,9 +349,10 @@ class PlayState extends MusicBeatState
 				curStage = "osubackgrounds";
 	
 				health = 2;
+				defaultCamZoom = 0.7;
 	
 				if (ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/equilibriumbg', 0, -200, 0, 0);
+					osuback = new BGSprite('osubackgroundsig/equilibriumbg', -300, -200, 0, 0);
 					osuback.alpha = ClientPrefs.osubackalpha;
 					osuback.updateHitbox();
 					add(osuback);
@@ -366,7 +367,7 @@ class PlayState extends MusicBeatState
 				health = 2;
 
 				if(ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/fourveiledstarsbg', 0, 0, 0, 0);
+					osuback = new BGSprite('osubackgroundsig/fourveiledstarsbg', -100, -200, 0, 0);
 					osuback.alpha = ClientPrefs.osubackalpha;
 					osuback.updateHitbox();
 					add(osuback);
@@ -374,6 +375,37 @@ class PlayState extends MusicBeatState
 					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					add(noback);
 				}
+
+			case 'crossing-delta':
+				curStage = "osubackgrounds";
+
+				health = 2;
+
+				if(ClientPrefs.osubackgrounds){
+					osuback = new BGSprite('osubackgroundsig/crossingdeltabg', 0, 0, 0, 0);
+					osuback.alpha = ClientPrefs.osubackalpha;
+					osuback.updateHitbox();
+					add(osuback);
+				} else {
+					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					add(noback);
+				}
+
+			case 'cirnos-perfect-math-class':
+					curStage = "osubackgrounds";
+					defaultCamZoom = 0.7;
+	
+					health = 2;
+	
+					if(ClientPrefs.osubackgrounds){
+						osuback = new BGSprite('osubackgroundsig/cirnosperfectmathclassbg', 0, 0, 0, 0);
+						osuback.alpha = ClientPrefs.osubackalpha;
+						osuback.updateHitbox();
+						add(osuback);
+					} else {
+						var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+						add(noback);
+					}
 
 			case 'defeat':
 				curStage = "defeat";
@@ -445,7 +477,7 @@ class PlayState extends MusicBeatState
 					add(noback);
 				}
 
-			case 'bopeebo':
+			case 'target-practice':
 				curStage = "wiifunkin";
 
 				defaultCamZoom = 0.8;
@@ -539,15 +571,16 @@ class PlayState extends MusicBeatState
 				defaultCamZoom = 0.7;
 
 				if(ClientPrefs.songbackgrounds){
-					var whitebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/whitebg', 0, 0, 0.9, 0.9);
+					var whitebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/whitebg', -600, -200);
 					whitebg.antialiasing = true;
 					whitebg.active = false;
 					add(whitebg);
 
-					var basebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/base', 0, 0, 0.9, 0.9);
+					/*should work on this and should fix the camera and player positions on this song, for now it has to be like this sorry im really fucking bad with bg stuff
+					var basebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/base', -600, 200);
 					basebg.antialiasing = true;
 					basebg.active = false;
-					add(basebg);
+					add(basebg);*/
 				} else {
 					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					add(noback);
@@ -609,8 +642,8 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'osubackgrounds':
-				BF_X = 0;
-				BF_Y = 0;
+				BF_X = -600;
+				BF_Y = -200;
 		}
 
 		gf = new Character(GF_X, GF_Y, gfVersion);
@@ -671,6 +704,9 @@ class PlayState extends MusicBeatState
 			camPos.x += 400;
 			dad.y += 50;
 			dad.x -= 400;
+		} else if (dad.curCharacter.startsWith('cancer')){
+			camPos.y += -200;
+			camPos.x += 400;
 		}
 
 		add(gfGroup);
@@ -945,6 +981,7 @@ class PlayState extends MusicBeatState
 		healthBar.updateBar();
 	}
 
+	//Should bind this to the bpm in some way ig
 	public function decreaseHealth(func:String) {
 		if(func.startsWith("start")){
 			if(curStage == "osubackgrounds"){
@@ -1859,25 +1896,30 @@ class PlayState extends MusicBeatState
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
 
-		/* me crashea el juego en cualquier otra musica
-		if (cirnoMode)
-			{
-			if (idiot.alpha >= 0.5)
-				{
-				idiot.alpha -= 0.01;
-				idiot2.alpha = idiot.alpha;
-				}
-			}
-		else
-			{
-			if (idiot.alpha <= 1.01)
-				{
-				idiot.alpha += 0.01;
-				idiot2.alpha = idiot.alpha;
-				}
-			}
-		*/
+		if (FlxG.keys.justPressed.SHIFT && FlxG.keys.justPressed.F){
+			FlxG.fullscreen != FlxG.fullscreen;
+		}
 
+		if (curStage.startsWith("cirnoday"))
+			{
+				if (cirnoMode)
+					{
+					if (idiot.alpha >= 0.5)
+						{
+						idiot.alpha -= 0.01;
+						idiot2.alpha = idiot.alpha;
+						}
+					}
+				else
+					{
+					if (idiot.alpha <= 1.01)
+						{
+						idiot.alpha += 0.01;
+						idiot2.alpha = idiot.alpha;
+						}
+					}		
+			}
+		
 		if (startingSong)
 		{
 			if (startedCountdown)
@@ -3559,6 +3601,8 @@ class PlayState extends MusicBeatState
 			dad.dance();
 		}
 
+		//#region osu song beathit for decreasehealth ig
+		//Should probably improve these just in case
 		if (curSong == "rumias-theme")
 		{
 			switch(curBeat)
@@ -3589,6 +3633,8 @@ class PlayState extends MusicBeatState
 			{
 				case 1:
 					decreaseHealth('start');
+				case 297:
+					decreaseHealth('stop');
 			}
 		}
 
@@ -3598,8 +3644,44 @@ class PlayState extends MusicBeatState
 			{
 				case 3:
 					decreaseHealth('start');
+				case 400:
+					decreaseHealth('stop');
 			}
 		}
+
+		if (curSong == "four-veiled-stars")
+		{
+			switch(curBeat)
+			{
+				case 1:
+					decreaseHealth('start');
+				case 460:
+					decreaseHealth('stop');
+			}
+		}
+
+		if (curSong == "crossing-delta")
+		{
+			switch(curBeat)
+			{
+				case 1:
+					decreaseHealth('start');
+				case 640:
+					decreaseHealth('stop');
+			}
+		}
+
+		if (curSong == "cirnos-perfect-math-class")
+		{
+			switch(curBeat)
+			{
+				case 3:
+					decreaseHealth('start');
+				case 790:
+					decreaseHealth('stop');
+			}
+		}
+		//#endregion
 
 		if (curSong == "foolhardy" || curStage == "zardy" && ClientPrefs.songbackgrounds)
 		{

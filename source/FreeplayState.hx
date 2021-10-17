@@ -25,7 +25,7 @@ class FreeplayState extends MusicBeatState
 	static var songsHeads:Array<Dynamic> = [
 
 		['osubruh', 'osubruh', 'osubruh', 'osubruh'], //osu songs
-		['osubruh', 'osubruh'], //more osu ig
+		['osubruh', 'osubruh', 'osubruh'], //more osu ig
 
 		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
 		['zardyButDARK', 'hank', 'cancer', 'matt'], //bushwhack, accelerant, infinigger, target practice
