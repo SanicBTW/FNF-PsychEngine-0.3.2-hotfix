@@ -2142,7 +2142,13 @@ class PlayState extends MusicBeatState
 							case 3:
 								animToPlay = 'singRIGHT';
 						}
-						dad.playAnim(animToPlay + altAnim, true);
+						if(daNote.noteType == 6) {
+							gf.playAnim(animToPlay + altAnim, true);
+							gf.holdTimer = 0;
+						} else {
+							dad.playAnim(animToPlay + altAnim, true);
+							dad.holdTimer = 0;
+						}
 					}
 
 					dad.holdTimer = 0;
@@ -2201,7 +2207,7 @@ class PlayState extends MusicBeatState
 									case 5:
 										//Ebola note, does nothing.
 
-									case 4:
+									case 4: //this is really stupid
 										if (FlxG.random.bool(50)){
 											#if !web
 											trace(FlxG.random.bool(50));
@@ -3197,7 +3203,7 @@ class PlayState extends MusicBeatState
 					}
 					reloadHealthBarColors();
 					return;
-				case 4: //Warning note
+				case 4: //Warning note or shoot note ig
 				if(cpuControlled) return;
 
 				if(!boyfriend.stunned){
@@ -3205,12 +3211,13 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('bfdodge', true);
 					//dad.playAnim('bfattack', true);
 
+					if (FlxG.random.bool(50)){
+						dad.playAnim('singLEFT-alt', true);
+					} else {
+						dad.playAnim('singDOWN-alt', true);
+					}
+
 					note.wasGoodHit = true;
-					#if !web
-					trace("BEAT HIT: " + curBeat + ", STEP SHIT: " + curStep);
-					#else
-					FlxG.log.add("BEAT HIT: " + curBeat + ", STEP SHIT: " + curStep);
-					#end
 
 					if (!note.isSustainNote)
 					{
@@ -3683,6 +3690,16 @@ class PlayState extends MusicBeatState
 		}
 		//#endregion
 
+		if(curSong == "accelerant")
+		{
+			switch(curBeat)
+			{
+				//5 or 6 idk
+				case 7:
+					dad.playAnim("singUP-alt", true);
+			}
+		}
+
 		if (curSong == "foolhardy" || curStage == "zardy" && ClientPrefs.songbackgrounds)
 		{
 			switch(curBeat)
@@ -3891,57 +3908,9 @@ class PlayState extends MusicBeatState
 				if(songMisses > 0){
 					health = 0;
 				}
-			case 'school':
-				if(!ClientPrefs.lowQuality) {
-					bgGirls.dance();
-				}
 
-			case 'mall':
-				if(!ClientPrefs.lowQuality) {
-					upperBoppers.dance(true);
-				}
-
-				if(heyTimer <= 0) bottomBoppers.dance(true);
-				santa.dance(true);
-
-			case 'limo':
-				if(!ClientPrefs.lowQuality) {
-					grpLimoDancers.forEach(function(dancer:BackgroundDancer)
-					{
-						dancer.dance();
-					});
-				}
-
-				if (FlxG.random.bool(10) && fastCarCanDrive)
-					fastCarDrive();
-			case "philly":
-				if (!trainMoving)
-					trainCooldown += 1;
-
-				if (curBeat % 4 == 0)
-				{
-					phillyCityLights.forEach(function(light:BGSprite)
-					{
-						light.visible = false;
-					});
-
-					curLight = FlxG.random.int(0, phillyCityLights.length - 1, [curLight]);
-
-					phillyCityLights.members[curLight].visible = true;
-					phillyCityLights.members[curLight].alpha = 1;
-				}
-
-				if (curBeat % 8 == 4 && FlxG.random.bool(30) && !trainMoving && trainCooldown > 8)
-				{
-					trainCooldown = FlxG.random.int(-4, 0);
-					trainStart();
-				}
 		}
 
-		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
-		{
-			lightningStrikeShit();
-		}
 		lastBeatHit = curBeat;
 
 		setOnLuas('curBeat', curBeat);

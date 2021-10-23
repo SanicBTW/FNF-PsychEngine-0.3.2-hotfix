@@ -90,32 +90,110 @@ class Character extends FlxSprite
 		switch (curCharacter)
 		{
 			//case 'your character name in case you want to hardcode him instead':
-			//testing stuff
+			//these characters must be hardcoded for some reason
 			#if html5
-			//Black must be hardocoded for some reason
 			case 'black':
-			healthIcon = "black";
-			healthColorArray = [43, 43, 43];	
-			cameraPosition = [-400, 0];
+				healthIcon = "black";
+				healthColorArray = [43, 43, 43];	
+				cameraPosition = [-400, 0];
 
-			var tex = Paths.getSparrowAtlas('characters/funnysussy/black', 'shared');
-			frames = tex;
-			animation.addByPrefix('idle', 'BLACK IDLE', 24, true);
-			animation.addByPrefix('singUP', 'BLACK UP', 24, false);
-			animation.addByPrefix('singRIGHT', 'BLACK RIGHT', 24, false);
-			animation.addByPrefix('singDOWN', 'BLACK DOWN', 24, false);
-			animation.addByPrefix('singLEFT', 'BLACK LEFT', 24, false);
+				var tex = Paths.getSparrowAtlas('characters/funnysussy/black', 'shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'BLACK IDLE', 24, true);
+				animation.addByPrefix('singUP', 'BLACK UP', 24, false);
+				animation.addByPrefix('singRIGHT', 'BLACK RIGHT', 24, false);
+				animation.addByPrefix('singDOWN', 'BLACK DOWN', 24, false);
+				animation.addByPrefix('singLEFT', 'BLACK LEFT', 24, false);
 
-			animation.addByPrefix('death', 'BLACK DEATH', 24, false);
+				animation.addByPrefix('death', 'BLACK DEATH', 24, false);
 
-			addOffset('idle');
-			addOffset("singUP", 46, 104);
-			addOffset("singRIGHT", -225, -10);
-			addOffset("singLEFT", 116, 12);
-			addOffset("singDOWN", -22, -20);
-			addOffset("death", 252, 238);
+				addOffset('idle');
+				addOffset("singUP", 46, 104);
+				addOffset("singRIGHT", -225, -10);
+				addOffset("singLEFT", 116, 12);
+				addOffset("singDOWN", -22, -20);
+				addOffset("death", 252, 238);
 
-			playAnim('idle');
+				playAnim('idle');
+
+			case 'garcello':
+				healthIcon = "bf";
+				healthColorArray = [0, 0, 0];
+				cameraPosition = [0, 0];
+				positionArray = [0, 0];
+
+				var tex = Paths.getSparrowAtlas('characters/funnygarcello/garcello_assets');
+				frames = tex;
+				animation.addByPrefix('idle', 'garcello idle dance', 24);
+				animation.addByPrefix('singUP', 'garcello Sing Note UP', 24);
+				animation.addByPrefix('singRIGHT', 'garcello Sing Note RIGHT', 24);
+				animation.addByPrefix('singDOWN', 'garcello Sing Note DOWN', 24);
+				animation.addByPrefix('singLEFT', 'garcello Sing Note LEFT', 24);
+	
+				addOffset('idle');
+				addOffset("singUP", 0, 0);
+				addOffset("singRIGHT", 0, 0);
+				addOffset("singLEFT", 0, 0);
+				addOffset("singDOWN", 0, 0);
+	
+				playAnim('idle');
+
+			case 'garcellotired':
+				healthIcon = "bf";
+				healthColorArray = [0, 0, 0];
+				cameraPosition = [0, 0];
+				positionArray = [0, 0];
+
+				var tex = Paths.getSparrowAtlas('characters/funnygarcello/garcellotired_assets');
+				frames = tex;
+				animation.addByPrefix('idle', 'garcellotired idle dance', 24, false);
+				animation.addByPrefix('singUP', 'garcellotired Sing Note UP', 24, false);
+				animation.addByPrefix('singRIGHT', 'garcellotired Sing Note RIGHT', 24, false);
+				animation.addByPrefix('singDOWN', 'garcellotired Sing Note DOWN', 24, false);
+				animation.addByPrefix('singLEFT', 'garcellotired Sing Note LEFT', 24, false);
+	
+				animation.addByPrefix('singUP-alt', 'garcellotired Sing Note UP', 24, false);
+				animation.addByPrefix('singRIGHT-alt', 'garcellotired Sing Note RIGHT', 24, false);
+				animation.addByPrefix('singLEFT-alt', 'garcellotired Sing Note LEFT', 24, false);
+				animation.addByPrefix('singDOWN-alt', 'garcellotired cough', 24, false);
+	
+				addOffset('idle');
+				addOffset("singUP", 0, 0);
+				addOffset("singRIGHT", 0, 0);
+				addOffset("singLEFT", 0, 0);
+				addOffset("singDOWN", 0, 0);
+
+				addOffset("singUP-alt", 0, 0);
+				addOffset("singRIGHT-alt", 0, 0);
+				addOffset("singLEFT-alt", 0, 0);
+				addOffset("singDOWN-alt", 0, 0);
+	
+				playAnim('idle');
+
+			case 'garcellodead':
+				healthIcon = "bf";
+				healthColorArray = [0, 0, 0];
+				cameraPosition = [0, 0];
+				positionArray = [0, 0];
+
+				var tex = Paths.getSparrowAtlas('characters/funnygarcello/garcellodead_assets');
+				frames = tex;
+				animation.addByPrefix('idle', 'garcello idle dance', 24);
+				animation.addByPrefix('singUP', 'garcello Sing Note UP', 24);
+				animation.addByPrefix('singRIGHT', 'garcello Sing Note RIGHT', 24);
+				animation.addByPrefix('singDOWN', 'garcello Sing Note DOWN', 24);
+				animation.addByPrefix('singLEFT', 'garcello Sing Note LEFT', 24);
+	
+				animation.addByPrefix('garTightBars', 'garcello coolguy', 15);
+	
+				addOffset('idle');
+				addOffset("singUP", 0, 0);
+				addOffset("singRIGHT", 0, 0);
+				addOffset("singLEFT", 0, 0);
+				addOffset("singDOWN", 0, 0);
+				addOffset("garTightBars", 0, 0);
+	
+				playAnim('idle');
 			#end
 
 			default:

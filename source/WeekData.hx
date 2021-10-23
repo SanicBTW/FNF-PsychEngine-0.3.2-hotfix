@@ -7,12 +7,13 @@ class WeekData {
 	public static var songsNames:Array<Dynamic> = [
 		['Tutorial'],
 
-		['rumias-theme', 'amaze-meisakura', 'potential-curve', 'equilibrium'],
-		['four-veiled-stars', 'crossing-delta', 'cirnos-perfect-math-class'],
+		['rumias-theme', 'amaze-meisakura', 'potential-curve'],
+		['equilibrium', 'four-veiled-stars', 'crossing-delta'],
+		['cirnos-perfect-math-class'],
 
-		['chirumiru', 'defeat', 'split', 'foolhardy'],
-		['bushwhack', 'accelerant', 'infinigger', 'target-practice'],
-		['sporting', ],
+		['chirumiru', 'defeat', 'split'],
+		['foolhardy', 'bushwhack', 'accelerant'],
+		['infinigger', 'target-practice', 'sporting'],
 	];
 
 	public static var noosusongNames:Array<Dynamic> = [
@@ -20,10 +21,11 @@ class WeekData {
 
 		[],
 		[],
+		[],
 
-		['chirumiru', 'defeat', 'split', 'foolhardy',],
-		['bushwhack', 'accelerant', 'infinigger', 'target-practice'],
-		['sporting', ],
+		['chirumiru', 'defeat', 'split'],
+		['foolhardy', 'bushwhack', 'accelerant'],
+		['infinigger', 'target-practice', 'sporting'],
 	];
 
 	public static var easysongNames:Array<Dynamic> = [
@@ -31,18 +33,21 @@ class WeekData {
 
 		[],
 		[],
-
-		[],
-		[],
 		[],
 
-		['guns', 'stress', 'bopeebo', 'headache', ],
+		[],
+		[],
+		[],
+
+		['guns', 'stress', 'headache' ],
 		['nerves', 'release'],
 	];
 
 	// Custom week number, used for your week's score not being overwritten by a new vanilla week when the game updates
 	// I'd recommend setting your week as -99 or something that new vanilla weeks will probably never ever use
 	// null = Don't change week number, it follows the vanilla weeks number order
+
+	//Really sorry trying to fix week scores but literally doin nothing
 	public static var weekNumber:Array<Dynamic> = [
 		null,	//Tutorial
 		-99,	//Week 1
@@ -50,7 +55,12 @@ class WeekData {
 		-97,	//Week 3
 		-96,	//Week 4
 		-95,	//Week 5
-		-94	//Week 6
+		-94,	//Week 6
+
+		-93,	//Week 7 ig
+		-92,	//Week 8 ig
+		-91,	//Week 9 ig
+		-90,	//Week 10 ig
 	];
 
 	//Tells which assets directory should it load

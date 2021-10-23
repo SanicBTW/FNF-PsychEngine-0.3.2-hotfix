@@ -24,32 +24,35 @@ class FreeplayState extends MusicBeatState
 	//Character head icons for your songs
 	static var songsHeads:Array<Dynamic> = [
 
-		['osubruh', 'osubruh', 'osubruh', 'osubruh'], //osu songs
+		['osubruh', 'osubruh', 'osubruh'], //osu songs
 		['osubruh', 'osubruh', 'osubruh'], //more osu ig
+		['osubruh', ], //more osu sorry
 
-		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
-		['zardyButDARK', 'hank', 'cancer', 'matt'], //bushwhack, accelerant, infinigger, target practice
-		['matt', ], //sporting
+		['cirno', 'black', 'bf'], //chirumiru, defeat, split
+		['zardyMyBeloved', 'zardyButDARK', 'hank'], //foolhardy, bushwhack, accelerant
+		['cancer', 'matt', 'matt',], // infinigger, target practice, sporting
 	];
 
 	static var noosusongHeads:Array<Dynamic> = [
 		[],
 		[],
+		[],
 
-		['cirno', 'black', 'bf', 'zardyMyBeloved',], //chirumiru, defeat, split, foolhardy
-		['zardyButDARK', 'hank', 'cancer', 'matt'], //bushwhack, accelerant, infinigger, target practice
-		['matt'],
+		['cirno', 'black', 'bf'], //chirumiru, defeat, split
+		['zardyMyBeloved', 'zardyButDARK', 'hank'], //foolhardy, bushwhack, accelerant
+		['cancer', 'matt', 'matt'], // infinigger, target practice, sporting
 	];
 
 	static var easysongHeads:Array<Dynamic> = [
 		[],
 		[],
-
-		[],
-		[],
 		[],
 
-		['tankman', 'tankman', 'matt', 'garcello'], // guns, stress, bopeebo/matt, headache
+		[],
+		[],
+		[],
+
+		['tankman', 'tankman', 'garcello'], // guns, stress, headache
 		['garcellotired', 'garcellodead'], //nerves, release
 	];
 
@@ -109,6 +112,7 @@ class FreeplayState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
+		//meh it was mainly for a friend but i find this extremely stupid from my side lol
 		if(ClientPrefs.cursongdif == "Hard"){
 			if(ClientPrefs.osusongs){
 				for (i in 1...WeekData.songsNames.length) {
@@ -214,6 +218,7 @@ class FreeplayState extends MusicBeatState
 		var leText:String = "Press RESET to Reset your Score and Accuracy. ";
 		#end*/
 
+		//this is really stupid too 
 		if (ClientPrefs.osusongs){
 			if(ClientPrefs.cursongdif == "Hard"){
 				var prileText:String = "Press RESET to Reset your Score and Accuracy.";

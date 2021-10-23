@@ -53,7 +53,8 @@ class ChartingState extends MusicBeatState
 		'2 - Hey!',
 		'3 - Hurt Note',
 		'4 - Warning Note',
-		'5 - Ebola Note'
+		'5 - Ebola Note',
+		'6 - GF Sing',
 	];
 
 	private static var eventStuff:Array<Dynamic> =

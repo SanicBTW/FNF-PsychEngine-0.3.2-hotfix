@@ -41,13 +41,19 @@ class Note extends FlxSprite
 	private function set_noteType(value:Int):Int {
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
-				case 5:
+				//Thanks ShadowMario
+				case 6: //GF Sing Note ig
+					colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
+					colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
+					colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
+
+				case 5: //Ebola Note for Infinigger
 					reloadNote('EBOLA');
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
 					
-				case 4: //Warning Note thingy
+				case 4: //Warning Note for Accelerant
 					reloadNote('WARNING');
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
