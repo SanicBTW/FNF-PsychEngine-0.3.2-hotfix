@@ -241,6 +241,9 @@ class PlayState extends MusicBeatState
 	var ZardyBackground:FlxSprite;
 	var ebolatimer:FlxTimer;
 
+	//Kind of bad the way im doing this but i have no other way that i know sorry
+	var keyboardoverlayUPKEY:FlxSprite;
+	var keyboardoverlayUPKEYTEXT:FlxText;
 
 	override public function create()
 	{
@@ -899,6 +902,16 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
+		keyboardoverlayUPKEY = new FlxSprite(0, FlxG.height - 150).makeGraphic(50, 50, FlxColor.WHITE);
+		add(keyboardoverlayUPKEY);
+
+		keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x, keyboardoverlayUPKEY.y, "UP", 20);
+		keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+		keyboardoverlayUPKEYTEXT.scrollFactor.set();
+		keyboardoverlayUPKEYTEXT.borderSize = 1.25;
+		keyboardoverlayUPKEYTEXT.visible = true;
+		add(keyboardoverlayUPKEYTEXT);
+
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -912,6 +925,9 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
+
+		keyboardoverlayUPKEY.cameras = [camHUD];
+		keyboardoverlayUPKEYTEXT.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -981,7 +997,7 @@ class PlayState extends MusicBeatState
 		healthBar.updateBar();
 	}
 
-	//Should bind this to the bpm in some way ig
+	//Should bind this to the bpm in some way ig and improve the uhhhhhh func uhhhh
 	public function decreaseHealth(func:String) {
 		if(func.startsWith("start")){
 			if(curStage == "osubackgrounds"){
@@ -1663,7 +1679,29 @@ class PlayState extends MusicBeatState
 				startTimer.active = false;
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = false;
-			if (declife != null) decreaseHealth('stop');
+
+			//Should rework these or something
+			//bro what, actually dont know if it even works or just doing nothin lol
+			if(ClientPrefs.ignorepauseosutimer == false){
+				if (declife != null) decreaseHealth('stop');
+			}
+
+			//Doesn't works if you pressed more than one ebola note
+			if(ClientPrefs.nerfebolatimer == true){
+				if(curStage == "cancstage"){
+					if (ebolatimer != null){
+						if(ebolatimer.active){
+							ebolatimer.active = false;
+							#if !web
+							trace('Ebola stopped, nerfebolatimer = true, such a noob');
+							#else
+							FlxG.log.add('Ebola stopped, nerfebolatimer = true, such a noob');
+							#end
+						}
+					}	
+				}
+			}
+
 
 			if(phillyBlackTween != null)
 				phillyBlackTween.active = false;
@@ -1694,7 +1732,28 @@ class PlayState extends MusicBeatState
 				startTimer.active = true;
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = true;
-			if (declife != null) decreaseHealth('resume');
+
+			//Should rework these or something
+			//bro what, actually dont know if it even works or just doing nothin lol
+			if(ClientPrefs.ignorepauseosutimer == false){
+				if (declife != null) decreaseHealth('resume');
+			}
+
+			//Doesn't works if you pressed more than one ebola note
+			if(ClientPrefs.nerfebolatimer == true){
+				if(curStage == "cancstage"){
+					if (ebolatimer != null){
+						if(!ebolatimer.active){
+							ebolatimer.active = true;
+							#if !web
+							trace('Resuming ebola, nerfebolatimer = true, such a noob');
+							#else
+							FlxG.log.add('Resuming ebola, nerfebolatimer = true, such a noob');
+							#end
+						}
+					}	
+				}
+			}
 
 			if(phillyBlackTween != null)
 				phillyBlackTween.active = true;
@@ -2207,20 +2266,12 @@ class PlayState extends MusicBeatState
 									case 5:
 										//Ebola note, does nothing.
 
-									case 4: //this is really stupid
+									case 4: //this is really stupid, warning note thingy
 										if (FlxG.random.bool(50)){
-											#if !web
-											trace(FlxG.random.bool(50));
-											#else
-											FlxG.log.add(FlxG.random.bool(50));
-											#end
+											//deleted the trace thingy because it wasnt really accurate ig
 											health -= 0.999999;
 										} else {
-											#if !web
-											trace(FlxG.random.bool(50));
-											#else
-											FlxG.log.add(FlxG.random.bool(50));
-											#end
+											//deleted the trace thingy because it wasnt really accurate ig
 											health -= 0.5;
 										}
 										boyfriend.playAnim("hurt", true);
@@ -3218,6 +3269,7 @@ class PlayState extends MusicBeatState
 					}
 
 					note.wasGoodHit = true;
+					health += 0.023;
 
 					if (!note.isSustainNote)
 					{
@@ -3697,6 +3749,10 @@ class PlayState extends MusicBeatState
 				//5 or 6 idk
 				case 7:
 					dad.playAnim("singUP-alt", true);
+
+				//placeholder idk uhhhhhh
+				case 184:
+					gf.playAnim("cheer", true);
 			}
 		}
 
@@ -3905,10 +3961,19 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'cirnoday':
-				if(songMisses > 0){
-					health = 0;
+				if(ClientPrefs.onemisschirumiru){
+					if(songMisses > 0){
+						health = 0;
+					}
 				}
 
+			//idk if it works without the == true lol
+			case 'defeat':
+				if(ClientPrefs.onemissdefeat == true){
+					if(songMisses > 0){
+						health = 0;
+					}
+				}
 		}
 
 		lastBeatHit = curBeat;

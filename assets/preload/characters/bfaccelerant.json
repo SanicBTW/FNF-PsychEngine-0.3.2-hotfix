@@ -182,7 +182,7 @@
 	"no_antialiasing": false,
 	"image": "characters/BOYFRIEND",
 	"position": [
-		0,
+		50,
 		350
 	],
 	"healthicon": "bf",

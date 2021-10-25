@@ -112,7 +112,7 @@
 	"no_antialiasing": false,
 	"image": "characters/accelerant/realfuckinghank",
 	"position": [
-		0,
+		-50,
 		150
 	],
 	"healthicon": "hank",

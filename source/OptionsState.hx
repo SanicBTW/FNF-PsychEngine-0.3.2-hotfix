@@ -1010,7 +1010,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 	static var unselectableOptions:Array<String> = [
 		'Graphics',
 		'Gameplay',
-		'OSU! Stuff'
+		'OSU! Stuff',
+		'Songs',
 	];
 	static var noCheckbox:Array<String> = [
 		'Framerate',
@@ -1052,6 +1053,11 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'OSU! Backgrounds',
 		'OSU! Back Alpha',
 		'Health Decrease',
+		'Ignore Pause OSU! Timer',
+		'Songs',
+		'Pause Ebola Timer',
+		'One Miss Chirumiru',
+		'One Miss Defeat',
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -1260,6 +1266,19 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'Note Hit Sound':
 						ClientPrefs.notehitsound = !ClientPrefs.notehitsound;
+
+					case 'Ignore Pause OSU! Timer':
+						ClientPrefs.ignorepauseosutimer = !ClientPrefs.ignorepauseosutimer;
+
+					case 'Pause Ebola Timer':
+						ClientPrefs.nerfebolatimer = !ClientPrefs.nerfebolatimer;
+
+					case 'One Miss Chirumiru':
+						ClientPrefs.onemisschirumiru = !ClientPrefs.onemisschirumiru;
+
+					case 'One Miss Defeat':
+						ClientPrefs.onemissdefeat = !ClientPrefs.onemissdefeat;
+					
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -1391,6 +1410,15 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "Plays a hit sound when hitting a note";
 			case 'Note Hit Volume':
 				daText = "Literally the note hit volume";
+			case 'Ignore Pause OSU! Timer':
+				//Don't ask why
+				daText = "It ignores the pause screen on osu songs\nbasically continues decreasing life\ndont ask why i did this";
+			case 'Pause Ebola Timer':
+				daText = "It pauses the ebola timer from infinigger when pausing the game";
+			case 'One Miss Chirumiru':
+				daText = "Literally what the name says";
+			case 'One Miss Defeat':
+				daText = "Literally what the name says";
 		}
 		descText.text = daText;
 
@@ -1490,6 +1518,14 @@ class PreferencesSubstate extends MusicBeatSubstate
 						//daValue = ClientPrefs.hideTime;
 					case 'Note Hit Sound':
 						daValue = ClientPrefs.notehitsound;
+					case 'Ignore Pause OSU! Timer':
+						daValue = ClientPrefs.ignorepauseosutimer;
+					case 'Pause Ebola Timer':
+						daValue = ClientPrefs.nerfebolatimer;
+					case 'One Miss Chirumiru':
+						daValue = ClientPrefs.onemisschirumiru;
+					case 'One Miss Defeat':
+						daValue = ClientPrefs.onemissdefeat;
 				}
 				checkbox.daValue = daValue;
 			}

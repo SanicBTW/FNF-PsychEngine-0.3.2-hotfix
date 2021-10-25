@@ -25,6 +25,7 @@ class ClientPrefs {
 	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = false;
 	public static var hideTime:Bool = true;
+	//new settings added by me lol
 	public static var osubackgrounds:Bool = true;
 	public static var strumbackground:Bool = false;
 	public static var osubackalpha:Float = 0.5;
@@ -32,12 +33,25 @@ class ClientPrefs {
 	public static var songbackgrounds:Bool = true;
 	public static var healthdecrease:Float = 0.008;
 	public static var osusongs:Bool = true;
+
+	//this got discontinued bc im really fucking stupid
 	public static var noteskin:String = 'NOTE_assets';
+
 	public static var fullscreenxd:Bool = false;
 	public static var cursongdif:String = "Hard";
 	public static var curmisssound:String = "missnotetouhou";
 	public static var notehitsound:Bool = true;
 	public static var notehitvolume:Float = 1;
+	
+	//planning into adding a keyboard overlay looks cool idk
+	public static var showkeyboardoverlay:Bool = true;
+	public static var keyboardoverlayalpha:Float = 1;
+
+	//some songs stuff
+	public static var nerfebolatimer:Bool = false;
+	public static var ignorepauseosutimer:Bool = false;
+	public static var onemisschirumiru:Bool = true;
+	public static var onemissdefeat:Bool = false;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
@@ -105,6 +119,10 @@ class ClientPrefs {
 		FlxG.save.data.curmisssound = curmisssound;
 		FlxG.save.data.notehitsound = notehitsound;
 		FlxG.save.data.notehitvolume = notehitvolume;
+		FlxG.save.data.nerfebolatimer = nerfebolatimer;
+		FlxG.save.data.ignorepauseosutimer = ignorepauseosutimer;
+		FlxG.save.data.onemisschirumiru = onemisschirumiru;
+		FlxG.save.data.onemissdefeat = onemissdefeat;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -232,6 +250,22 @@ class ClientPrefs {
 
 		if (FlxG.save.data.notehitvolume != null){
 			notehitvolume = FlxG.save.data.notehitvolume;
+		}
+
+		if (FlxG.save.data.nerfebolatimer != null){
+			nerfebolatimer = FlxG.save.data.nerfebolatimer;
+		}
+
+		if (FlxG.save.data.ignorepauseosutimer != null){
+			ignorepauseosutimer = FlxG.save.data.ignorepauseosutimer;
+		}
+
+		if (FlxG.save.data.onemisschirumiru != null){
+			onemisschirumiru = FlxG.save.data.onemisschirumiru;
+		}
+
+		if (FlxG.save.data.onemissdefeat != null){
+			onemissdefeat = FlxG.save.data.onemissdefeat;
 		}
 
 		var save:FlxSave = new FlxSave();
