@@ -3153,7 +3153,6 @@ class PlayState extends MusicBeatState
 			{
 				//BRO HOLY FUCK THIS TOOK ME SO MUCH FUCKING TIME TO FIGURE OUT DUDEEEEEEEEE
 				//also i should rewrite this or something tho it works
-				//guys guys im not racist
 
 				if(up){
 					keyboardoverlayUPKEY.color = FlxColor.WHITE;
