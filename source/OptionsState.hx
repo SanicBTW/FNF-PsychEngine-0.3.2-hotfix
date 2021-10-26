@@ -1019,6 +1019,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'OSU! Back Alpha',
 		'Health Decrease',
 		'Note Hit Volume',
+		'Keyboard Overlay Alpha'
 	];
 
 	static var options:Array<String> = [
@@ -1038,6 +1039,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		//'Middlescroll',
 		'Note Hit Sound',
 		'Note Hit Volume',
+		'Show Keyboard Overlay',
+		'Keyboard Overlay Alpha',
 		//'Ghost Tapping',
 		//'Note Delay',
 		//'Note Splashes',
@@ -1278,6 +1281,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'One Miss Defeat':
 						ClientPrefs.onemissdefeat = !ClientPrefs.onemissdefeat;
+
+					case 'Show Keyboard Overlay':
+						ClientPrefs.showkeyboardoverlay = !ClientPrefs.showkeyboardoverlay;
 					
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -1326,6 +1332,11 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.notehitvolume += custmadd;
 						if(ClientPrefs.notehitvolume < 0.1) ClientPrefs.notehitvolume = 0.1;
 						else if (ClientPrefs.notehitvolume > 1) ClientPrefs.notehitvolume = 1;
+					case 'Keyboard Overlay Alpha':
+						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
+						ClientPrefs.keyboardoverlayalpha += custmadd;
+						if(ClientPrefs.keyboardoverlayalpha < 0) ClientPrefs.keyboardoverlayalpha = 0;
+						else if(ClientPrefs.keyboardoverlayalpha > 1) ClientPrefs.keyboardoverlayalpha = 1;
 				}
 				reloadValues();
 
@@ -1419,6 +1430,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "Literally what the name says";
 			case 'One Miss Defeat':
 				daText = "Literally what the name says";
+			case 'Show Keyboard Overlay':
+				daText = "Shows a lil keyboard overlay at the right corner of the screen\ngonna add an option to change the pos of it";
+			case 'Keyboard Overlay Alpha':
+				daText = "Changes the alpha value of the keyboard overlay";
 		}
 		descText.text = daText;
 
@@ -1526,6 +1541,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.onemisschirumiru;
 					case 'One Miss Defeat':
 						daValue = ClientPrefs.onemissdefeat;
+					case 'Show Keyboard Overlay':
+						daValue = ClientPrefs.showkeyboardoverlay;
 				}
 				checkbox.daValue = daValue;
 			}
@@ -1545,6 +1562,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daText = '' + ClientPrefs.healthdecrease;
 					case 'Note Hit Volume':
 						daText = '' + ClientPrefs.notehitvolume;
+					case 'Keyboard Overlay Alpha':
+						daText = '' + ClientPrefs.keyboardoverlayalpha;
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;

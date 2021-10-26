@@ -242,8 +242,18 @@ class PlayState extends MusicBeatState
 	var ebolatimer:FlxTimer;
 
 	//Kind of bad the way im doing this but i have no other way that i know sorry
+	//up key
 	var keyboardoverlayUPKEY:FlxSprite;
 	var keyboardoverlayUPKEYTEXT:FlxText;
+	//down key
+	var keyboardoverlayDOWNKEY:FlxSprite;
+	var keyboardoverlayDOWNKEYTEXT:FlxText;
+	//right key
+	var keyboardoverlayRIGHTKEY:FlxSprite;
+	var keyboardoverlayRIGHTKEYTEXT:FlxText;
+	//left key
+	var keyboardoverlayLEFTKEY:FlxSprite;
+	var keyboardoverlayLEFTKEYTEXT:FlxText;
 
 	override public function create()
 	{
@@ -902,15 +912,61 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
-		keyboardoverlayUPKEY = new FlxSprite(0, FlxG.height - 150).makeGraphic(50, 50, FlxColor.WHITE);
-		add(keyboardoverlayUPKEY);
+		//honestly this is a stupid idea ngl
+		if(ClientPrefs.showkeyboardoverlay)
+		{
+			//up key
+			keyboardoverlayUPKEY = new FlxSprite(100, FlxG.height - 150).makeGraphic(50, 50, FlxColor.GRAY);
+			keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayalpha;
+			add(keyboardoverlayUPKEY);
+	
+			keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
+			keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+			keyboardoverlayUPKEYTEXT.scrollFactor.set();
+			keyboardoverlayUPKEYTEXT.borderSize = 1.25;
+			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+			keyboardoverlayUPKEYTEXT.visible = true;
+			add(keyboardoverlayUPKEYTEXT);
 
-		keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x, keyboardoverlayUPKEY.y, "UP", 20);
-		keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-		keyboardoverlayUPKEYTEXT.scrollFactor.set();
-		keyboardoverlayUPKEYTEXT.borderSize = 1.25;
-		keyboardoverlayUPKEYTEXT.visible = true;
-		add(keyboardoverlayUPKEYTEXT);
+			//down key
+			keyboardoverlayDOWNKEY = new FlxSprite(100, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
+			keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayalpha;
+			add(keyboardoverlayDOWNKEY);
+	
+			keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
+			keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+			keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
+			keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
+			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+			keyboardoverlayDOWNKEYTEXT.visible = true;
+			add(keyboardoverlayDOWNKEYTEXT);
+
+			//right key
+			keyboardoverlayRIGHTKEY = new FlxSprite(155, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
+			keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayalpha;
+			add(keyboardoverlayRIGHTKEY);
+	
+			keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
+			keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+			keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
+			keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
+			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+			keyboardoverlayRIGHTKEYTEXT.visible = true;
+			add(keyboardoverlayRIGHTKEYTEXT);
+	
+			//left key
+			keyboardoverlayLEFTKEY = new FlxSprite(45, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
+			keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayalpha;
+			add(keyboardoverlayLEFTKEY);
+	
+			keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
+			keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+			keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
+			keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
+			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+			keyboardoverlayLEFTKEYTEXT.visible = true;
+			add(keyboardoverlayLEFTKEYTEXT);
+		}
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -926,8 +982,18 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
+		//up key
 		keyboardoverlayUPKEY.cameras = [camHUD];
 		keyboardoverlayUPKEYTEXT.cameras = [camHUD];
+		//down key
+		keyboardoverlayDOWNKEY.cameras = [camHUD];
+		keyboardoverlayDOWNKEYTEXT.cameras = [camHUD];
+		//right key
+		keyboardoverlayRIGHTKEY.cameras = [camHUD];
+		keyboardoverlayRIGHTKEYTEXT.cameras = [camHUD];
+		//left key
+		keyboardoverlayLEFTKEY.cameras = [camHUD];
+		keyboardoverlayLEFTKEYTEXT.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -3083,12 +3149,38 @@ class PlayState extends MusicBeatState
 		var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
 		var controlHoldArray:Array<Bool> = [left, down, up, right];
 
-		// FlxG.watch.addQuick('asdfa', upP);
 		if (!boyfriend.stunned && generatedMusic)
 			{
+				//BRO HOLY FUCK THIS TOOK ME SO MUCH FUCKING TIME TO FIGURE OUT DUDEEEEEEEEE
+				//also i should rewrite this or something tho it works
+				//guys guys im not racist
+
+				if(up){
+					keyboardoverlayUPKEY.color = FlxColor.WHITE;
+				} else {
+					keyboardoverlayUPKEY.color = FlxColor.GRAY;
+				}
+
+				if(down){
+					keyboardoverlayDOWNKEY.color = FlxColor.WHITE;
+				} else {
+					keyboardoverlayDOWNKEY.color = FlxColor.GRAY;
+				}
+
+				if(right){
+					keyboardoverlayRIGHTKEY.color = FlxColor.WHITE;
+				} else {
+					keyboardoverlayRIGHTKEY.color = FlxColor.GRAY;
+				}
+
+				if(left){
+					keyboardoverlayLEFTKEY.color = FlxColor.WHITE;
+				} else {
+					keyboardoverlayLEFTKEY.color = FlxColor.GRAY;
+				}
+
 				// rewritten inputs???
 				if ((controlHoldArray.contains(true) || controlArray.contains(true)) && !endingSong) {
-	
 					var canMiss:Bool = !ClientPrefs.ghostTapping;
 					if (controlArray.contains(true)) {
 						for (i in 0...controlArray.length) {

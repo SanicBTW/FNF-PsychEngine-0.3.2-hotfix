@@ -123,6 +123,8 @@ class ClientPrefs {
 		FlxG.save.data.ignorepauseosutimer = ignorepauseosutimer;
 		FlxG.save.data.onemisschirumiru = onemisschirumiru;
 		FlxG.save.data.onemissdefeat = onemissdefeat;
+		FlxG.save.data.showkeyboardoverlay = showkeyboardoverlay;
+		FlxG.save.data.keyboardoverlayalpha = keyboardoverlayalpha;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -266,6 +268,14 @@ class ClientPrefs {
 
 		if (FlxG.save.data.onemissdefeat != null){
 			onemissdefeat = FlxG.save.data.onemissdefeat;
+		}
+
+		if (FlxG.save.data.showkeyboardoverlay != null){
+			showkeyboardoverlay = FlxG.save.data.showkeyboardoverlay;
+		}
+
+		if (FlxG.save.data.keyboardoverlayalpha != null){
+			keyboardoverlayalpha = FlxG.save.data.keyboardoverlayalpha;
 		}
 
 		var save:FlxSave = new FlxSave();
