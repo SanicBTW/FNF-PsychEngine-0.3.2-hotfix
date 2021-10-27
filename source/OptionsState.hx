@@ -33,7 +33,7 @@ class OptionsState extends MusicBeatState
 	//var options:Array<String> = ['Notes', 'Controls', 'Preferences'];
 	//var options:Array<String> = ['Controls', 'Preferences', 'Note Skins', 'Songs Difficulty', 'Miss Note Sound', 'Placeholder', 'Placeholder', 'Placeholder', 'Placeholder'];
 	//var options:Array<String> = ['Controls', 'Preferences', 'Songs Difficulty', 'Miss Note Sound'];
-	var options:Array<String> = ['Controls', 'Preferences', 'Songs Difficulty', 'Miss Note Sound', 'Keyboard Overlay Position', 'Keyboard Overlay Idle Color', 'Keyboard Overlay Pressing Color'];
+	var options:Array<String> = ['Controls', 'Preferences', 'Miss Note Sound', 'Keyboard Overlay Position', 'Keyboard Overlay Idle Color', 'Keyboard Overlay Pressing Color'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;

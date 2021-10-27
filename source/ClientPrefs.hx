@@ -41,7 +41,9 @@ class ClientPrefs {
 	public static var fullscreenxd:Bool = false;
 	public static var cursongdif:String = "Hard";
 	public static var curmisssound:String = "missnotetouhou";
-	public static var notehitsound:Bool = true;
+	
+	//Read https://github.com/SanicBTW/FNF-PsychEngine-0.3.2-hotfix/issues/11
+	public static var notehitsound:Bool = false;
 	public static var notehitvolume:Float = 1;
 	
 	//keyboard overlay stuff
@@ -281,7 +283,7 @@ class ClientPrefs {
 		if (FlxG.save.data.showkeyboardoverlay != null){
 			showkeyboardoverlay = FlxG.save.data.showkeyboardoverlay;
 		}
-		
+
 		if (FlxG.save.data.keyboardoverlayALPHA != null){
 			keyboardoverlayALPHA = FlxG.save.data.keyboardoverlayALPHA;
 		}
