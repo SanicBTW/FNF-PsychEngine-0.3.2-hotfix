@@ -313,113 +313,6 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song.toLowerCase())
 		{
-			case 'rumias-theme':
-				curStage = "osubackgrounds";
-
-				health = 2;
-
-				if(ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/rumiasthemebg', 0, 0, 0, 0);
-					osuback.alpha = ClientPrefs.osubackalpha;
-					osuback.updateHitbox();
-					add(osuback);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'amaze-meisakura':
-				curStage = "osubackgrounds";
-
-				health = 2;
-
-				if (ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/amazemeisakurabg', -600, -200, 0, 0);
-					osuback.alpha = ClientPrefs.osubackalpha;
-					osuback.updateHitbox();
-					add(osuback);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'potential-curve':
-				curStage = "osubackgrounds";
-
-				health = 2;
-
-				if (ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/potentialcurvebg', 0, -200, 0, 0);
-					osuback.alpha = ClientPrefs.osubackalpha;
-					osuback.updateHitbox();
-					add(osuback);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'equilibrium':
-				curStage = "osubackgrounds";
-	
-				health = 2;
-				defaultCamZoom = 0.7;
-	
-				if (ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/equilibriumbg', -300, -200, 0, 0);
-					osuback.alpha = ClientPrefs.osubackalpha;
-					osuback.updateHitbox();
-					add(osuback);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'four-veiled-stars':
-				curStage = "osubackgrounds";
-
-				health = 2;
-
-				if(ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/fourveiledstarsbg', -100, -200, 0, 0);
-					osuback.alpha = ClientPrefs.osubackalpha;
-					osuback.updateHitbox();
-					add(osuback);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'crossing-delta':
-				curStage = "osubackgrounds";
-
-				health = 2;
-
-				if(ClientPrefs.osubackgrounds){
-					osuback = new BGSprite('osubackgroundsig/crossingdeltabg', 0, 0, 0, 0);
-					osuback.alpha = ClientPrefs.osubackalpha;
-					osuback.updateHitbox();
-					add(osuback);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'cirnos-perfect-math-class':
-					curStage = "osubackgrounds";
-					defaultCamZoom = 0.7;
-	
-					health = 2;
-	
-					if(ClientPrefs.osubackgrounds){
-						osuback = new BGSprite('osubackgroundsig/cirnosperfectmathclassbg', 0, 0, 0, 0);
-						osuback.alpha = ClientPrefs.osubackalpha;
-						osuback.updateHitbox();
-						add(osuback);
-					} else {
-						var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-						add(noback);
-					}
-
 			case 'defeat':
 				curStage = "defeat";
 
@@ -1065,44 +958,7 @@ class PlayState extends MusicBeatState
 		healthBar.updateBar();
 	}
 
-	//Should bind this to the bpm in some way ig and improve the uhhhhhh func uhhhh
-	public function decreaseHealth(func:String) {
-		if(func.startsWith("start")){
-			if(curStage == "osubackgrounds"){
-				declife = new FlxTimer().start(0.1, function(tmr:FlxTimer)
-				{
-					health -= ClientPrefs.healthdecrease;
-				}, 0);
-				#if !web
-				trace('Started to decrease health by ' + ClientPrefs.healthdecrease);
-				#else
-				FlxG.log.add('Started to decrease health by ' + ClientPrefs.healthdecrease);
-				#end
-			}
-		} else if (func.startsWith("stop")){
-			if(curStage == "osubackgrounds"){
-				if(declife.active){
-					declife.active = false;
-					#if !web
-					trace('Health decrease stopped');
-					#else
-					FlxG.log.add('Health decrease stopped');
-					#end
-				}
-			}
-		} else if (func.startsWith("resume")){
-			if(curStage == "osubackgrounds"){
-				if(!declife.active){
-					declife.active = true;
-					#if !web
-					trace('Resuming health decrease');
-					#else
-					FlxG.log.add('Resuming health decrease');
-					#end
-				}
-			}
-		}
-	}
+	//health decrease was here
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
 		switch(type) {
@@ -1750,9 +1606,6 @@ class PlayState extends MusicBeatState
 
 			//Should rework these or something
 			//bro what, actually dont know if it even works or just doing nothin lol
-			if(ClientPrefs.ignorepauseosutimer == false){
-				if (declife != null) decreaseHealth('stop');
-			}
 
 			//Doesn't works if you pressed more than one ebola note
 			if(ClientPrefs.nerfebolatimer == true){
@@ -1803,9 +1656,6 @@ class PlayState extends MusicBeatState
 
 			//Should rework these or something
 			//bro what, actually dont know if it even works or just doing nothin lol
-			if(ClientPrefs.ignorepauseosutimer == false){
-				if (declife != null) decreaseHealth('resume');
-			}
 
 			//Doesn't works if you pressed more than one ebola note
 			if(ClientPrefs.nerfebolatimer == true){
@@ -3755,88 +3605,6 @@ class PlayState extends MusicBeatState
 		} else if(dad.danceIdle && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned) {
 			dad.dance();
 		}
-
-		//#region osu song beathit for decreasehealth ig
-		//Should probably improve these just in case
-		if (curSong == "rumias-theme")
-		{
-			switch(curBeat)
-			{
-				case 17:
-					decreaseHealth('start');
-				
-				case 197:
-					decreaseHealth('stop');
-
-				case 213:
-					decreaseHealth('resume');
-			}
-		}
-
-		if (curSong == "amaze-meisakura")
-		{
-			switch(curBeat)
-			{
-				case 4:
-					decreaseHealth('start');
-			}
-		}
-
-		if (curSong == "potential-curve")
-		{
-			switch(curBeat)
-			{
-				case 1:
-					decreaseHealth('start');
-				case 297:
-					decreaseHealth('stop');
-			}
-		}
-
-		if (curSong == "equilibrium")
-		{
-			switch(curBeat)
-			{
-				case 3:
-					decreaseHealth('start');
-				case 400:
-					decreaseHealth('stop');
-			}
-		}
-
-		if (curSong == "four-veiled-stars")
-		{
-			switch(curBeat)
-			{
-				case 1:
-					decreaseHealth('start');
-				case 460:
-					decreaseHealth('stop');
-			}
-		}
-
-		if (curSong == "crossing-delta")
-		{
-			switch(curBeat)
-			{
-				case 1:
-					decreaseHealth('start');
-				case 640:
-					decreaseHealth('stop');
-			}
-		}
-
-		if (curSong == "cirnos-perfect-math-class")
-		{
-			switch(curBeat)
-			{
-				case 3:
-					decreaseHealth('start');
-				case 790:
-					decreaseHealth('stop');
-			}
-		}
-		//#endregion
 
 		if(curSong == "accelerant")
 		{

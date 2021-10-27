@@ -1243,8 +1243,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 					//case 'Hide Song Length':
 						//ClientPrefs.hideTime = !ClientPrefs.hideTime;
 
-					case 'OSU! Backgrounds':
-						ClientPrefs.osubackgrounds = !ClientPrefs.osubackgrounds;
 
 					case 'Vertical Health Bar':
 						ClientPrefs.verthealthbar = !ClientPrefs.verthealthbar;
@@ -1253,9 +1251,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.songbackgrounds = !ClientPrefs.songbackgrounds;
 					//case 'Strum Background':
 						//ClientPrefs.strumbackground = !ClientPrefs.strumbackground;
-
-					case 'OSU! Songs':
-						ClientPrefs.osusongs = !ClientPrefs.osusongs;
 					
 					/*
 					case 'Fullscreen':
@@ -1269,9 +1264,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'Note Hit Sound':
 						ClientPrefs.notehitsound = !ClientPrefs.notehitsound;
-
-					case 'Ignore Pause OSU! Timer':
-						ClientPrefs.ignorepauseosutimer = !ClientPrefs.ignorepauseosutimer;
 
 					case 'Pause Ebola Timer':
 						ClientPrefs.nerfebolatimer = !ClientPrefs.nerfebolatimer;
@@ -1314,18 +1306,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.noteOffset += add * mult;
 						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
 						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
-
-					case 'OSU! Back Alpha':
-						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
-						ClientPrefs.osubackalpha += custmadd;
-						if(ClientPrefs.osubackalpha < 0) ClientPrefs.osubackalpha = 0;
-						else if(ClientPrefs.osubackalpha > 1) ClientPrefs.osubackalpha = 1;
-					
-					case 'Health Decrease':
-						var custmaddh:Float = controls.UI_LEFT ? -0.001 : 0.001;
-						ClientPrefs.healthdecrease += custmaddh;
-						if(ClientPrefs.healthdecrease < 0.008) ClientPrefs.healthdecrease = 0.008;
-						else if (ClientPrefs.healthdecrease > 0.020) ClientPrefs.healthdecrease = 0.020;
 
 					case 'Note Hit Volume':
 						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
@@ -1381,16 +1361,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
 			case 'Persistent Cached Data':
 				daText = "If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.";
-			case 'OSU! Backgrounds':
-				daText = "If unchecked, some songs will only have a black background\ninstead of their respective osu background";
 			case 'Vertical Health Bar':
 				daText = "The name says it all, vertical health bar";
 			case 'Song Backgrounds':
 				daText = "If unchecked no backgrounds or players will be displayed\nOnly song, strum line and health bar\nDOESN'T WORK ATM";
-			case 'Health Decrease':
-				daText = "The health decrease value,\nif higher the health will decrease faster\nif lower it will do the opposite";
-			case 'OSU! Songs':
-				daText = "Shows the OSU! Songs that are in the game\nif disabled it will hide them";
 			//case 'Strum Background':
 				//daText = "If checked, a grey smth background will appear under the player strums\nto give it more an osu! look i guess";
 			case 'Anti-Aliasing':
@@ -1421,9 +1395,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "Plays a hit sound when hitting a note";
 			case 'Note Hit Volume':
 				daText = "Literally the note hit volume";
-			case 'Ignore Pause OSU! Timer':
-				//Don't ask why
-				daText = "It ignores the pause screen on osu songs\nbasically continues decreasing life\ndont ask why i did this";
 			case 'Pause Ebola Timer':
 				daText = "It pauses the ebola timer from infinigger when pausing the game";
 			case 'One Miss Chirumiru':
@@ -1515,14 +1486,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.hideHud;
 					case 'Persistent Cached Data':
 						daValue = ClientPrefs.imagesPersist;
-					case 'OSU! Backgrounds':
-						daValue = ClientPrefs.osubackgrounds;
 					case 'Vertical Health Bar':
 						daValue = ClientPrefs.verthealthbar;
 					case 'Song Backgrounds':
 						daValue = ClientPrefs.songbackgrounds;
-					case 'OSU! Songs':
-						daValue = ClientPrefs.osusongs;
 					case 'Fullscreen':
 						daValue = ClientPrefs.fullscreenxd;
 					/*
@@ -1533,8 +1500,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 						//daValue = ClientPrefs.hideTime;
 					case 'Note Hit Sound':
 						daValue = ClientPrefs.notehitsound;
-					case 'Ignore Pause OSU! Timer':
-						daValue = ClientPrefs.ignorepauseosutimer;
 					case 'Pause Ebola Timer':
 						daValue = ClientPrefs.nerfebolatimer;
 					case 'One Miss Chirumiru':
@@ -1556,10 +1521,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daText = '' + ClientPrefs.framerate;
 					case 'Note Delay':
 						daText = ClientPrefs.noteOffset + 'ms';
-					case 'OSU! Back Alpha':
-						daText = '' + ClientPrefs.osubackalpha;
-					case 'Health Decrease':
-						daText = '' + ClientPrefs.healthdecrease;
 					case 'Note Hit Volume':
 						daText = '' + ClientPrefs.notehitvolume;
 					case 'Keyboard Overlay Alpha':

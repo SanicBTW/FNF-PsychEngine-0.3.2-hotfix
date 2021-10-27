@@ -24,29 +24,12 @@ class FreeplayState extends MusicBeatState
 	//Character head icons for your songs
 	static var songsHeads:Array<Dynamic> = [
 
-		['osubruh', 'osubruh', 'osubruh'], //osu songs
-		['osubruh', 'osubruh', 'osubruh'], //more osu ig
-		['osubruh', ], //more osu sorry
-
 		['cirno', 'black', 'bf'], //chirumiru, defeat, split
 		['zardyMyBeloved', 'zardyButDARK', 'hank'], //foolhardy, bushwhack, accelerant
 		['cancer', 'matt', 'matt',], // infinigger, target practice, sporting
 	];
 
-	static var noosusongHeads:Array<Dynamic> = [
-		[],
-		[],
-		[],
-
-		['cirno', 'black', 'bf'], //chirumiru, defeat, split
-		['zardyMyBeloved', 'zardyButDARK', 'hank'], //foolhardy, bushwhack, accelerant
-		['cancer', 'matt', 'matt'], // infinigger, target practice, sporting
-	];
-
 	static var easysongHeads:Array<Dynamic> = [
-		[],
-		[],
-		[],
 
 		[],
 		[],
@@ -114,21 +97,12 @@ class FreeplayState extends MusicBeatState
 
 		//meh it was mainly for a friend but i find this extremely stupid from my side lol
 		if(ClientPrefs.cursongdif == "Hard"){
-			if(ClientPrefs.osusongs){
-				for (i in 1...WeekData.songsNames.length) {
-					#if !debug
-					if (StoryMenuState.weekUnlocked[i])
-					#end
-						addWeek(WeekData.songsNames[i], i, songsHeads[i-1]);
-				}
-			} else {
-				for (i in 1...WeekData.noosusongNames.length) {
-					#if !debug
-					if (StoryMenuState.weekUnlocked[i])
-					#end
-						addWeek(WeekData.noosusongNames[i], i, noosusongHeads[i-1]);
-				}
-			}	
+			for (i in 1...WeekData.songsNames.length) {
+				#if !debug
+				if (StoryMenuState.weekUnlocked[i])
+				#end
+					addWeek(WeekData.songsNames[i], i, songsHeads[i-1]);
+			}
 		} else if (ClientPrefs.cursongdif == "Easy") {
 			for (i in 1...WeekData.easysongNames.length) {
 				#if !debug
@@ -218,46 +192,17 @@ class FreeplayState extends MusicBeatState
 		var leText:String = "Press RESET to Reset your Score and Accuracy. ";
 		#end*/
 
-		//this is really stupid too 
-		if (ClientPrefs.osusongs){
-			if(ClientPrefs.cursongdif == "Hard"){
-				var prileText:String = "Press RESET to Reset your Score and Accuracy.";
-				var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
-				pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-				pritext.scrollFactor.set();
-				add(pritext);
-	
-				var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / OSU! Songs are enabled  / You can change this in settings";
-				var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
-				secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-				secondtext.scrollFactor.set();
-				add(secondtext);
-			} else if (ClientPrefs.cursongdif == "Easy") {
-				var prileText:String = "Press RESET to Reset your Score and Accuracy.";
-				var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
-				pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-				pritext.scrollFactor.set();
-				add(pritext);
-	
-				var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / OSU! Songs are enabled (Not showing)  / You can change this in settings";
-				var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
-				secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-				secondtext.scrollFactor.set();
-				add(secondtext);
-			}
-		} else {
-			var prileText:String = "Press RESET to Reset your Score and Accuracy.";
-			var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
-			pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-			pritext.scrollFactor.set();
-			add(pritext);
+		var prileText:String = "Press RESET to Reset your Score and Accuracy.";
+		var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
+		pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+		pritext.scrollFactor.set();
+		add(pritext);
 
-			var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / You can change this in settings";
-			var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
-			secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-			secondtext.scrollFactor.set();
-			add(secondtext);
-		}
+		var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / You can change this in settings";
+		var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
+		secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+		secondtext.scrollFactor.set();
+		add(secondtext);
 
 		super.create();
 	}
