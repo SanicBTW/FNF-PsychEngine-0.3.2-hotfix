@@ -157,9 +157,6 @@ class PlayState extends MusicBeatState
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 
-	var osuback:BGSprite;
-	//var osubackamazemeisakura:BGSprite;
-
 	var halloweenBG:BGSprite;
 	var halloweenWhite:BGSprite;
 
@@ -237,7 +234,6 @@ class PlayState extends MusicBeatState
 
 	var chiritexttop:FlxSprite;
 	var chiritextbottom:FlxSprite;
-	var declife:FlxTimer;
 	var ZardyBackground:FlxSprite;
 	var ebolatimer:FlxTimer;
 
@@ -547,9 +543,7 @@ class PlayState extends MusicBeatState
 		// REPOSITIONING PER STAGE
 		switch (curStage)
 		{
-			case 'osubackgrounds':
-				BF_X = -600;
-				BF_Y = -200;
+			
 		}
 
 		gf = new Character(GF_X, GF_Y, gfVersion);
@@ -566,30 +560,26 @@ class PlayState extends MusicBeatState
 		boyfriend.y += boyfriend.positionArray[1];
 
 		//I'm really sorry for this 
-		if(!curStage.startsWith("osubackgrounds")) {
-			if(curStage.startsWith("zardyBruh") || curStage.startsWith("zardy") || curStage.startsWith("cirnoday") || curStage.startsWith("cancstage")){
-				if(ClientPrefs.songbackgrounds){
-					ClientPrefs.middleScroll = false;
-					dadGroup.add(dad);
-					boyfriendGroup.add(boyfriend);
-					//gfGroup.add(gf);
-				}
-			} else if (curStage.startsWith("defeat")){
-				if(ClientPrefs.songbackgrounds){
-					ClientPrefs.middleScroll = true;
-					dadGroup.add(dad);
-					boyfriendGroup.add(boyfriend);
-				}
-			} else {
-				if(ClientPrefs.songbackgrounds){
-					ClientPrefs.middleScroll = false;
-					dadGroup.add(dad);
-					boyfriendGroup.add(boyfriend);
-					gfGroup.add(gf);
-				}
+		if(curStage.startsWith("zardyBruh") || curStage.startsWith("zardy") || curStage.startsWith("cirnoday") || curStage.startsWith("cancstage")){
+			if(ClientPrefs.songbackgrounds){
+				ClientPrefs.middleScroll = false;
+				dadGroup.add(dad);
+				boyfriendGroup.add(boyfriend);
+				//gfGroup.add(gf);
 			}
-		} else if (curStage.startsWith("osubackgrounds")) {
-			ClientPrefs.middleScroll = true;
+		} else if (curStage.startsWith("defeat")){
+			if(ClientPrefs.songbackgrounds){
+				ClientPrefs.middleScroll = true;
+				dadGroup.add(dad);
+				boyfriendGroup.add(boyfriend);
+			}
+		} else {
+			if(ClientPrefs.songbackgrounds){
+				ClientPrefs.middleScroll = false;
+				dadGroup.add(dad);
+				boyfriendGroup.add(boyfriend);
+				gfGroup.add(gf);
+			}
 		}
 		
 		var camPos:FlxPoint = new FlxPoint(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
@@ -719,6 +709,7 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 
 		//This is really fucking bad, i should rework this as its literally made since i began the project
+		//now that osu stuff is gone i should work on this
 		if(ClientPrefs.verthealthbar == true){
 			healthBarBG = new AttachedSprite('verthealthBar');
 			healthBarBG.y = 55;
@@ -731,8 +722,7 @@ class PlayState extends MusicBeatState
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, BOTTOM_TO_TOP, Std.int(healthBarBG.width), Std.int(healthBarBG.height), this,
 			'health', 0, 2);	
 		} else {
-			if(!curStage.startsWith("osubackgrounds")){
-				healthBarBG = new AttachedSprite('healthBar');
+			healthBarBG = new AttachedSprite('healthBar');
 				healthBarBG.y = FlxG.height * 0.89;
 				healthBarBG.screenCenter(X);
 				healthBarBG.scrollFactor.set();
@@ -741,17 +731,6 @@ class PlayState extends MusicBeatState
 				healthBarBG.yAdd = -4;	
 				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'health', 0, 2);
-			} else {
-				healthBarBG = new AttachedSprite('healthBar');
-				healthBarBG.y = FlxG.height * 0.89;
-				healthBarBG.screenCenter(X);
-				healthBarBG.scrollFactor.set();
-				healthBarBG.visible = true;
-				healthBarBG.xAdd = -4;
-				healthBarBG.yAdd = -4;	
-				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-				'health', 0, 2);
-			}
 		}
 		add(healthBarBG);
 
@@ -762,29 +741,16 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
-		if(!curStage.startsWith("osubackgrounds")){
-			iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-			iconP1.y = healthBar.y - (iconP1.height / 2);
-			iconP1.visible = true;
+		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
+		iconP1.y = healthBar.y - (iconP1.height / 2);
+		iconP1.visible = true;
 
-			iconP2 = new HealthIcon(dad.healthIcon, false);
-			iconP2.y = healthBar.y - (iconP2.height / 2);
-			iconP2.visible = true;
-		} else {
-			iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-			iconP1.y = healthBar.y - (iconP1.height / 2);
-			iconP1.visible = true;
+		iconP2 = new HealthIcon(dad.healthIcon, false);
+		iconP2.y = healthBar.y - (iconP2.height / 2);
+		iconP2.visible = true;
 
-			iconP2 = new HealthIcon(boyfriend.healthIcon, true);
-			iconP2.visible = false;
-		}
-		
-		if(!curStage.startsWith("osubackgrounds")) {
-			add(iconP1);
-			add(iconP2);
-		} else {
-			add(iconP1);
-		}
+		add(iconP1);
+		add(iconP2);
 
 		reloadHealthBarColors();
 
@@ -805,60 +771,110 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
-		//honestly this is a stupid idea ngl
 		if(ClientPrefs.showkeyboardoverlay)
 		{
-			//up key
-			keyboardoverlayUPKEY = new FlxSprite(100, FlxG.height - 150).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayUPKEY);
+			if(ClientPrefs.keyboardoverlayPOSITION == "Left")
+			{
+				//up key
+				keyboardoverlayUPKEY = new FlxSprite(100, FlxG.height - 150).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayUPKEY);
 	
-			keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
-			keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayUPKEYTEXT.scrollFactor.set();
-			keyboardoverlayUPKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayUPKEYTEXT.visible = true;
-			add(keyboardoverlayUPKEYTEXT);
+				//down key
+				keyboardoverlayDOWNKEY = new FlxSprite(100, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayDOWNKEY);
+	
+				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
+				keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
+				keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayDOWNKEYTEXT.visible = true;
+				add(keyboardoverlayDOWNKEYTEXT);
 
-			//down key
-			keyboardoverlayDOWNKEY = new FlxSprite(100, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayDOWNKEY);
+				//right key
+				keyboardoverlayRIGHTKEY = new FlxSprite(155, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayRIGHTKEY);
 	
-			keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
-			keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
-			keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayDOWNKEYTEXT.visible = true;
-			add(keyboardoverlayDOWNKEYTEXT);
+				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
+				keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
+				keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayRIGHTKEYTEXT.visible = true;
+				add(keyboardoverlayRIGHTKEYTEXT);
+	
+				//left key
+				keyboardoverlayLEFTKEY = new FlxSprite(45, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayLEFTKEY);
+	
+				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
+				keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
+				keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayLEFTKEYTEXT.visible = true;
+				add(keyboardoverlayLEFTKEYTEXT);
+			} 
+			else if (ClientPrefs.keyboardoverlayPOSITION == "Right")
+			{
+				//bro what it took me around 2 hours to get the correct positions :sob:
 
-			//right key
-			keyboardoverlayRIGHTKEY = new FlxSprite(155, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayRIGHTKEY);
+				//up key
+				keyboardoverlayUPKEY = new FlxSprite(FlxG.width - 150, FlxG.height - 150).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayUPKEY);
 	
-			keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
-			keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
-			keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayRIGHTKEYTEXT.visible = true;
-			add(keyboardoverlayRIGHTKEYTEXT);
+				keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
+				keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayUPKEYTEXT.scrollFactor.set();
+				keyboardoverlayUPKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayUPKEYTEXT.visible = true;
+				add(keyboardoverlayUPKEYTEXT);
+
+				//down key
+				keyboardoverlayDOWNKEY = new FlxSprite(FlxG.width - 150, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayDOWNKEY);
 	
-			//left key
-			keyboardoverlayLEFTKEY = new FlxSprite(45, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayLEFTKEY);
+				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
+				keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
+				keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayDOWNKEYTEXT.visible = true;
+				add(keyboardoverlayDOWNKEYTEXT);
+
+				//right key
+				keyboardoverlayRIGHTKEY = new FlxSprite(FlxG.width - 95, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayRIGHTKEY);
 	
-			keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
-			keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
-			keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayLEFTKEYTEXT.visible = true;
-			add(keyboardoverlayLEFTKEYTEXT);
+				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
+				keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
+				keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayRIGHTKEYTEXT.visible = true;
+				add(keyboardoverlayRIGHTKEYTEXT);
+	
+				//left key
+				keyboardoverlayLEFTKEY = new FlxSprite(FlxG.width - 205, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayLEFTKEY);
+	
+				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
+				keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
+				keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayLEFTKEYTEXT.visible = true;
+				add(keyboardoverlayLEFTKEYTEXT);
+			}
 		}
 
 		strumLineNotes.cameras = [camHUD];
@@ -1846,13 +1862,8 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 
-		if(!curStage.startsWith("osubackgrounds")){
-			iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
-			iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
-		} else {
-			//iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP1.width - iconOffset);
-			iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
-		}
+		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
+		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
 
 		if (health > 2)
 			health = 2;
@@ -3008,27 +3019,27 @@ class PlayState extends MusicBeatState
 					//also i should rewrite this or something tho it works
 
 					if(up){
-						keyboardoverlayUPKEY.color = FlxColor.WHITE;
+						keyboardoverlayUPKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayUPKEY.color = FlxColor.GRAY;
+						keyboardoverlayUPKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 					if(down){
-						keyboardoverlayDOWNKEY.color = FlxColor.WHITE;
+						keyboardoverlayDOWNKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayDOWNKEY.color = FlxColor.GRAY;
+						keyboardoverlayDOWNKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 					if(right){
-						keyboardoverlayRIGHTKEY.color = FlxColor.WHITE;
+						keyboardoverlayRIGHTKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayRIGHTKEY.color = FlxColor.GRAY;
+						keyboardoverlayRIGHTKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 					if(left){
-						keyboardoverlayLEFTKEY.color = FlxColor.WHITE;
+						keyboardoverlayLEFTKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayLEFTKEY.color = FlxColor.GRAY;
+						keyboardoverlayLEFTKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 				}
@@ -3617,6 +3628,10 @@ class PlayState extends MusicBeatState
 				//placeholder idk uhhhhhh
 				case 184:
 					gf.playAnim("cheer", true);
+					
+				//more placeholder a
+				case 234:
+					dad.playAnim("hey", true);
 			}
 		}
 
