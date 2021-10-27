@@ -420,185 +420,6 @@ class PlayState extends MusicBeatState
 						add(noback);
 					}
 
-			case 'defeat':
-				curStage = "defeat";
-
-				defaultCamZoom = 0.9;
-				if(ClientPrefs.songbackgrounds){
-					var defeat = new BGSprite('modbackgrounds/defeatfnf', 0, 100, 0, 0);
-
-					defeat.setGraphicSize(Std.int(defeat.width * 2));
-					defeat.scrollFactor.set(1,1);
-					defeat.antialiasing = true;
-					add(defeat);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-
-			case 'chirumiru':
-				curStage = 'cirnoday';
-
-				defaultCamZoom = 1;
-
-				if(ClientPrefs.songbackgrounds){
-					var bg:BGSprite = new BGSprite('modbackgrounds/cirno/cirnobg', -200, -200, 0, 0);
-					add(bg);
-	
-					idiot = new FlxBackdrop(Paths.image('modbackgrounds/cirno/idiot'), 1, 0, true, false);
-					add(idiot);
-					idiot.velocity.set(100, 0);
-					idiot.scrollFactor.set(0, 0);
-	
-					idiot2  = new FlxBackdrop(Paths.image('modbackgrounds/cirno/idiot2'), -1, 0, true, false);
-					add(idiot2);
-					idiot2.velocity.set(-100, 0);
-					idiot2.scrollFactor.set(0, 0);
-	
-					chiritexttop = new BGSprite('modbackgrounds/cirno/chirutext', -1080, 0, 0, 0);
-					add(chiritexttop);
-	
-					chiritextbottom = new BGSprite('modbackgrounds/cirno/chirutext2', 1080, 0, 0, 0);
-					add(chiritextbottom);
-	
-					var stageFront:BGSprite = new BGSprite('modbackgrounds/cirno/cirnofloor', -425, -330, 0.9, 0.9);
-					stageFront.setGraphicSize(Std.int(stageFront.width * 1.15));
-					stageFront.updateHitbox();
-					add(stageFront);	
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'foolhardy':
-				curStage = "zardy";
-
-				defaultCamZoom = 0.9;
-
-				if(ClientPrefs.songbackgrounds){
-					ZardyBackground = new FlxSprite(-600, -200);
-					ZardyBackground.frames = Paths.getSparrowAtlas('modbackgrounds/zardy/Maze', 'shared');
-					ZardyBackground.animation.addByPrefix('Maze', 'Stage', 16);
-					ZardyBackground.antialiasing = true;
-					ZardyBackground.scrollFactor.set(0.9, 0.9);
-					ZardyBackground.animation.play('Maze');
-
-					add(ZardyBackground);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'target-practice':
-				curStage = "wiifunkin";
-
-				defaultCamZoom = 0.8;
-
-				if(ClientPrefs.songbackgrounds){
-					var bg:BGSprite = new BGSprite('modbackgrounds/swordfight', -600, -200, 0.9, 0.9);
-					bg.antialiasing = true;
-					bg.active = false;
-					add(bg);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-				
-
-			case 'headache' | 'nerves':
-					defaultCamZoom = 0.9;
-					curStage = 'garAlley';
-
-					if(ClientPrefs.songbackgrounds){
-						var bg:BGSprite = new BGSprite('modbackgrounds/garello/garStagebg', -500, -170, 0.7, 0.7);
-						bg.antialiasing = true;
-						bg.active = false;
-						add(bg);
-
-						var bgAlley:BGSprite = new BGSprite('modbackgrounds/garello/garStage', -500, -200, 0.9, 0.9);
-						bgAlley.antialiasing = true;
-						bgAlley.active = false;
-						add(bgAlley);
-					} else {
-						var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-						add(noback);
-					}
-			case 'release':
-					defaultCamZoom = 0.9;
-					curStage = 'garAlleyDead';
-
-					if(ClientPrefs.songbackgrounds){
-
-						var smoker:FlxSprite = new FlxSprite(0, -290);
-						smoker.frames = Paths.getSparrowAtlas('modbackgrounds/garello/garSmoke');
-						smoker.setGraphicSize(Std.int(smoker.width * 1.7));
-						smoker.alpha = 0.3;
-						smoker.animation.addByPrefix('garsmoke', "smokey", 13);
-						smoker.animation.play('garsmoke');
-						smoker.scrollFactor.set(0.7, 0.7);
-						add(smoker);
-
-						var bg:FlxSprite = new FlxSprite(-500, -170).loadGraphic(Paths.image('modbackgrounds/garello/garStagebgAlt'));
-						bg.antialiasing = true;
-						bg.scrollFactor.set(0.7, 0.7);
-						bg.active = false;
-						add(bg);
-	
-						var bgAlley:FlxSprite = new FlxSprite(-500, -200).loadGraphic(Paths.image('modbackgrounds/garello/garStagealt'));
-						bgAlley.antialiasing = true;
-						bgAlley.scrollFactor.set(0.9, 0.9);
-						bgAlley.active = false;
-						add(bgAlley);
-	
-						var corpse:FlxSprite = new FlxSprite(-230, 540).loadGraphic(Paths.image('modbackgrounds/garello/gardead'));
-						corpse.antialiasing = true;
-						corpse.scrollFactor.set(0.9, 0.9);
-						corpse.active = false;
-						add(corpse);	
-					} else {
-						var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-						add(noback);
-					}
-
-			case 'bushwhack':
-				curStage = "zardyBruh";
-
-				defaultCamZoom = 0.7;
-
-				if(ClientPrefs.songbackgrounds){
-					ZardyBackground = new FlxSprite(-600, -200);
-					ZardyBackground.frames = Paths.getSparrowAtlas('modbackgrounds/bushwhack/Zardy2BG', 'shared');
-					ZardyBackground.animation.addByPrefix('Maze', 'BG', 24);
-					ZardyBackground.antialiasing = true;
-					ZardyBackground.animation.play('Maze');
-					add(ZardyBackground);
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
-			case 'infinigger':
-				curStage = "cancstage";
-
-				defaultCamZoom = 0.7;
-
-				if(ClientPrefs.songbackgrounds){
-					var whitebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/whitebg', -600, -200);
-					whitebg.antialiasing = true;
-					whitebg.active = false;
-					add(whitebg);
-
-					/*should work on this and should fix the camera and player positions on this song, for now it has to be like this sorry im really fucking bad with bg stuff
-					var basebg:BGSprite = new BGSprite('modbackgrounds/vsvcancer/base', -600, 200);
-					basebg.antialiasing = true;
-					basebg.active = false;
-					add(basebg);*/
-				} else {
-					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					add(noback);
-				}
-
 			default:
 				defaultCamZoom = 0.9;
 				curStage = 'stage';
@@ -912,60 +733,110 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
-		//honestly this is a stupid idea ngl
 		if(ClientPrefs.showkeyboardoverlay)
 		{
-			//up key
-			keyboardoverlayUPKEY = new FlxSprite(100, FlxG.height - 150).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayUPKEY);
-	
-			keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
-			keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayUPKEYTEXT.scrollFactor.set();
-			keyboardoverlayUPKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayUPKEYTEXT.visible = true;
-			add(keyboardoverlayUPKEYTEXT);
+			if(ClientPrefs.keyboardoverlayPOSITION == "Left")
+			{
+				//up key
+				keyboardoverlayUPKEY = new FlxSprite(100, FlxG.height - 150).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayUPKEY);
 
-			//down key
-			keyboardoverlayDOWNKEY = new FlxSprite(100, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayDOWNKEY);
-	
-			keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
-			keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
-			keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayDOWNKEYTEXT.visible = true;
-			add(keyboardoverlayDOWNKEYTEXT);
+				//down key
+				keyboardoverlayDOWNKEY = new FlxSprite(100, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayDOWNKEY);
 
-			//right key
-			keyboardoverlayRIGHTKEY = new FlxSprite(155, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayRIGHTKEY);
-	
-			keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
-			keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
-			keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayRIGHTKEYTEXT.visible = true;
-			add(keyboardoverlayRIGHTKEYTEXT);
-	
-			//left key
-			keyboardoverlayLEFTKEY = new FlxSprite(45, FlxG.height - 90).makeGraphic(50, 50, FlxColor.GRAY);
-			keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayalpha;
-			add(keyboardoverlayLEFTKEY);
-	
-			keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
-			keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-			keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
-			keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
-			//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
-			keyboardoverlayLEFTKEYTEXT.visible = true;
-			add(keyboardoverlayLEFTKEYTEXT);
+				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
+				keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
+				keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayDOWNKEYTEXT.visible = true;
+				add(keyboardoverlayDOWNKEYTEXT);
+
+				//right key
+				keyboardoverlayRIGHTKEY = new FlxSprite(155, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayRIGHTKEY);
+
+				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
+				keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
+				keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayRIGHTKEYTEXT.visible = true;
+				add(keyboardoverlayRIGHTKEYTEXT);
+
+				//left key
+				keyboardoverlayLEFTKEY = new FlxSprite(45, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayLEFTKEY);
+
+				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
+				keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
+				keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayLEFTKEYTEXT.visible = true;
+				add(keyboardoverlayLEFTKEYTEXT);
+			} 
+			else if (ClientPrefs.keyboardoverlayPOSITION == "Right")
+			{
+				//bro what it took me around 2 hours to get the correct positions :sob:
+
+				//up key
+				keyboardoverlayUPKEY = new FlxSprite(FlxG.width - 150, FlxG.height - 150).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayUPKEY);
+
+				keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
+				keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayUPKEYTEXT.scrollFactor.set();
+				keyboardoverlayUPKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayUPKEYTEXT.visible = true;
+				add(keyboardoverlayUPKEYTEXT);
+
+				//down key
+				keyboardoverlayDOWNKEY = new FlxSprite(FlxG.width - 150, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayDOWNKEY);
+
+				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
+				keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
+				keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayDOWNKEYTEXT.visible = true;
+				add(keyboardoverlayDOWNKEYTEXT);
+
+				//right key
+				keyboardoverlayRIGHTKEY = new FlxSprite(FlxG.width - 95, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayRIGHTKEY);
+
+				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
+				keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
+				keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayRIGHTKEYTEXT.visible = true;
+				add(keyboardoverlayRIGHTKEYTEXT);
+
+				//left key
+				keyboardoverlayLEFTKEY = new FlxSprite(FlxG.width - 205, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
+				keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
+				add(keyboardoverlayLEFTKEY);
+
+				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
+				keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
+				keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayLEFTKEYTEXT.visible = true;
+				add(keyboardoverlayLEFTKEYTEXT);
+			}
 		}
 
 		strumLineNotes.cameras = [camHUD];
@@ -3158,27 +3029,27 @@ class PlayState extends MusicBeatState
 					//also i should rewrite this or something tho it works
 
 					if(up){
-						keyboardoverlayUPKEY.color = FlxColor.WHITE;
+						keyboardoverlayUPKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayUPKEY.color = FlxColor.GRAY;
+						keyboardoverlayUPKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 					if(down){
-						keyboardoverlayDOWNKEY.color = FlxColor.WHITE;
+						keyboardoverlayDOWNKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayDOWNKEY.color = FlxColor.GRAY;
+						keyboardoverlayDOWNKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 					if(right){
-						keyboardoverlayRIGHTKEY.color = FlxColor.WHITE;
+						keyboardoverlayRIGHTKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayRIGHTKEY.color = FlxColor.GRAY;
+						keyboardoverlayRIGHTKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 					if(left){
-						keyboardoverlayLEFTKEY.color = FlxColor.WHITE;
+						keyboardoverlayLEFTKEY.color = ClientPrefs.keyboardoverlayPRESSINGCOLOR;
 					} else {
-						keyboardoverlayLEFTKEY.color = FlxColor.GRAY;
+						keyboardoverlayLEFTKEY.color = ClientPrefs.keyboardoverlayIDLECOLOR;
 					}
 
 				}

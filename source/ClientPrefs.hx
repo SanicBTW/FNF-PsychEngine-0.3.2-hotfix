@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import flixel.util.FlxColor;
 import Controls;
 
 class ClientPrefs {
@@ -43,9 +44,13 @@ class ClientPrefs {
 	public static var notehitsound:Bool = true;
 	public static var notehitvolume:Float = 1;
 	
-	//planning into adding a keyboard overlay looks cool idk
+	//keyboard overlay stuff
 	public static var showkeyboardoverlay:Bool = true;
-	public static var keyboardoverlayalpha:Float = 1;
+	public static var keyboardoverlayALPHA:Float = 1;
+	public static var keyboardoverlayPOSITION:String = "Left";
+	//idk if its gonna work with flxcolor, if it doesnt then gonna use strings
+	public static var keyboardoverlayIDLECOLOR:FlxColor = FlxColor.GRAY;
+	public static var keyboardoverlayPRESSINGCOLOR:FlxColor = FlxColor.WHITE;
 
 	//some songs stuff
 	public static var nerfebolatimer:Bool = false;
@@ -124,7 +129,10 @@ class ClientPrefs {
 		FlxG.save.data.onemisschirumiru = onemisschirumiru;
 		FlxG.save.data.onemissdefeat = onemissdefeat;
 		FlxG.save.data.showkeyboardoverlay = showkeyboardoverlay;
-		FlxG.save.data.keyboardoverlayalpha = keyboardoverlayalpha;
+		FlxG.save.data.keyboardoverlayALPHA = keyboardoverlayALPHA;
+		FlxG.save.data.keyboardoverlayPOSITION = keyboardoverlayPOSITION;
+		FlxG.save.data.keyboardoverlayIDLECOLOR = keyboardoverlayIDLECOLOR;
+		FlxG.save.data.keyboardoverlayPRESSINGCOLOR = keyboardoverlayPRESSINGCOLOR;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -273,9 +281,21 @@ class ClientPrefs {
 		if (FlxG.save.data.showkeyboardoverlay != null){
 			showkeyboardoverlay = FlxG.save.data.showkeyboardoverlay;
 		}
+		
+		if (FlxG.save.data.keyboardoverlayALPHA != null){
+			keyboardoverlayALPHA = FlxG.save.data.keyboardoverlayALPHA;
+		}
 
-		if (FlxG.save.data.keyboardoverlayalpha != null){
-			keyboardoverlayalpha = FlxG.save.data.keyboardoverlayalpha;
+		if (FlxG.save.data.keyboardoverlayPOSITION != null){
+			keyboardoverlayPOSITION = FlxG.save.data.keyboardoverlayPOSITION;
+		}
+
+		if (FlxG.save.data.keyboardoverlayIDLECOLOR != null){
+			keyboardoverlayIDLECOLOR = FlxG.save.data.keyboardoverlayIDLECOLOR;
+		}
+
+		if (FlxG.save.data.keyboardoverlayPRESSINGCOLOR != null){
+			keyboardoverlayPRESSINGCOLOR = FlxG.save.data.keyboardoverlayPRESSINGCOLOR;
 		}
 
 		var save:FlxSave = new FlxSave();

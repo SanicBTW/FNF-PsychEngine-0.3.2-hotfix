@@ -10,37 +10,6 @@ class WeekData {
 		['rumias-theme', 'amaze-meisakura', 'potential-curve'],
 		['equilibrium', 'four-veiled-stars', 'crossing-delta'],
 		['cirnos-perfect-math-class'],
-
-		['chirumiru', 'defeat', 'split'],
-		['foolhardy', 'bushwhack', 'accelerant'],
-		['infinigger', 'target-practice', 'sporting'],
-	];
-
-	public static var noosusongNames:Array<Dynamic> = [
-		['Tutorial'],
-
-		[],
-		[],
-		[],
-
-		['chirumiru', 'defeat', 'split'],
-		['foolhardy', 'bushwhack', 'accelerant'],
-		['infinigger', 'target-practice', 'sporting'],
-	];
-
-	public static var easysongNames:Array<Dynamic> = [
-		['Tutorial'],
-
-		[],
-		[],
-		[],
-
-		[],
-		[],
-		[],
-
-		['guns', 'stress', 'headache' ],
-		['nerves', 'release'],
 	];
 
 	// Custom week number, used for your week's score not being overwritten by a new vanilla week when the game updates
