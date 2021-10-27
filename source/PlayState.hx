@@ -982,18 +982,20 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
-		//up key
-		keyboardoverlayUPKEY.cameras = [camHUD];
-		keyboardoverlayUPKEYTEXT.cameras = [camHUD];
-		//down key
-		keyboardoverlayDOWNKEY.cameras = [camHUD];
-		keyboardoverlayDOWNKEYTEXT.cameras = [camHUD];
-		//right key
-		keyboardoverlayRIGHTKEY.cameras = [camHUD];
-		keyboardoverlayRIGHTKEYTEXT.cameras = [camHUD];
-		//left key
-		keyboardoverlayLEFTKEY.cameras = [camHUD];
-		keyboardoverlayLEFTKEYTEXT.cameras = [camHUD];
+		if(ClientPrefs.showkeyboardoverlay){
+			//up key
+			keyboardoverlayUPKEY.cameras = [camHUD];
+			keyboardoverlayUPKEYTEXT.cameras = [camHUD];
+			//down key
+			keyboardoverlayDOWNKEY.cameras = [camHUD];
+			keyboardoverlayDOWNKEYTEXT.cameras = [camHUD];
+			//right key
+			keyboardoverlayRIGHTKEY.cameras = [camHUD];
+			keyboardoverlayRIGHTKEYTEXT.cameras = [camHUD];
+			//left key
+			keyboardoverlayLEFTKEY.cameras = [camHUD];
+			keyboardoverlayLEFTKEYTEXT.cameras = [camHUD];
+		}
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -3151,31 +3153,34 @@ class PlayState extends MusicBeatState
 
 		if (!boyfriend.stunned && generatedMusic)
 			{
-				//BRO HOLY FUCK THIS TOOK ME SO MUCH FUCKING TIME TO FIGURE OUT DUDEEEEEEEEE
-				//also i should rewrite this or something tho it works
+				if(ClientPrefs.showkeyboardoverlay){
+					//BRO HOLY FUCK THIS TOOK ME SO MUCH FUCKING TIME TO FIGURE OUT DUDEEEEEEEEE
+					//also i should rewrite this or something tho it works
 
-				if(up){
-					keyboardoverlayUPKEY.color = FlxColor.WHITE;
-				} else {
-					keyboardoverlayUPKEY.color = FlxColor.GRAY;
-				}
+					if(up){
+						keyboardoverlayUPKEY.color = FlxColor.WHITE;
+					} else {
+						keyboardoverlayUPKEY.color = FlxColor.GRAY;
+					}
 
-				if(down){
-					keyboardoverlayDOWNKEY.color = FlxColor.WHITE;
-				} else {
-					keyboardoverlayDOWNKEY.color = FlxColor.GRAY;
-				}
+					if(down){
+						keyboardoverlayDOWNKEY.color = FlxColor.WHITE;
+					} else {
+						keyboardoverlayDOWNKEY.color = FlxColor.GRAY;
+					}
 
-				if(right){
-					keyboardoverlayRIGHTKEY.color = FlxColor.WHITE;
-				} else {
-					keyboardoverlayRIGHTKEY.color = FlxColor.GRAY;
-				}
+					if(right){
+						keyboardoverlayRIGHTKEY.color = FlxColor.WHITE;
+					} else {
+						keyboardoverlayRIGHTKEY.color = FlxColor.GRAY;
+					}
 
-				if(left){
-					keyboardoverlayLEFTKEY.color = FlxColor.WHITE;
-				} else {
-					keyboardoverlayLEFTKEY.color = FlxColor.GRAY;
+					if(left){
+						keyboardoverlayLEFTKEY.color = FlxColor.WHITE;
+					} else {
+						keyboardoverlayLEFTKEY.color = FlxColor.GRAY;
+					}
+
 				}
 
 				// rewritten inputs???
