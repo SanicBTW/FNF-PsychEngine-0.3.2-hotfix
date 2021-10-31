@@ -38,7 +38,9 @@ class ClientPrefs {
 	public static var fullscreenxd:Bool = false;
 	public static var cursongdif:String = "Hard";
 	public static var curmisssound:String = "missnotetouhou";
-	public static var notehitsound:Bool = true;
+	
+	//Read https://github.com/SanicBTW/FNF-PsychEngine-0.3.2-hotfix/issues/11
+	public static var notehitsound:Bool = false;
 	public static var notehitvolume:Float = 1;
 	
 	//keyboard overlay stuff
@@ -54,6 +56,7 @@ class ClientPrefs {
 	public static var onemisschirumiru:Bool = true;
 	public static var onemissdefeat:Bool = false;
 
+	//thought about adding 6k and that but im lazy
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
 		S, DOWN,			//Note Down
@@ -65,7 +68,7 @@ class ClientPrefs {
 		W, UP,				//UI Up
 		D, RIGHT,			//UI Right
 
-		R, NONE,			//Reset
+		NONE, NONE,			//Reset
 		SPACE, ENTER,		//Accept
 		BACKSPACE, ESCAPE,	//Back
 		ENTER, ESCAPE		//Pause
