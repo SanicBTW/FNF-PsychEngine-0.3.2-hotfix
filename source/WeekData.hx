@@ -6,18 +6,20 @@ class WeekData {
 	//Go to StoryMenuState.hx and add the characters/backgrounds
 
 	//Made a new branch that will contain only the osu songs, the master branch will only have mod songs 
-	//Its to make the loading times less longer ig
+	//Its to make the loading times shorter ig
 	public static var songsNames:Array<Dynamic> = [
 		['Tutorial'],
 
 		['chirumiru', 'defeat', 'split'],
 		['foolhardy', 'bushwhack', 'accelerant'],
 		['infinigger', 'target-practice', 'sporting'],
+		['termination'],
 	];
 
 	public static var easysongNames:Array<Dynamic> = [
 		['Tutorial'],
 		
+		[],
 		[],
 		[],
 		[],
