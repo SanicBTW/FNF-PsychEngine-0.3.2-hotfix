@@ -742,6 +742,15 @@ class PlayState extends MusicBeatState
 				keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayUPKEY);
 
+				//forgor to fix this in this branch lol
+				keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
+				keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+				keyboardoverlayUPKEYTEXT.scrollFactor.set();
+				keyboardoverlayUPKEYTEXT.borderSize = 1.25;
+				//Should make it that it binds to the showkeyboardoverlay but i saw it on ke or somewhere else or im just stupid
+				keyboardoverlayUPKEYTEXT.visible = true;
+				add(keyboardoverlayUPKEYTEXT);
+
 				//down key
 				keyboardoverlayDOWNKEY = new FlxSprite(100, FlxG.height - 90).makeGraphic(50, 50, ClientPrefs.keyboardoverlayIDLECOLOR);
 				keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
