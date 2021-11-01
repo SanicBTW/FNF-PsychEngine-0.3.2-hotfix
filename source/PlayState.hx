@@ -2205,13 +2205,7 @@ class PlayState extends MusicBeatState
 										//Ebola note, does nothing.
 
 									case 4: //this is really stupid, warning note thingy
-										if (FlxG.random.bool(50)){
-											//deleted the trace thingy because it wasnt really accurate ig
-											health -= 0.999999;
-										} else {
-											//deleted the trace thingy because it wasnt really accurate ig
-											health -= 0.5;
-										}
+										health -= 0.8;
 										boyfriend.playAnim("hurt", true);
 										songMisses++;
 										vocals.volume = 0;
@@ -3155,10 +3149,11 @@ class PlayState extends MusicBeatState
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
+			/*fuck this
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
 				gf.playAnim('sad');
-			}
+			}*/
 			combo = 0;
 
 			if(!practiceMode) songScore -= 10;
@@ -3224,15 +3219,18 @@ class PlayState extends MusicBeatState
 				if(cpuControlled) return;
 
 				if(!boyfriend.stunned){
-					
-					boyfriend.playAnim('bfdodge', true);
-					//dad.playAnim('bfattack', true);
+					var shootAnims = ["LEFTshoot", "DOWNshoot", "UPshoot", "RIGHTshoot"];
 
-					if (FlxG.random.bool(50)){
-						dad.playAnim('singLEFT-alt', true);
-					} else {
-						dad.playAnim('singDOWN-alt', true);
-					}
+					//i think it works
+					FlxG.random.shuffle(shootAnims);
+					dad.playAnim(shootAnims[0], false);
+					FlxG.watch.addQuick("Cur Shoot Anim", shootAnims[0]);
+					//cant get cur dad anim lol, tho i think it works for now 
+					boyfriend.playAnim('bfdodge', true);
+					boyfriend.specialAnim = true;
+					dad.specialAnim = true;
+					
+					FlxG.camera.shake(0.01, 0.2);
 
 					note.wasGoodHit = true;
 					health += 0.023;
@@ -3243,7 +3241,6 @@ class PlayState extends MusicBeatState
 						notes.remove(note, true);
 						note.destroy();
 					}
-
 				}
 
 				return;
@@ -3624,24 +3621,6 @@ class PlayState extends MusicBeatState
 			}
 		} else if(dad.danceIdle && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned) {
 			dad.dance();
-		}
-
-		if(curSong == "accelerant")
-		{
-			switch(curBeat)
-			{
-				//5 or 6 idk
-				case 7:
-					dad.playAnim("singUP-alt", true);
-
-				//placeholder idk uhhhhhh
-				case 184:
-					gf.playAnim("cheer", true);
-					
-				//more placeholder a
-				case 234:
-					dad.playAnim("hey", true);
-			}
 		}
 
 		if (curSong == "foolhardy" || curStage == "zardy" && ClientPrefs.songbackgrounds)
