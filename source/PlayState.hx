@@ -488,6 +488,19 @@ class PlayState extends MusicBeatState
 					add(noback);
 				}
 
+			case 'accelerant':
+				curStage = "nevada";
+
+				defaultCamZoom = 0.6;
+				
+
+				if(ClientPrefs.songbackgrounds){
+					//going crazy with fucking camera positions and player positions holy fuck
+				} else {
+					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					add(noback);
+				}
+
 			default:
 				defaultCamZoom = 0.9;
 				curStage = 'stage';
