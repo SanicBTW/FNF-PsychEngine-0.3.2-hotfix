@@ -228,8 +228,8 @@
 	"no_antialiasing": false,
 	"image": "characters/accelerant/hank",
 	"position": [
-		-250,
-		200
+		-20,
+		180
 	],
 	"healthicon": "hank",
 	"flip_x": false,
@@ -239,6 +239,8 @@
 		59
 	],
 	"camera_position": [
+		-100,
+		80
 	],
 	"sing_duration": 4,
 	"scale": 1

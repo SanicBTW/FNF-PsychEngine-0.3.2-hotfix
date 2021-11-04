@@ -493,9 +493,27 @@ class PlayState extends MusicBeatState
 
 				defaultCamZoom = 0.6;
 				
-
+				//the events are literally exploding on chromebook, gonna see how to fix, no hopes for fixing them
+				//dude wtf the character jsons are ignoring the fucking new positions wtf 
 				if(ClientPrefs.songbackgrounds){
-					//going crazy with fucking camera positions and player positions holy fuck
+					var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
+					nevada_city.scale.set(1.2, 1.2);
+					add(nevada_city);
+
+					//layering br
+					var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
+					nevada_hill.scale.set(1.3, 1.3);
+					add(nevada_hill);
+
+					//i think -120 should be the thing, going for -130 for testin
+					//-130 should be better imo
+					var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
+					nevada_stage.scale.set(1.2, 1.2);
+					add(nevada_stage);
+
+					var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
+					nevada_foreground.scale.set(1.2, 1.2);
+					add(nevada_foreground);
 				} else {
 					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					add(noback);
