@@ -55,6 +55,7 @@ class ClientPrefs {
 	public static var nerfebolatimer:Bool = false;
 	public static var onemisschirumiru:Bool = true;
 	public static var onemissdefeat:Bool = false;
+	public static var simpleaccelerant:Bool = false;
 
 	//thought about adding 6k and that but im lazy
 	public static var defaultKeys:Array<FlxKey> = [
@@ -127,6 +128,7 @@ class ClientPrefs {
 		FlxG.save.data.keyboardoverlayPOSITION = keyboardoverlayPOSITION;
 		FlxG.save.data.keyboardoverlayIDLECOLOR = keyboardoverlayIDLECOLOR;
 		FlxG.save.data.keyboardoverlayPRESSINGCOLOR = keyboardoverlayPRESSINGCOLOR;
+		FlxG.save.data.simpleaccelerant = simpleaccelerant;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -271,6 +273,10 @@ class ClientPrefs {
 
 		if (FlxG.save.data.keyboardoverlayPRESSINGCOLOR != null){
 			keyboardoverlayPRESSINGCOLOR = FlxG.save.data.keyboardoverlayPRESSINGCOLOR;
+		}
+
+		if (FlxG.save.data.simpleaccelerant != null){
+			simpleaccelerant = FlxG.save.data.simpleaccelerant;
 		}
 
 		var save:FlxSave = new FlxSave();

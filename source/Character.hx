@@ -270,6 +270,7 @@ class Character extends FlxSprite
 					quickAnimAdd('idle', 'BF idle dance');
 				}
 				trace('Loaded file to character ' + curCharacter);
+				FlxG.log.add('Loaded file to character ' + curCharacter);
 		}
 		originalFlipX = flipX;
 

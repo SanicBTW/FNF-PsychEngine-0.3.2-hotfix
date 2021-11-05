@@ -187,20 +187,6 @@
 						"Camera Follow Pos",
 						"500",
 						"440"
-					],
-					[
-						27164.6341463415,
-						-1,
-						"Change Character",
-						"2",
-						"gf-handsup"
-					],
-					[
-						27176.0670731707,
-						-1,
-						"Play Animation",
-						"surrender",
-						"2"
 					]
 				],
 				"bpm": 0,
@@ -431,20 +417,6 @@
 						"Camera Follow Pos",
 						"500",
 						"540"
-					],
-					[
-						60823.1707317073,
-						-1,
-						"Change Character",
-						"2",
-						"acceleranttricky"
-					],
-					[
-						60834.6036585366,
-						-1,
-						"Play Animation",
-						"land",
-						"2"
 					]
 				],
 				"bpm": 0,
@@ -500,20 +472,6 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
-					[
-						67317.0731707317,
-						-1,
-						"Play Animation",
-						"scream",
-						"GF"
-					],
-					[
-						67339.9390243903,
-						-1,
-						"Screen Shake",
-						"0.5, 0.02",
-						""
-					]
 				],
 				"bpm": 0,
 				"changeBPM": false,
@@ -661,20 +619,6 @@
 						"Change Character",
 						"1",
 						"hank"
-					],
-					[
-						85152.4390243902,
-						-1,
-						"Play Animation",
-						"wait",
-						"GF"
-					],
-					[
-						85609.7560975609,
-						-1,
-						"Play Animation",
-						"shoot",
-						"Dad"
 					]
 				],
 				"bpm": 0,
@@ -910,13 +854,6 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
-					[
-						121463.414634146,
-						-1,
-						"Screen Shake",
-						"1.9, 0.022",
-						""
-					]
 				],
 				"bpm": 0,
 				"changeBPM": false,

@@ -496,24 +496,51 @@ class PlayState extends MusicBeatState
 				//the events are literally exploding on chromebook, gonna see how to fix, no hopes for fixing them
 				//dude wtf the character jsons are ignoring the fucking new positions wtf 
 				if(ClientPrefs.songbackgrounds){
-					var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
-					nevada_city.scale.set(1.2, 1.2);
-					add(nevada_city);
-
-					//layering br
-					var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
-					nevada_hill.scale.set(1.3, 1.3);
-					add(nevada_hill);
-
-					//i think -120 should be the thing, going for -130 for testin
-					//-130 should be better imo
-					var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
-					nevada_stage.scale.set(1.2, 1.2);
-					add(nevada_stage);
-
-					var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
-					nevada_foreground.scale.set(1.2, 1.2);
-					add(nevada_foreground);
+					//new option in case it fucking explodes on chromebook
+					if(ClientPrefs.simpleaccelerant)
+					{
+						var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
+						nevada_city.scale.set(1.2, 1.2);
+						add(nevada_city);
+	
+						//layering br
+						var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
+						nevada_hill.scale.set(1.3, 1.3);
+						add(nevada_hill);
+	
+						//i think -120 should be the thing, going for -130 for testin
+						//-130 should be better imo
+						var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
+						nevada_stage.scale.set(1.2, 1.2);
+						add(nevada_stage);
+	
+						var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
+						nevada_foreground.scale.set(1.2, 1.2);
+						add(nevada_foreground);	
+					}
+					else
+					{
+						//its literally copy paste from the code above lol
+						var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
+						nevada_city.scale.set(1.2, 1.2);
+						add(nevada_city);
+	
+						//layering br
+						var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
+						nevada_hill.scale.set(1.3, 1.3);
+						add(nevada_hill);
+	
+						//i think -120 should be the thing, going for -130 for testin
+						//-130 should be better imo
+						var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
+						nevada_stage.scale.set(1.2, 1.2);
+						add(nevada_stage);
+	
+						var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
+						nevada_foreground.scale.set(1.2, 1.2);
+						add(nevada_foreground);
+	
+					}
 				} else {
 					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					add(noback);
@@ -1394,23 +1421,41 @@ class PlayState extends MusicBeatState
 
 		var songName:String = SONG.song.toLowerCase();
 		var file:String = Paths.json(songName + '/events');
+		var simpfile:String = Paths.json(songName + '/eventssimple');
 		#if sys
-		if (sys.FileSystem.exists(file)) {
+		if (sys.FileSystem.exists(file) || sys.FileSystem.exists(simpfile)) {
 		#else
-		if (OpenFlAssets.exists(file)) {
+		if (OpenFlAssets.exists(file) || OpenFlAssets.exists(simpfile)) {
 		#end
-			var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
-			for (section in eventsData)
-			{
-				for (songNotes in section.sectionNotes)
+		//idk how this is gonna work lol
+		//it aint working
+			if(ClientPrefs.simpleaccelerant && curSong == "accelerant"){
+				var eventsData:Array<SwagSection> = Song.loadFromJson('eventssimple', songName).notes;
+				for (section in eventsData)
 				{
-					if(songNotes[1] < 0) {
-						eventNotes.push(songNotes);
-						eventPushed(songNotes);
+					for (songNotes in section.sectionNotes)
+					{
+						if(songNotes[1] < 0) {
+							eventNotes.push(songNotes);
+							eventPushed(songNotes);
+						}
+					}
+				}
+			} else {
+				var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
+				for (section in eventsData)
+				{
+					for (songNotes in section.sectionNotes)
+					{
+						if(songNotes[1] < 0) {
+							eventNotes.push(songNotes);
+							eventPushed(songNotes);
+						}
 					}
 				}
 			}
-		}
+	}
+
 
 		for (section in noteData)
 		{
@@ -3583,6 +3628,25 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
+		if (curSong == "accelerant")
+		{
+			switch(curStep)
+			{
+				//these doesn't seem right, might wanna check them once again
+				case 735:
+					FlxG.camera.shake(0.02, 0.5);
+				case 935:
+					dad.curCharacter = "hank-scared";
+					dad.playAnim("shoot", true);
+					dad.specialAnim = true;
+				case 944:
+					dad.curCharacter = "hank";
+					dad.playAnim("idle", true);
+					dad.specialAnim = true;
+				case 1328:
+					FlxG.camera.shake(0.022, 1.9);
+			}
+		}
 
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
