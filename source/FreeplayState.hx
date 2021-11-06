@@ -151,14 +151,14 @@ class FreeplayState extends MusicBeatState
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
-		//add(diffText);
+		add(diffText);
 
 		add(scoreText);
 
 		//bg.color = songs[curSelected].color;
 		intendedColor = bg.color;
 		changeSelection();
-		//changeDiff();
+		changeDiff();
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
@@ -272,12 +272,18 @@ class FreeplayState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		/*
 		if (controls.UI_LEFT_P)
-			changeDiff(-1);
+		{
+			if(songs[curSelected].songName == "accelerant"){
+				changeDiff(-1);
+			}
+		}
 		if (controls.UI_RIGHT_P)
-			changeDiff(1);
-		*/ 
+		{
+			if(songs[curSelected].songName == "accelerant"){
+				changeDiff(1);
+			}
+		}
 		if (controls.BACK)
 		{
 			if(colorTween != null) {
@@ -311,10 +317,10 @@ class FreeplayState extends MusicBeatState
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
 			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
 				poop = songLowercase;
-				curDifficulty = 1;
 				trace('Couldnt find file');
 			}
 			trace(poop);
+			trace(curDifficulty);
 
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;

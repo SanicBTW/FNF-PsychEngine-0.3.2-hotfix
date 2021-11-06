@@ -496,51 +496,24 @@ class PlayState extends MusicBeatState
 				//the events are literally exploding on chromebook, gonna see how to fix, no hopes for fixing them
 				//dude wtf the character jsons are ignoring the fucking new positions wtf 
 				if(ClientPrefs.songbackgrounds){
-					//new option in case it fucking explodes on chromebook
-					if(ClientPrefs.simpleaccelerant)
-					{
-						var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
-						nevada_city.scale.set(1.2, 1.2);
-						add(nevada_city);
+					var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
+					nevada_city.scale.set(1.2, 1.2);
+					add(nevada_city);
 	
-						//layering br
-						var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
-						nevada_hill.scale.set(1.3, 1.3);
-						add(nevada_hill);
+					//layering br
+					var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
+					nevada_hill.scale.set(1.3, 1.3);
+					add(nevada_hill);
 	
-						//i think -120 should be the thing, going for -130 for testin
-						//-130 should be better imo
-						var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
-						nevada_stage.scale.set(1.2, 1.2);
-						add(nevada_stage);
+					//i think -120 should be the thing, going for -130 for testin
+					//-130 should be better imo
+					var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
+					nevada_stage.scale.set(1.2, 1.2);
+					add(nevada_stage);
 	
-						var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
-						nevada_foreground.scale.set(1.2, 1.2);
-						add(nevada_foreground);	
-					}
-					else
-					{
-						//its literally copy paste from the code above lol
-						var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
-						nevada_city.scale.set(1.2, 1.2);
-						add(nevada_city);
-	
-						//layering br
-						var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
-						nevada_hill.scale.set(1.3, 1.3);
-						add(nevada_hill);
-	
-						//i think -120 should be the thing, going for -130 for testin
-						//-130 should be better imo
-						var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
-						nevada_stage.scale.set(1.2, 1.2);
-						add(nevada_stage);
-	
-						var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
-						nevada_foreground.scale.set(1.2, 1.2);
-						add(nevada_foreground);
-	
-					}
+					var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
+					nevada_foreground.scale.set(1.2, 1.2);
+					add(nevada_foreground);	
 				} else {
 					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					add(noback);
@@ -661,6 +634,9 @@ class PlayState extends MusicBeatState
 		} else if (dad.curCharacter.startsWith('cancer')){
 			camPos.y += -200;
 			camPos.x += 400;
+		} else if (dad.curCharacter.startsWith("hank")){
+			//GF_X -= 20;
+			GF_Y -= 30;
 		}
 
 		add(gfGroup);
@@ -1013,12 +989,14 @@ class PlayState extends MusicBeatState
 		RecalculateRating();
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
+		//Idk if these are necessary
 		CoolUtil.precacheSound('missnote1');
 		CoolUtil.precacheSound('missnote2');
 		CoolUtil.precacheSound('missnote3');
 		CoolUtil.precacheSound('missnotetouhou1');
 		CoolUtil.precacheSound('missnotetouhou2');
 		CoolUtil.precacheSound('missnotetouhou3');
+		CoolUtil.precacheSound('accelerantsounds/hankshoot');
 		
 		#if desktop
 		// Updating Discord Rich Presence.
@@ -1421,39 +1399,22 @@ class PlayState extends MusicBeatState
 
 		var songName:String = SONG.song.toLowerCase();
 		var file:String = Paths.json(songName + '/events');
-		var simpfile:String = Paths.json(songName + '/eventssimple');
 		#if sys
-		if (sys.FileSystem.exists(file) || sys.FileSystem.exists(simpfile)) {
+		if (sys.FileSystem.exists(file)) {
 		#else
-		if (OpenFlAssets.exists(file) || OpenFlAssets.exists(simpfile)) {
+		if (OpenFlAssets.exists(file)) {
 		#end
-		//idk how this is gonna work lol
-		//it aint working
-			if(ClientPrefs.simpleaccelerant && curSong == "accelerant"){
-				var eventsData:Array<SwagSection> = Song.loadFromJson('eventssimple', songName).notes;
-				for (section in eventsData)
-				{
-					for (songNotes in section.sectionNotes)
-					{
-						if(songNotes[1] < 0) {
-							eventNotes.push(songNotes);
-							eventPushed(songNotes);
-						}
-					}
-				}
-			} else {
-				var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
-				for (section in eventsData)
-				{
-					for (songNotes in section.sectionNotes)
-					{
-						if(songNotes[1] < 0) {
-							eventNotes.push(songNotes);
-							eventPushed(songNotes);
-						}
-					}
+		var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
+		for (section in eventsData)
+		{
+			for (songNotes in section.sectionNotes)
+			{
+				if(songNotes[1] < 0) {
+					eventNotes.push(songNotes);
+					eventPushed(songNotes);
 				}
 			}
+		}
 	}
 
 
@@ -3308,6 +3269,9 @@ class PlayState extends MusicBeatState
 					
 					FlxG.camera.shake(0.01, 0.2);
 
+					if(storyDifficulty == 3){
+						FlxG.sound.play(Paths.sound('accelerantsounds/hankshoot'));
+					}
 					note.wasGoodHit = true;
 					health += 0.023;
 

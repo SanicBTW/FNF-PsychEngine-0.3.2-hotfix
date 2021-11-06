@@ -183,7 +183,7 @@
 	"image": "characters/BOYFRIEND",
 	"position": [
 		100,
-		350
+		450
 	],
 	"healthicon": "bf",
 	"flip_x": true,

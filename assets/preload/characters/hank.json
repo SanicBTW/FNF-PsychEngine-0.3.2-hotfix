@@ -228,8 +228,8 @@
 	"no_antialiasing": false,
 	"image": "characters/accelerant/hank",
 	"position": [
-		-20,
-		180
+		-30,
+		300
 	],
 	"healthicon": "hank",
 	"flip_x": false,

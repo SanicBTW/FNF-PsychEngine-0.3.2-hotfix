@@ -26,8 +26,8 @@
 	"no_antialiasing": false,
 	"image": "characters/accelerant/hankscared",
 	"position": [
-		0,
-		180
+		-30,
+		300
 	],
 	"healthicon": "hank",
 	"flip_x": false,

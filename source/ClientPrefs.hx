@@ -40,12 +40,16 @@ class ClientPrefs {
 	public static var curmisssound:String = "missnotetouhou";
 	
 	//Read https://github.com/SanicBTW/FNF-PsychEngine-0.3.2-hotfix/issues/11
+	#if web
 	public static var notehitsound:Bool = false;
+	#else
+	public static var notehitsound:Bool = true;
+	#end
 	public static var notehitvolume:Float = 1;
 	
 	//keyboard overlay stuff
 	public static var showkeyboardoverlay:Bool = true;
-	public static var keyboardoverlayALPHA:Float = 1;
+	public static var keyboardoverlayALPHA:Float = 0.5;
 	public static var keyboardoverlayPOSITION:String = "Left";
 	//idk if its gonna work with flxcolor, if it doesnt then gonna use strings
 	public static var keyboardoverlayIDLECOLOR:FlxColor = FlxColor.GRAY;
@@ -55,7 +59,6 @@ class ClientPrefs {
 	public static var nerfebolatimer:Bool = false;
 	public static var onemisschirumiru:Bool = true;
 	public static var onemissdefeat:Bool = false;
-	public static var simpleaccelerant:Bool = false;
 
 	//thought about adding 6k and that but im lazy
 	public static var defaultKeys:Array<FlxKey> = [
@@ -128,7 +131,6 @@ class ClientPrefs {
 		FlxG.save.data.keyboardoverlayPOSITION = keyboardoverlayPOSITION;
 		FlxG.save.data.keyboardoverlayIDLECOLOR = keyboardoverlayIDLECOLOR;
 		FlxG.save.data.keyboardoverlayPRESSINGCOLOR = keyboardoverlayPRESSINGCOLOR;
-		FlxG.save.data.simpleaccelerant = simpleaccelerant;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -273,10 +275,6 @@ class ClientPrefs {
 
 		if (FlxG.save.data.keyboardoverlayPRESSINGCOLOR != null){
 			keyboardoverlayPRESSINGCOLOR = FlxG.save.data.keyboardoverlayPRESSINGCOLOR;
-		}
-
-		if (FlxG.save.data.simpleaccelerant != null){
-			simpleaccelerant = FlxG.save.data.simpleaccelerant;
 		}
 
 		var save:FlxSave = new FlxSave();
