@@ -151,7 +151,7 @@ class FreeplayState extends MusicBeatState
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
-		add(diffText);
+		//add(diffText);
 
 		add(scoreText);
 
@@ -272,6 +272,7 @@ class FreeplayState extends MusicBeatState
 			changeSelection(1);
 		}
 
+		/*
 		if (controls.UI_LEFT_P)
 		{
 			if(songs[curSelected].songName == "accelerant"){
@@ -283,7 +284,7 @@ class FreeplayState extends MusicBeatState
 			if(songs[curSelected].songName == "accelerant"){
 				changeDiff(1);
 			}
-		}
+		}*/
 		if (controls.BACK)
 		{
 			if(colorTween != null) {

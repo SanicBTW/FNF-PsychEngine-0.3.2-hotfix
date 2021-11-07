@@ -493,7 +493,6 @@ class PlayState extends MusicBeatState
 
 				defaultCamZoom = 0.6;
 				
-				//the events are literally exploding on chromebook, gonna see how to fix, no hopes for fixing them
 				//dude wtf the character jsons are ignoring the fucking new positions wtf 
 				if(ClientPrefs.songbackgrounds){
 					var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
@@ -593,20 +592,17 @@ class PlayState extends MusicBeatState
 		//I'm really sorry for this 
 		if(curStage.startsWith("zardyBruh") || curStage.startsWith("zardy") || curStage.startsWith("cirnoday") || curStage.startsWith("cancstage")){
 			if(ClientPrefs.songbackgrounds){
-				ClientPrefs.middleScroll = false;
 				dadGroup.add(dad);
 				boyfriendGroup.add(boyfriend);
 				//gfGroup.add(gf);
 			}
 		} else if (curStage.startsWith("defeat")){
 			if(ClientPrefs.songbackgrounds){
-				ClientPrefs.middleScroll = true;
 				dadGroup.add(dad);
 				boyfriendGroup.add(boyfriend);
 			}
 		} else {
 			if(ClientPrefs.songbackgrounds){
-				ClientPrefs.middleScroll = false;
 				dadGroup.add(dad);
 				boyfriendGroup.add(boyfriend);
 				gfGroup.add(gf);
@@ -667,12 +663,13 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
-		/*
-		if(ClientPrefs.strumbackground = true && curStage.startsWith("osubackgrounds")){
-			var notesbackgroundshit = new FlxSprite(-100, strumLine.y).makeGraphic(429, 1000, FlxColor.BLACK);
+		if(ClientPrefs.strumbackground == true && ClientPrefs.downScroll == true){
+			var notesbackgroundshit = new FlxSprite(0, 0).makeGraphic(429, 1000, FlxColor.BLACK);
 			notesbackgroundshit.alpha = 0.5;
 			add(notesbackgroundshit);
-		}*/
+
+			notesbackgroundshit.cameras = [camHUD];
+		}
 
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 20, 400, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1006,10 +1003,7 @@ class PlayState extends MusicBeatState
 	}
 	
 	public function reloadHealthBarColors() {
-		if (curStage == "osubackgrounds"){
-			healthBar.createFilledBar(FlxColor.fromRGB(255, 0, 0),
-			FlxColor.fromRGB(0, 128, 0));
-		} else if (ebolatimer != null){
+		if (ebolatimer != null){
 			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(255, 255, 0));
 		} else {
@@ -1885,12 +1879,11 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		//Im sorry for the extra justpressed six, i need it on this shitty laptop
-		if (FlxG.keys.justPressed.SEVEN || FlxG.keys.justPressed.SIX && !endingSong)
+		if (FlxG.keys.justPressed.SEVEN && !endingSong)
 		{
-			persistentUpdate = false;
-			paused = true;
-			MusicBeatState.switchState(new ChartingState());
+            persistentUpdate = false;
+            paused = true;
+            MusicBeatState.switchState(new ChartingState());
 
 			#if desktop
 			DiscordClient.changePresence("Chart Editor", null, null, true);
@@ -3269,9 +3262,8 @@ class PlayState extends MusicBeatState
 					
 					FlxG.camera.shake(0.01, 0.2);
 
-					if(storyDifficulty == 3){
-						FlxG.sound.play(Paths.sound('accelerantsounds/hankshoot'));
-					}
+					FlxG.sound.play(Paths.sound('accelerantsounds/hankshoot'));
+
 					note.wasGoodHit = true;
 					health += 0.023;
 

@@ -1441,13 +1441,13 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Vertical Health Bar',
 		'Song Backgrounds',
 		//'Fullscreen',
-		//'Strum Background',
+		'Strum Background',
 		#if !html5
 		'Framerate', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
 		'Gameplay',
 		'Downscroll',
-		//'Middlescroll',
+		'Middlescroll',
 		'Note Hit Sound',
 		'Note Hit Volume',
 		'Show Keyboard Overlay',
@@ -1654,8 +1654,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'Song Backgrounds':
 						ClientPrefs.songbackgrounds = !ClientPrefs.songbackgrounds;
-					//case 'Strum Background':
-						//ClientPrefs.strumbackground = !ClientPrefs.strumbackground;
+					case 'Strum Background':
+						ClientPrefs.strumbackground = !ClientPrefs.strumbackground;
 					
 					/*
 					case 'Fullscreen':
@@ -1770,8 +1770,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "The name says it all, vertical health bar";
 			case 'Song Backgrounds':
 				daText = "If unchecked no backgrounds or players will be displayed\nOnly song, strum line and health bar\nDOESN'T WORK ATM";
-			//case 'Strum Background':
-				//daText = "If checked, a grey smth background will appear under the player strums\nto give it more an osu! look i guess";
+			case 'Strum Background':
+				daText = "If checked, a grey smth background will appear under the player strums\nto give it more an osu! look i guess";
 			case 'Anti-Aliasing':
 				daText = "If unchecked, disables anti-aliasing, increases performance\nat the cost of the graphics not looking as smooth.";
 			case 'Downscroll':
@@ -1897,10 +1897,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.songbackgrounds;
 					case 'Fullscreen':
 						daValue = ClientPrefs.fullscreenxd;
-					/*
 					case 'Strum Background':
 						daValue = ClientPrefs.strumbackground;
-						*/
 					//case 'Hide Song Length':
 						//daValue = ClientPrefs.hideTime;
 					case 'Note Hit Sound':
