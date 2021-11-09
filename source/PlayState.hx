@@ -250,6 +250,11 @@ class PlayState extends MusicBeatState
 	//left key
 	var keyboardoverlayLEFTKEY:FlxSprite;
 	var keyboardoverlayLEFTKEYTEXT:FlxText;
+	var nevada_stage:BGSprite;
+	var nevada_tracer:BGSprite;
+	var nevada_yeetgf:BGSprite; //should i put it as a bgsprite??
+	var nevada_gfspeaker:FlxSprite;
+	var nevada_tiky:FlxSprite;
 
 	override public function create()
 	{
@@ -493,30 +498,76 @@ class PlayState extends MusicBeatState
 
 				defaultCamZoom = 0.6;
 				
+				//probably not gonna add sanford or deimos because they cant be seen in game so it will probably be useless
+				//redoing the code to match the .lua file from the psych engine port
 				//dude wtf the character jsons are ignoring the fucking new positions wtf 
 				if(ClientPrefs.songbackgrounds){
-					var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -250, -200);
-					nevada_city.scale.set(1.2, 1.2);
+					var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -600, -100);
+					nevada_city.scale.set(nevada_city.scale.x + 0.6, nevada_city.scale.y + 0.2);
 					add(nevada_city);
-	
-					//layering br
-					var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -10, -100);
-					nevada_hill.scale.set(1.3, 1.3);
+
+					//idk why did i add this bc sanford neither deimos cant show up in the camera cuz it doesnt want to work properly lol
+					var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -200, 100);
+					nevada_hill.scale.set(nevada_hill.scale.x + 0.8, nevada_hill.scale.y + 0.6);
 					add(nevada_hill);
 	
-					//i think -120 should be the thing, going for -130 for testin
-					//-130 should be better imo
-					var nevada_stage:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_stage', -250, -130);
-					nevada_stage.scale.set(1.2, 1.2);
+					nevada_tiky = new FlxSprite(340, -50);
+					nevada_tiky.frames = Paths.getSparrowAtlas('modbackgrounds/accelerant/tikyfall');
+					nevada_tiky.animation.addByPrefix('skidaddle', 'fall', 24, true);
+
+					nevada_stage = new BGSprite('modbackgrounds/accelerant/nevada_stage', -400, -220);
+					nevada_stage.scale.set(nevada_stage.scale.x + 0.6, nevada_stage.scale.y + 0.8);
 					add(nevada_stage);
+
+					nevada_gfspeaker = new FlxSprite(185, 460);
+					nevada_gfspeaker.frames = Paths.getSparrowAtlas('modbackgrounds/accelerant/speakers');
+					nevada_gfspeaker.animation.addByPrefix('idle', 'GF Dancing Beat', 24, true);
+					nevada_gfspeaker.scrollFactor.set(1, 1);
+
+					//gf hotdog should be here
+
+					nevada_yeetgf = new BGSprite('modbackgrounds/accelerant/cya', 220, 220);
+					nevada_yeetgf.scale.set(nevada_yeetgf.scale.x + 0.5, nevada_yeetgf.scale.y + 0.5);
 	
-					var nevada_foreground:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_foreground', -250, -100);
-					nevada_foreground.scale.set(1.2, 1.2);
-					add(nevada_foreground);	
+					nevada_tracer = new BGSprite('modbackgrounds/accelerant/tracer', 2000, 640);
+					add(nevada_tracer);
+
+					//the foreground was probably not necessary
 				} else {
 					var noback = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					add(noback);
 				}
+
+			case 'bullet-note-tst':
+				defaultCamZoom = 0.7;
+				curStage = 'stage';
+				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+				add(bg);
+
+				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
+				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+				stageFront.updateHitbox();
+				add(stageFront);
+
+				if(!ClientPrefs.lowQuality) {
+					var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
+					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
+					stageLight.updateHitbox();
+					add(stageLight);
+					var stageLight:BGSprite = new BGSprite('stage_light', 1225, -100, 0.9, 0.9);
+					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
+					stageLight.updateHitbox();
+					stageLight.flipX = true;
+					add(stageLight);
+
+					var stageCurtains:BGSprite = new BGSprite('stagecurtains', -500, -300, 1.3, 1.3);
+					stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
+					stageCurtains.updateHitbox();
+					add(stageCurtains);
+				}
+
+				nevada_tracer = new BGSprite('modbackgrounds/accelerant/tracer', 2000, 640);
+				add(nevada_tracer);
 
 			default:
 				defaultCamZoom = 0.9;
@@ -573,7 +624,17 @@ class PlayState extends MusicBeatState
 		// REPOSITIONING PER STAGE
 		switch (curStage)
 		{
-			
+			case 'nevada':
+				BF_X = 700;
+				BF_Y = 195;
+
+				GF_X = 200;
+				GF_Y = 150;
+
+				DAD_X = -250;
+				DAD_Y = 200;
+			case 'stage':
+				GF_Y = 2000;
 		}
 
 		gf = new Character(GF_X, GF_Y, gfVersion);
@@ -608,7 +669,6 @@ class PlayState extends MusicBeatState
 				gfGroup.add(gf);
 			}
 		}
-		
 		var camPos:FlxPoint = new FlxPoint(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
 		camPos.x += gf.cameraPosition[0];
 		camPos.y += gf.cameraPosition[1];
@@ -630,9 +690,6 @@ class PlayState extends MusicBeatState
 		} else if (dad.curCharacter.startsWith('cancer')){
 			camPos.y += -200;
 			camPos.x += 400;
-		} else if (dad.curCharacter.startsWith("hank")){
-			//GF_X -= 20;
-			GF_Y -= 30;
 		}
 
 		add(gfGroup);
@@ -994,6 +1051,11 @@ class PlayState extends MusicBeatState
 		CoolUtil.precacheSound('missnotetouhou2');
 		CoolUtil.precacheSound('missnotetouhou3');
 		CoolUtil.precacheSound('accelerantsounds/hankshoot');
+		CoolUtil.precacheSound('accelerantsounds/hankreadyupsound');
+		CoolUtil.precacheSound('accelerantsounds/Screamfade');
+		//CoolUtil.precacheSound('accelerantsounds/hankshoot');
+		//CoolUtil.precacheSound('accelerantsounds/hankshoot');
+
 		
 		#if desktop
 		// Updating Discord Rich Presence.
@@ -2235,7 +2297,11 @@ class PlayState extends MusicBeatState
 										//Ebola note, does nothing.
 
 									case 4: //this is really stupid, warning note thingy
-										health -= 0.8;
+										if(curSong == "bullet-note-tst"){
+											health -= 0.0001;
+										} else {
+											health -= 0.8;
+										}
 										boyfriend.playAnim("hurt", true);
 										songMisses++;
 										vocals.volume = 0;
@@ -3251,10 +3317,26 @@ class PlayState extends MusicBeatState
 				if(!boyfriend.stunned){
 					var shootAnims = ["LEFTshoot", "DOWNshoot", "UPshoot", "RIGHTshoot"];
 
-					//i think it works
+					//tracer kind of works but not really
 					FlxG.random.shuffle(shootAnims);
 					dad.playAnim(shootAnims[0], false);
-					FlxG.watch.addQuick("Cur Shoot Anim", shootAnims[0]);
+					FlxG.watch.addQuick("Shooting anim tracer pos", shootAnims[0]);
+
+					//it should be working now ig
+					switch(shootAnims[0])
+					{
+						case "LEFTshoot":
+							FlxTween.tween(nevada_tracer, {y: 650}, 0.01, {ease: FlxEase.linear});
+						case "DOWNshoot":
+							FlxTween.tween(nevada_tracer, {y: 670}, 0.01, {ease: FlxEase.linear});
+						case 'UPshoot':
+							FlxTween.tween(nevada_tracer, {y: 610}, 0.01, {ease: FlxEase.linear});
+						case 'RIGHTshoot':
+							FlxTween.tween(nevada_tracer, {y: 640}, 0.01, {ease: FlxEase.linear});
+					}
+
+					FlxTween.tween(nevada_tracer, {x: -200}, 0.01, {ease: FlxEase.linear});
+					FlxTween.tween(nevada_tracer, {x: 2000}, 0.2, {ease: FlxEase.linear});
 					//cant get cur dad anim lol, tho i think it works for now 
 					boyfriend.playAnim('bfdodge', true);
 					boyfriend.specialAnim = true;
@@ -3588,13 +3670,42 @@ class PlayState extends MusicBeatState
 		{
 			switch(curStep)
 			{
-				//these doesn't seem right, might wanna check them once again
-				case 735:
+				case 1:
+					defaultCamZoom = 0.7;
+				case 16:
+					FlxG.sound.play(Paths.sound('accelerantsounds/hankreadyupsound'));
+					FlxTween.tween(camGame, {zoom: 0.7}, 0.3, { ease: FlxEase.circInOut});
+				case 32:
+					//choppa but deleted cuz of camera and prob optimization
+				case 293:
+					//deimos and sandford should appear here but the camera doesnt want to work properly so i wont add them
+				case 298:
+					//laser dot
+				case 664:
+					add(nevada_yeetgf);
+					add(nevada_gfspeaker);
+				case 665:
+					FlxTween.tween(camGame, {zoom: 0.85}, 1, {ease: FlxEase.circInOut});
+					FlxTween.tween(nevada_yeetgf, {x: 2000}, 0.3, {ease: FlxEase.linear});
+					FlxTween.tween(nevada_yeetgf, {y: 700}, 0.3, {ease: FlxEase.linear, onComplete: deleteYeetGFAfterTween});
+				case 684:
+					//the health drain lever
+				case 735: //might want to check this
 					FlxG.camera.shake(0.02, 0.5);
-				case 935:
+				case 745:
+					//tiky with lsar
+				case 931:
+					FlxTween.tween(camGame, {zoom: 0.7}, 1, {ease: FlxEase.circInOut});
+				case 935: //might want to check this
 					dad.curCharacter = "hank-scared";
 					dad.playAnim("shoot", true);
 					dad.specialAnim = true;
+				case 937:
+					gf.visible = false;
+					add(nevada_tiky);
+					nevada_tiky.animation.play('skidaddle', true);
+					FlxTween.tween(nevada_tiky, {y: -450}, 0.38, {ease: FlxEase.expoOut, onComplete: StuffAfterTween});
+					FlxG.sound.play(Paths.sound('accelerantsounds/Screamfade'), 0.9);
 				case 944:
 					dad.curCharacter = "hank";
 					dad.playAnim("idle", true);
@@ -3607,6 +3718,27 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
+	}
+
+	//sorry
+
+	function deleteYeetGFAfterTween(tween:FlxTween):Void
+	{
+		remove(nevada_yeetgf);
+	}
+
+	function StuffAfterTween(tween:FlxTween):Void
+	{
+		remove(nevada_gfspeaker);
+		remove(nevada_stage);
+		add(nevada_stage);
+		add(nevada_gfspeaker);
+		FlxTween.tween(nevada_tiky, {y: 2000}, 1.4, {ease: FlxEase.linear, onComplete: deleteTikyAfterHeaven});
+	}
+
+	function deleteTikyAfterHeaven(tween:FlxTween):Void
+	{
+		remove(nevada_tiky);
 	}
 
 	var lightningStrikeBeat:Int = 0;

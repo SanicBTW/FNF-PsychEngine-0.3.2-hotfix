@@ -13,7 +13,7 @@ class WeekData {
 		['chirumiru', 'defeat', 'split'],
 		['foolhardy', 'bushwhack', 'accelerant'],
 		['infinigger', 'target-practice', 'sporting'],
-		['termination'],
+		['termination', 'bullet-note-tst'],
 	];
 
 	public static var easysongNames:Array<Dynamic> = [
