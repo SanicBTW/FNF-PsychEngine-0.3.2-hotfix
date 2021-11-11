@@ -723,7 +723,7 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		if(ClientPrefs.strumbackground && ClientPrefs.middleScroll){
-			notesbackgroundshit = new FlxSprite(0, 0).makeGraphic(429, 1000, FlxColor.BLACK);
+			notesbackgroundshit = new FlxSprite(410, 0).makeGraphic(450, FlxG.height, FlxColor.BLACK);
 			notesbackgroundshit.alpha = 0.5;
 			add(notesbackgroundshit);
 		}
