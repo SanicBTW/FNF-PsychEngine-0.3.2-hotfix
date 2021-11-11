@@ -250,11 +250,13 @@ class PlayState extends MusicBeatState
 	//left key
 	var keyboardoverlayLEFTKEY:FlxSprite;
 	var keyboardoverlayLEFTKEYTEXT:FlxText;
+
 	var nevada_stage:BGSprite;
 	var nevada_tracer:BGSprite;
 	var nevada_yeetgf:BGSprite; //should i put it as a bgsprite??
 	var nevada_gfspeaker:FlxSprite;
 	var nevada_tiky:FlxSprite;
+	var notesbackgroundshit:FlxSprite; //idk how to call this lol
 
 	override public function create()
 	{
@@ -720,12 +722,10 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
-		if(ClientPrefs.strumbackground == true && ClientPrefs.downScroll == true){
-			var notesbackgroundshit = new FlxSprite(0, 0).makeGraphic(429, 1000, FlxColor.BLACK);
+		if(ClientPrefs.strumbackground && ClientPrefs.middleScroll){
+			notesbackgroundshit = new FlxSprite(0, 0).makeGraphic(429, 1000, FlxColor.BLACK);
 			notesbackgroundshit.alpha = 0.5;
 			add(notesbackgroundshit);
-
-			notesbackgroundshit.cameras = [camHUD];
 		}
 
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 20, 400, "", 32);
@@ -1001,6 +1001,10 @@ class PlayState extends MusicBeatState
 			//left key
 			keyboardoverlayLEFTKEY.cameras = [camHUD];
 			keyboardoverlayLEFTKEYTEXT.cameras = [camHUD];
+		}
+
+		if(ClientPrefs.strumbackground){
+			notesbackgroundshit.cameras = [camHUD];
 		}
 
 		// if (SONG.song == 'South')
@@ -3317,7 +3321,6 @@ class PlayState extends MusicBeatState
 				if(!boyfriend.stunned){
 					var shootAnims = ["LEFTshoot", "DOWNshoot", "UPshoot", "RIGHTshoot"];
 
-					//tracer kind of works but not really
 					FlxG.random.shuffle(shootAnims);
 					dad.playAnim(shootAnims[0], false);
 					FlxG.watch.addQuick("Shooting anim tracer pos", shootAnims[0]);
