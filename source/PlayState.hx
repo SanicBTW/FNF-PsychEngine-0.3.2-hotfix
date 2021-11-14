@@ -796,8 +796,6 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 
-		//This is really fucking bad, i should rework this as its literally made since i began the project
-		//now that osu stuff is gone i should work on this
 		if(ClientPrefs.verthealthbar == true){
 			healthBarBG = new AttachedSprite('verthealthBar');
 			healthBarBG.y = 55;
@@ -869,7 +867,7 @@ class PlayState extends MusicBeatState
 				add(keyboardoverlayUPKEY);
 
 				//im really stupid, i accidentally deleted this and it was giving me null reference exception :skull:
-				keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
+				keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 16, keyboardoverlayUPKEY.y + 12, "▲", 20);
 				keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayUPKEYTEXT.scrollFactor.set();
 				keyboardoverlayUPKEYTEXT.borderSize = 1.25;
@@ -882,7 +880,7 @@ class PlayState extends MusicBeatState
 				keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayDOWNKEY);
 	
-				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
+				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x + 16, keyboardoverlayDOWNKEY.y + 12, "▼", 20);
 				keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
 				keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
@@ -895,7 +893,7 @@ class PlayState extends MusicBeatState
 				keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayRIGHTKEY);
 	
-				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
+				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x + 16, keyboardoverlayRIGHTKEY.y + 12, "►", 20);
 				keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
 				keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
@@ -908,7 +906,7 @@ class PlayState extends MusicBeatState
 				keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayLEFTKEY);
 	
-				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
+				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x + 16, keyboardoverlayLEFTKEY.y + 12, "◄", 20);
 				keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
 				keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
@@ -925,7 +923,7 @@ class PlayState extends MusicBeatState
 				keyboardoverlayUPKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayUPKEY);
 	
-				keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 12, keyboardoverlayUPKEY.y + 12, "UP", 20);
+				keyboardoverlayUPKEYTEXT = new FlxText(keyboardoverlayUPKEY.x + 16, keyboardoverlayUPKEY.y + 12, "▲", 20);
 				keyboardoverlayUPKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayUPKEYTEXT.scrollFactor.set();
 				keyboardoverlayUPKEYTEXT.borderSize = 1.25;
@@ -938,7 +936,7 @@ class PlayState extends MusicBeatState
 				keyboardoverlayDOWNKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayDOWNKEY);
 	
-				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x, keyboardoverlayDOWNKEY.y + 12, "DOWN", 20);
+				keyboardoverlayDOWNKEYTEXT = new FlxText(keyboardoverlayDOWNKEY.x + 16, keyboardoverlayDOWNKEY.y + 12, "▼", 20);
 				keyboardoverlayDOWNKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayDOWNKEYTEXT.scrollFactor.set();
 				keyboardoverlayDOWNKEYTEXT.borderSize = 1.25;
@@ -951,7 +949,7 @@ class PlayState extends MusicBeatState
 				keyboardoverlayRIGHTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayRIGHTKEY);
 	
-				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x, keyboardoverlayRIGHTKEY.y + 12, "RIGHT", 20);
+				keyboardoverlayRIGHTKEYTEXT = new FlxText(keyboardoverlayRIGHTKEY.x + 16, keyboardoverlayRIGHTKEY.y + 12, "►", 20);
 				keyboardoverlayRIGHTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayRIGHTKEYTEXT.scrollFactor.set();
 				keyboardoverlayRIGHTKEYTEXT.borderSize = 1.25;
@@ -964,7 +962,7 @@ class PlayState extends MusicBeatState
 				keyboardoverlayLEFTKEY.alpha = ClientPrefs.keyboardoverlayALPHA;
 				add(keyboardoverlayLEFTKEY);
 	
-				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x, keyboardoverlayLEFTKEY.y + 12, "LEFT", 20);
+				keyboardoverlayLEFTKEYTEXT = new FlxText(keyboardoverlayLEFTKEY.x + 16, keyboardoverlayLEFTKEY.y + 12, "◄", 20);
 				keyboardoverlayLEFTKEYTEXT.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 				keyboardoverlayLEFTKEYTEXT.scrollFactor.set();
 				keyboardoverlayLEFTKEYTEXT.borderSize = 1.25;
@@ -972,6 +970,11 @@ class PlayState extends MusicBeatState
 				keyboardoverlayLEFTKEYTEXT.visible = true;
 				add(keyboardoverlayLEFTKEYTEXT);
 			}
+		}
+
+		//layering or something idk uhhhhhhhhhhhhhh
+		if(ClientPrefs.strumbackground){
+			notesbackgroundshit.cameras = [camHUD];
 		}
 
 		strumLineNotes.cameras = [camHUD];
@@ -1001,10 +1004,6 @@ class PlayState extends MusicBeatState
 			//left key
 			keyboardoverlayLEFTKEY.cameras = [camHUD];
 			keyboardoverlayLEFTKEYTEXT.cameras = [camHUD];
-		}
-
-		if(ClientPrefs.strumbackground){
-			notesbackgroundshit.cameras = [camHUD];
 		}
 
 		// if (SONG.song == 'South')
@@ -1883,9 +1882,24 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 
-		if (FlxG.keys.justPressed.SPACE){
-			boyfriend.animation.play('hey');
-		}
+		if(FlxG.mouse.overlaps(timeBar) && FlxG.mouse.justPressed && startedCountdown && canPause|| FlxG.mouse.overlaps(timeBarBG) && FlxG.mouse.justPressed && startedCountdown && canPause|| FlxG.mouse.overlaps(timeTxt) && FlxG.mouse.justPressed && startedCountdown && canPause){
+			var ret:Dynamic = callOnLuas('onPause', []);
+			if(ret != FunkinLua.Function_Stop) {
+				persistentUpdate = false;
+				persistentDraw = true;
+				paused = true;
+
+				if(FlxG.sound.music != null) {
+					FlxG.sound.music.pause();
+					vocals.pause();
+				}
+				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+			
+				#if desktop
+				DiscordClient.changePresence(detailsPausedText, displaySongName + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				#end
+			}
+		} //useless && statements ig
 
 		callOnLuas('onUpdate', [elapsed]);
 

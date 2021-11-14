@@ -7,6 +7,7 @@ class WeekData {
 
 	//Made a new branch that will contain only the osu songs, the master branch will only have mod songs 
 	//Its to make the loading times shorter ig
+	//Theres only like a couple of songs that has scores working wtf :skull:
 	public static var songsNames:Array<Dynamic> = [
 		['Tutorial'],
 

@@ -2,6 +2,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.util.FlxColor;
+import flixel.input.mouse.FlxMouseEventManager;
 
 using StringTools;
 
@@ -76,6 +77,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
+		FlxG.watch.addQuick("onYes", onYes);
 		bg.alpha += elapsed * 1.5;
 		if(bg.alpha > 0.6) bg.alpha = 0.6;
 
@@ -85,24 +87,35 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if(week == -1) icon.alpha += elapsed * 2.5;
 
+		if(FlxG.mouse.overlaps(yesText) && onYes == false){
+			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+			onYes = true;
+			updateOptions();
+		} else if (FlxG.mouse.overlaps(noText) && onYes == true){
+			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+			onYes = false;
+			updateOptions();
+		}
+
 		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK) {
+		if(controls.BACK || FlxG.mouse.overlaps(bg) && FlxG.mouse.justPressed && !FlxG.mouse.overlaps(yesText) && !FlxG.mouse.overlaps(noText)) { //useless "!" ig
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			close();
-		} else if(controls.ACCEPT) {
+		} else if(controls.ACCEPT || FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed) {
 			if(onYes) {
 				if(week == -1) {
 					Highscore.resetSong(song, difficulty);
 				} else {
 					Highscore.resetWeek(week, difficulty);
 				}
+			} else {
+				FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+				close();
 			}
-			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			close();
 		}
 		super.update(elapsed);
 	}

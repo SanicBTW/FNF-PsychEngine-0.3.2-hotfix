@@ -67,7 +67,6 @@ class FreeplayState extends MusicBeatState
 
 	var pritext:FlxText;
 	var secondtext:FlxText;
-	//I should probably find a better way to uh make it refresh the state instead of clicking again to do it lol
 	
 	override function create()
 	{
