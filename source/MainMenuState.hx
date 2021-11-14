@@ -18,6 +18,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
 import Achievements;
+import flixel.input.mouse.FlxMouseEventManager;
 
 using StringTools;
 
@@ -110,11 +111,6 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		/*
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Custom Songs / Mods Port v0.1.6 BETA", 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);*/
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -223,26 +219,6 @@ class MainMenuState extends MusicBeatState
 								case 'options':
 									MusicBeatState.switchState(new OptionsState());
 							}
-
-							/*
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-							{
-								var daChoice:String = optionShit[curSelected];
-
-								switch (daChoice)
-								{
-									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
-									case 'options':
-										MusicBeatState.switchState(new OptionsState());
-								}
-							});*/
 						}
 					});
 				}

@@ -1,5 +1,6 @@
 package;
 
+import OptionsState.DiffSongsSubstate;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -16,6 +17,7 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.input.mouse.FlxMouseEventManager;
 
 using StringTools;
 
@@ -63,6 +65,10 @@ class FreeplayState extends MusicBeatState
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
+	var pritext:FlxText;
+	var secondtext:FlxText;
+	//I should probably find a better way to uh make it refresh the state instead of clicking again to do it lol
+	
 	override function create()
 	{
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -193,15 +199,17 @@ class FreeplayState extends MusicBeatState
 		#end*/
 
 		var prileText:String = "Press RESET to Reset your Score and Accuracy.";
-		var pritext:FlxText = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
+		pritext = new FlxText(primtextBG.x, primtextBG.y + 4, FlxG.width, prileText, 18);
 		pritext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
 		pritext.scrollFactor.set();
+		pritext.updateHitbox();
 		add(pritext);
 
-		var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / You can change this in settings";
-		var secondtext:FlxText = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
+		var secondleText:String = "Current Difficulty: " + ClientPrefs.cursongdif + " / Click this to change the diff";
+		secondtext = new FlxText(secondtextBG.x, secondtextBG.y + 4, FlxG.width, secondleText, 18);
 		secondtext.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
 		secondtext.scrollFactor.set();
+		secondtext.updateHitbox();
 		add(secondtext);
 
 		super.create();
@@ -254,7 +262,6 @@ class FreeplayState extends MusicBeatState
 		#else
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore;
 		#end
-		//scoreText.text = 'No carga scores a partir de las 4 canciones bruh\npereza de meter mas weeks para cargar esto xd';
 
 		positionHighscore();
 
@@ -272,19 +279,6 @@ class FreeplayState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		/*
-		if (controls.UI_LEFT_P)
-		{
-			if(songs[curSelected].songName == "accelerant"){
-				changeDiff(-1);
-			}
-		}
-		if (controls.UI_RIGHT_P)
-		{
-			if(songs[curSelected].songName == "accelerant"){
-				changeDiff(1);
-			}
-		}*/
 		if (controls.BACK)
 		{
 			if(colorTween != null) {
@@ -338,9 +332,14 @@ class FreeplayState extends MusicBeatState
 					
 			destroyFreeplayVocals();
 		}
-		else if(controls.RESET)
+		else if(controls.RESET || FlxG.mouse.overlaps(pritext) && FlxG.mouse.justPressed)
 		{
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+		}
+		else if(FlxG.mouse.overlaps(secondtext) && FlxG.mouse.justPressed)
+		{
+			openSubState(new DiffSongsSubstate(true));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 		super.update(elapsed);
@@ -352,6 +351,12 @@ class FreeplayState extends MusicBeatState
 			vocals.destroy();
 		}
 		vocals = null;
+	}
+
+	public static function RestartFreeplay() {
+		//I'm extremely sorry
+		MusicBeatState.resetState();
+		//MusicBeatState.switchState(new FreeplayState());
 	}
 
 	function changeDiff(change:Int = 0)

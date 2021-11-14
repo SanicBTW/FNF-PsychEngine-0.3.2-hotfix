@@ -108,7 +108,7 @@ class OptionsState extends MusicBeatState
 					//openSubState(new NoteSkinsSubstate());
 
 				case 'Songs Difficulty':
-					openSubState(new DiffSongsSubstate());
+					openSubState(new DiffSongsSubstate(false));
 
 				case 'Miss Note Sound':
 					openSubState(new MissSoundSubstate());
@@ -663,6 +663,7 @@ class DiffSongsSubstate extends MusicBeatSubstate
 {
 	private static var curSelected:Int = 0;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var infreeplay:Bool;
 	var leText:String;
 
 	var nextAccept:Int = 5;
@@ -672,10 +673,11 @@ class DiffSongsSubstate extends MusicBeatSubstate
 	var availdiff:Array<String> = [
 		'Hard',
 		'Easy'];
-	public function new() {
+	public function new(infreeplay:Bool) {
 		super();
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
+		this.infreeplay = infreeplay;
 
 		for (i in 0...availdiff.length){
 			var isCentered:Bool = true;
@@ -733,10 +735,16 @@ class DiffSongsSubstate extends MusicBeatSubstate
 				case 0:
 					ClientPrefs.cursongdif = "Hard";
 					FlxG.sound.play(Paths.sound('cancelMenu'));
+					if(infreeplay){
+						FreeplayState.RestartFreeplay();
+					}
 					close();
 				case 1:
 					ClientPrefs.cursongdif = "Easy";
 					FlxG.sound.play(Paths.sound('cancelMenu'));
+					if(infreeplay){
+						FreeplayState.RestartFreeplay();
+					}
 					close();
 			}
 		}
