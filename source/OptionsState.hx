@@ -666,6 +666,8 @@ class DiffSongsSubstate extends MusicBeatSubstate
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var infreeplay:Bool;
 	var leText:String;
+	var optionText:Alphabet; //tryin to add more funky clicky stuff
+	private static var menuBG:FlxSprite;
 
 	var nextAccept:Int = 5;
 
@@ -676,14 +678,25 @@ class DiffSongsSubstate extends MusicBeatSubstate
 		'Easy'];
 	public function new(infreeplay:Bool) {
 		super();
-		grpOptions = new FlxTypedGroup<Alphabet>();
-		add(grpOptions);
 		this.infreeplay = infreeplay;
 
+		if(infreeplay) {
+			menuBG = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+			menuBG.color = 0xFFea71fd;
+			menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
+			menuBG.updateHitbox();
+			menuBG.screenCenter();
+			menuBG.antialiasing = ClientPrefs.globalAntialiasing;
+			add(menuBG);
+		}
+
+		grpOptions = new FlxTypedGroup<Alphabet>();
+		add(grpOptions);
+		
 		for (i in 0...availdiff.length){
 			var isCentered:Bool = true;
 
-			var optionText:Alphabet = new Alphabet(0, (10 * i), availdiff[i], (!isCentered), false);
+			optionText = new Alphabet(0, (10 * i), availdiff[i], (!isCentered), false);
 			optionText.isMenuItem = true;
 
 			if(isCentered){
@@ -1447,7 +1460,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		//'Low Quality',
 		//'Anti-Aliasing',
 		//'Persistent Cached Data',
-		'Vertical Health Bar',
+		//'Vertical Health Bar',
 		'Song Backgrounds',
 		//'Fullscreen',
 		'Strum Background',
@@ -1658,8 +1671,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						//ClientPrefs.hideTime = !ClientPrefs.hideTime;
 
 
-					case 'Vertical Health Bar':
-						ClientPrefs.verthealthbar = !ClientPrefs.verthealthbar;
+					//case 'Vertical Health Bar':
+						//ClientPrefs.verthealthbar = !ClientPrefs.verthealthbar;
 
 					case 'Song Backgrounds':
 						ClientPrefs.songbackgrounds = !ClientPrefs.songbackgrounds;
