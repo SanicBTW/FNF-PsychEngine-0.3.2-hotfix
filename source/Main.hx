@@ -67,6 +67,7 @@ class Main extends Sprite
 
 		#if !debug
 		initialState = TitleState;
+		FlxG.mouse.visible = true;
 		#end
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
