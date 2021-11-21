@@ -29,10 +29,12 @@ class FreeplayState extends MusicBeatState
 		['cirno', 'black', 'bf'], //chirumiru, defeat, split
 		['zardyMyBeloved', 'zardyButDARK', 'hank'], //foolhardy, bushwhack, accelerant
 		['cancer', 'matt', 'matt',], // infinigger, target practice, sporting
+		['bf', 'hank', 'gold'], //termination, bullet note test, monochrome
 	];
 
 	static var easysongHeads:Array<Dynamic> = [
 
+		[],
 		[],
 		[],
 		[],

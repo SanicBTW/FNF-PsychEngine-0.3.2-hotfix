@@ -571,6 +571,10 @@ class PlayState extends MusicBeatState
 				nevada_tracer = new BGSprite('modbackgrounds/accelerant/tracer', 2000, 640);
 				add(nevada_tracer);
 
+			case 'monochrome':
+				defaultCamZoom = 0.7;
+				curStage = 'lost';
+
 			default:
 				defaultCamZoom = 0.9;
 				curStage = 'stage';
@@ -664,6 +668,10 @@ class PlayState extends MusicBeatState
 				dadGroup.add(dad);
 				boyfriendGroup.add(boyfriend);
 			}
+		} else if (curStage.startsWith("lost")){
+			if(ClientPrefs.songbackgrounds){
+				dadGroup.add(dad);
+			}
 		} else {
 			if(ClientPrefs.songbackgrounds){
 				dadGroup.add(dad);
@@ -718,7 +726,6 @@ class PlayState extends MusicBeatState
 		Conductor.songPosition = -5000;
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
-		//strumLine = new FlxSprite(STRUM_X_MIDDLESCROLL, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
@@ -1232,6 +1239,9 @@ class PlayState extends MusicBeatState
 				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
+				if(SONG.song.toLowerCase() == "monochrome") {
+					opponentStrums.members[i].visible = false;
+				}
 			}
 
 			startedCountdown = true;
@@ -1868,25 +1878,6 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.swapOldIcon();
 		}*/
-
-		if(FlxG.mouse.overlaps(timeBar) && FlxG.mouse.justPressed && startedCountdown && canPause|| FlxG.mouse.overlaps(timeBarBG) && FlxG.mouse.justPressed && startedCountdown && canPause|| FlxG.mouse.overlaps(timeTxt) && FlxG.mouse.justPressed && startedCountdown && canPause){
-			var ret:Dynamic = callOnLuas('onPause', []);
-			if(ret != FunkinLua.Function_Stop) {
-				persistentUpdate = false;
-				persistentDraw = true;
-				paused = true;
-
-				if(FlxG.sound.music != null) {
-					FlxG.sound.music.pause();
-					vocals.pause();
-				}
-				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-			
-				#if desktop
-				DiscordClient.changePresence(detailsPausedText, displaySongName + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-				#end
-			}
-		} //useless && statements ig
 
 		callOnLuas('onUpdate', [elapsed]);
 
@@ -3055,8 +3046,7 @@ class PlayState extends MusicBeatState
 			//numScore.visible = !ClientPrefs.hideHud;
 			numScore.visible = true;
 
-			if (combo >= 10 || combo == 0)
-				add(numScore);
+			add(numScore);
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween)
