@@ -60,7 +60,7 @@
 	"image": "characters/foolhardy/Cablecrow",
 	"position": [
 		-80,
-		110
+		90
 	],
 	"healthicon": "cableCrowPog",
 	"flip_x": false,
