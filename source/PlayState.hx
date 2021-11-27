@@ -128,6 +128,7 @@ class PlayState extends MusicBeatState
 	private var gfSpeed:Int = 1;
 
 	private var health:Float = 1;
+	public var maxHealth:Float = 0;
 	private var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
@@ -257,6 +258,10 @@ class PlayState extends MusicBeatState
 	var nevada_gfspeaker:FlxSprite;
 	var nevada_tiky:FlxSprite;
 	var notesbackgroundshit:FlxSprite; //idk how to call this lol
+
+	var unowning:Bool = false;
+	var isDead:Bool = false;
+	var isMonoDead:Bool = false;
 
 	override public function create()
 	{
@@ -1853,6 +1858,10 @@ class PlayState extends MusicBeatState
 
 	function resyncVocals():Void
 	{
+		if (isMonoDead) {
+			Conductor.songPosition = 0;
+			return;
+		} 
 		if(finishTimer != null) return;
 
 		vocals.pause();
@@ -1861,6 +1870,39 @@ class PlayState extends MusicBeatState
 		Conductor.songPosition = FlxG.sound.music.time;
 		vocals.time = Conductor.songPosition;
 		vocals.play();
+	}
+
+	function startUnown(timer:Int = 15, word:String = ''):Void {
+		canPause = false;
+		unowning = true;
+		persistentUpdate = true;
+		persistentDraw = true;
+		var realTimer = timer;
+		var unownState = new UnownSubState(realTimer, word);
+		unownState.win = wonUnown;
+		unownState.lose = die;
+		unownState.cameras = [camHUD];
+		FlxG.autoPause = false;
+		openSubState(unownState);
+		/*
+		if (!ClientPrefs.pussyMode) {
+			canPause = false;
+			unowning = true;
+			persistentUpdate = true;
+			persistentDraw = true;
+			var realTimer = timer;
+			var unownState = new UnownSubState(realTimer, word);
+			unownState.win = wonUnown;
+			unownState.lose = die;
+			unownState.cameras = [camHUD];
+			FlxG.autoPause = false;
+			openSubState(unownState);
+		}*/
+	}
+	
+	public function wonUnown():Void {
+		canPause = true;
+		unowning = false;
 	}
 
 	private var paused:Bool = false;
@@ -2077,10 +2119,17 @@ class PlayState extends MusicBeatState
 		// better streaming of shit
 
 		// RESET = Quick Game Over Screen
-		if (controls.RESET && !inCutscene && !endingSong)
+		if (controls.RESET && !inCutscene && !endingSong && !unowning)
 		{
 			health = 0;
 			trace("RESET = True");
+		}
+		//doDeathCheck();
+
+		if (isMonoDead) {
+			if (controls.ACCEPT)
+				MusicBeatState.resetState();
+			//trace(dad.animation.curAnim.curFrame);
 		}
 
 		if (health <= 0 && !practiceMode)
@@ -2417,6 +2466,50 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	public function die():Void {
+		if (SONG.song.toLowerCase() == 'monochrome') {
+			boyfriend.stunned = true;
+			deathCounter++;
+			paused = true;
+
+			vocals.stop();
+			FlxG.sound.music.stop();
+
+			isDead = true;
+			isMonoDead = true;
+			dad.debugMode = true;
+			dad.playAnim('fadeOut', true);
+			dad.animation.finishCallback = function (name:String) {
+				remove(dad);
+			}
+
+			FlxTween.tween(healthBar, {alpha: 0}, 1, {ease: FlxEase.linear, onComplete: function (twn:FlxTween) {
+				healthBar.visible = false;
+				healthBarBG.visible = false;
+				scoreTxt.visible = false;
+				iconP1.visible = false;
+				iconP2.visible = false;
+			}});
+			FlxTween.tween(healthBarBG, {alpha: 0}, 1, {ease: FlxEase.linear});
+			FlxTween.tween(scoreTxt, {alpha: 0}, 1, {ease: FlxEase.linear});
+			FlxTween.tween(iconP1, {alpha: 0}, 1, {ease: FlxEase.linear});
+			FlxTween.tween(iconP2, {alpha: 0}, 1, {ease: FlxEase.linear});
+			for (i in playerStrums) {
+				FlxTween.tween(i, {alpha: 0}, 1, {ease: FlxEase.linear});
+			}
+			
+		}
+	}
+
+	function doDeathCheck() {
+		if (health <= maxHealth && !practiceMode && !isDead)
+		{
+			die();
+			return true;
+		}
+		return false;
+	}
+
 	public function getControl(key:String) {
 		var pressed:Bool = Reflect.getProperty(controls, key);
 		//trace('Control result: ' + pressed);
@@ -2679,6 +2772,8 @@ class PlayState extends MusicBeatState
 						}
 
 				}
+			case 'Unown':
+					startUnown(Std.parseInt(value1), value2);
 		}
 		if(!onLua) {
 			callOnLuas('onEvent', [eventName, value1, value2]);
@@ -3851,6 +3946,33 @@ class PlayState extends MusicBeatState
 
 				case 490:
 					FlxTween.tween(dad, {alpha:1}, 0.4);
+			}
+		}
+
+		if(curSong == 'monochrome')
+		{
+			switch(curBeat)
+			{
+				case 28:
+						FlxTween.tween(healthBar, {alpha: 0.4}, 3, {ease: FlxEase.linear});
+						FlxTween.tween(healthBarBG, {alpha: 0.4}, 3, {ease: FlxEase.linear});
+						FlxTween.tween(scoreTxt, {alpha: 0.4}, 3, {ease: FlxEase.linear});
+						FlxTween.tween(iconP1, {alpha: 1}, 3, {ease: FlxEase.linear});
+						FlxTween.tween(iconP2, {alpha: 1}, 3, {ease: FlxEase.linear});
+						for (i in playerStrums) {
+							FlxTween.tween(i, {alpha: 0.7}, 3, {ease: FlxEase.linear});
+						}
+					case 392:
+						dad.debugMode = true;
+						dad.playAnim('fadeOut', true);
+						FlxTween.tween(healthBar, {alpha: 0}, 1, {ease: FlxEase.linear});
+						FlxTween.tween(healthBarBG, {alpha: 0}, 1, {ease: FlxEase.linear});
+						FlxTween.tween(scoreTxt, {alpha: 0}, 1, {ease: FlxEase.linear});
+						FlxTween.tween(iconP1, {alpha: 0}, 1, {ease: FlxEase.linear});
+						FlxTween.tween(iconP2, {alpha: 0}, 1, {ease: FlxEase.linear});
+						for (i in playerStrums) {
+							FlxTween.tween(i, {alpha: 0}, 1, {ease: FlxEase.linear});
+						}
 			}
 		}
 
