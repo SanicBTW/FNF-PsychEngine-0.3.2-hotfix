@@ -78,6 +78,17 @@ class OptionsState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		if(FlxG.mouse.wheel != 0)
+		{
+			if(FlxG.mouse.wheel > 0)
+			{
+				changeSelection(-1);
+			}
+			else 
+			{
+				changeSelection(1);
+			}
+		}
 		if (controls.UI_UP_P) {
 			changeSelection(-1);
 		}

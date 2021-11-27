@@ -50,7 +50,7 @@ class ClientPrefs {
 	//keyboard overlay stuff
 	public static var showkeyboardoverlay:Bool = true;
 	public static var keyboardoverlayALPHA:Float = 0.5;
-	public static var keyboardoverlayPOSITION:String = "Left";
+	public static var keyboardoverlayPOSITION:String = "Right";
 	//idk if its gonna work with flxcolor, if it doesnt then gonna use strings
 	public static var keyboardoverlayIDLECOLOR:FlxColor = FlxColor.GRAY;
 	public static var keyboardoverlayPRESSINGCOLOR:FlxColor = FlxColor.WHITE;

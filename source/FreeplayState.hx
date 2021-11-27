@@ -271,6 +271,17 @@ class FreeplayState extends MusicBeatState
 		var accepted = controls.ACCEPT;
 		var space = FlxG.keys.justPressed.SPACE;
 
+		if(FlxG.mouse.wheel != 0)
+		{
+			if(FlxG.mouse.wheel > 0)
+			{
+				changeSelection(-1);
+			}
+			else 
+			{
+				changeSelection(1);
+			}
+		}
 		if (upP)
 		{
 			changeSelection(-1);
