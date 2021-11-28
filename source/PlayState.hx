@@ -230,16 +230,7 @@ class PlayState extends MusicBeatState
 	public var backgroundGroup:FlxTypedGroup<FlxSprite>;
 	public var foregroundGroup:FlxTypedGroup<FlxSprite>;
 
-	var idiot:FlxBackdrop;
-	var idiot2:FlxBackdrop;
-
-	var cirnoMode:Bool = false;
-
-	var chiritexttop:FlxSprite;
-	var chiritextbottom:FlxSprite;
 	var declife:FlxTimer;
-	var ZardyBackground:FlxSprite;
-	var ebolatimer:FlxTimer;
 
 	//Kind of bad the way im doing this but i have no other way that i know sorry
 	//up key
@@ -932,16 +923,8 @@ class PlayState extends MusicBeatState
 	}
 	
 	public function reloadHealthBarColors() {
-		if (curStage == "osubackgrounds"){
-			healthBar.createFilledBar(FlxColor.fromRGB(255, 0, 0),
-			FlxColor.fromRGB(0, 128, 0));
-		} else if (ebolatimer != null){
-			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(255, 255, 0));
-		} else {
-			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
-		}
+		healthBar.createFilledBar(FlxColor.fromRGB(255, 0, 0),
+		FlxColor.fromRGB(0, 128, 0));
 		healthBar.updateBar();
 	}
 
@@ -1334,7 +1317,6 @@ class PlayState extends MusicBeatState
 	{
 		// FlxG.log.add(ChartParser.parse());
 
-		cirnoMode = false;
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
 
@@ -1634,22 +1616,6 @@ class PlayState extends MusicBeatState
 				if (declife != null) decreaseHealth('stop');
 			}
 
-			//Doesn't works if you pressed more than one ebola note
-			if(ClientPrefs.nerfebolatimer == true){
-				if(curStage == "cancstage"){
-					if (ebolatimer != null){
-						if(ebolatimer.active){
-							ebolatimer.active = false;
-							#if !web
-							trace('Ebola stopped, nerfebolatimer = true, such a noob');
-							#else
-							FlxG.log.add('Ebola stopped, nerfebolatimer = true, such a noob');
-							#end
-						}
-					}	
-				}
-			}
-
 
 			if(phillyBlackTween != null)
 				phillyBlackTween.active = false;
@@ -1685,22 +1651,6 @@ class PlayState extends MusicBeatState
 			//bro what, actually dont know if it even works or just doing nothin lol
 			if(ClientPrefs.ignorepauseosutimer == false){
 				if (declife != null) decreaseHealth('resume');
-			}
-
-			//Doesn't works if you pressed more than one ebola note
-			if(ClientPrefs.nerfebolatimer == true){
-				if(curStage == "cancstage"){
-					if (ebolatimer != null){
-						if(!ebolatimer.active){
-							ebolatimer.active = true;
-							#if !web
-							trace('Resuming ebola, nerfebolatimer = true, such a noob');
-							#else
-							FlxG.log.add('Resuming ebola, nerfebolatimer = true, such a noob');
-							#end
-						}
-					}	
-				}
 			}
 
 			if(phillyBlackTween != null)
@@ -1796,15 +1746,6 @@ class PlayState extends MusicBeatState
 		}
 
 		callOnLuas('onUpdate', [elapsed]);
-
-		if(ClientPrefs.songbackgrounds){
-			switch (curStage)
-			{
-				case 'zardy':
-					ZardyBackground.animation.play('Maze');
-			}
-		}
-
 
 		if(!inCutscene) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4, 0, 1);
@@ -1906,26 +1847,6 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.SHIFT && FlxG.keys.justPressed.F){
 			FlxG.fullscreen != FlxG.fullscreen;
 		}
-
-		if (curStage.startsWith("cirnoday"))
-			{
-				if (cirnoMode)
-					{
-					if (idiot.alpha >= 0.5)
-						{
-						idiot.alpha -= 0.01;
-						idiot2.alpha = idiot.alpha;
-						}
-					}
-				else
-					{
-					if (idiot.alpha <= 1.01)
-						{
-						idiot.alpha += 0.01;
-						idiot2.alpha = idiot.alpha;
-						}
-					}		
-			}
 		
 		if (startingSong)
 		{
@@ -3208,55 +3129,6 @@ class PlayState extends MusicBeatState
 		if (!note.wasGoodHit)
 		{
 			switch(note.noteType) {
-				case 5:
-				if(cpuControlled) return;
-
-				if(!boyfriend.stunned)
-					{
-						noteMiss(note.noteData);
-						ebolatimer = new FlxTimer().start(0.1, function(tmr:FlxTimer)
-						{
-							health -= 0.01;
-						}, 0);
-
-						note.wasGoodHit = true;
-
-						if (!note.isSustainNote)
-						{
-							note.kill();
-							notes.remove(note, true);
-							note.destroy();
-						}
-					}
-					reloadHealthBarColors();
-					return;
-				case 4: //Warning note or shoot note ig
-				if(cpuControlled) return;
-
-				if(!boyfriend.stunned){
-					
-					boyfriend.playAnim('bfdodge', true);
-					//dad.playAnim('bfattack', true);
-
-					if (FlxG.random.bool(50)){
-						dad.playAnim('singLEFT-alt', true);
-					} else {
-						dad.playAnim('singDOWN-alt', true);
-					}
-
-					note.wasGoodHit = true;
-					health += 0.023;
-
-					if (!note.isSustainNote)
-					{
-						note.kill();
-						notes.remove(note, true);
-						note.destroy();
-					}
-
-				}
-
-				return;
 
 				case 3: //Hurt note
 					if(cpuControlled) return;
@@ -3730,226 +3602,6 @@ class PlayState extends MusicBeatState
 				case 184:
 					gf.playAnim("cheer", true);
 			}
-		}
-
-		if (curSong == "foolhardy" || curStage == "zardy" && ClientPrefs.songbackgrounds)
-		{
-			switch(curBeat)
-			{
-				case 607:
-					//dad.alpha = 0.8;
-					FlxTween.tween(dad, {alpha:0.8}, 0.4);
-					ZardyBackground.frames = Paths.getSparrowAtlas('modbackgrounds/zardy/Maze', 'shared');
-					ZardyBackground.animation.addByPrefix('Maze', 'Stage', 20);
-					ZardyBackground.animation.play('Maze');
-				case 736:
-					//dad.alpha = 0;
-					FlxTween.tween(dad, {alpha:0}, 0.4);
-			}
-		}
-
-		if (curSong == "bushwhack" || curStage == "zardyBruh" && ClientPrefs.songbackgrounds)
-		{
-			switch(curBeat)
-			{
-				case 480:
-					FlxTween.tween(dad, {alpha:0}, 0.4);
-					startCharacterPos(dad);
-
-				case 490:
-					FlxTween.tween(dad, {alpha:1}, 0.4);
-			}
-		}
-
-		if (curSong == 'Chirumiru' && ClientPrefs.songbackgrounds)  //CHIRUMIRU BEATHITS
-			{
-				switch (curBeat)
-				{
-					case 48:
-						defaultCamZoom = 1.05;
-
-					case 50:
-						defaultCamZoom = 1.07;
-						
-					case 52:
-						defaultCamZoom = 1.09;
-						
-					case 54:
-						defaultCamZoom = 1.11;
-						
-					case 56:
-						defaultCamZoom = 1.13;
-						
-					case 58:
-						defaultCamZoom = 1.16;
-						
-					case 60:
-						defaultCamZoom = 1.18;
-						
-					case 64:
-						defaultCamZoom = 1.20;
-						
-					case 66:
-						defaultCamZoom = 1.35;
-						
-					case 68:
-						defaultCamZoom = 1.15;
-						
-					case 70:
-						defaultCamZoom = 1.25;
-						
-					case 72:
-						defaultCamZoom = 1.07;
-														
-					case 74:
-						defaultCamZoom = 1.15;
-																						
-					case 76:
-						defaultCamZoom = 1.3;
-																						
-					case 77:
-						defaultCamZoom = 1.2;
-																						
-					case 78:
-						defaultCamZoom = 1.1;
-																						
-					case 79:
-						defaultCamZoom = 1.0;
-
-					case 80:
-						defaultCamZoom = 1.0;
-						cirnoMode = true;
-						cirnoMode == true;
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 84:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 88:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 96:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 104:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 112:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 116:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 120:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 128:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 132:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 136:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 148:
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-						cirnoMode = false;
-						cirnoMode == false;
-
-					case 280:
-						cirnoMode = true;
-						cirnoMode == true;
-
-					case 293:
-						defaultCamZoom = 1.7;
-
-					case 296:
-						defaultCamZoom = 1.0;
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 300:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 304:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 312:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 316:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 320:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 328:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 332:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 336:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 344:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 348:
-						FlxTween.tween(chiritexttop, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-
-					case 352:
-						FlxTween.tween(chiritextbottom, {x: 0}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-
-					case 360:
-						FlxTween.tween(chiritexttop, {x: -1080}, 1, {ease: FlxEase.circOut});
-						FlxTween.tween(chiritextbottom, {x: 1080}, 1, {ease: FlxEase.circOut});
-						cirnoMode = false;
-						cirnoMode == false;
-					}
-			}
-
-
-		switch (curStage)
-		{
-			case 'cirnoday':
-				if(ClientPrefs.onemisschirumiru){
-					if(songMisses > 0){
-						health = 0;
-					}
-				}
-
-			//idk if it works without the == true lol
-			case 'defeat':
-				if(ClientPrefs.onemissdefeat == true){
-					if(songMisses > 0){
-						health = 0;
-					}
-				}
 		}
 
 		lastBeatHit = curBeat;
