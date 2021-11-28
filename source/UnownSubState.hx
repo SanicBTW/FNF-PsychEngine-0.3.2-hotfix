@@ -190,7 +190,7 @@ class UnownSubState extends MusicBeatSubstate
 
 		timerTxt = new FlxText(FlxG.width / 2 - 5, 430, 0, '0', 32);
 		timerTxt.alignment = 'center';
-		timerTxt.font = Paths.font('metro.otf');
+		timerTxt.font = Paths.font('vcr.ttf');
 		add(timerTxt);
 		timerTxt.text = Std.string(timer);
 	}
@@ -201,7 +201,7 @@ class UnownSubState extends MusicBeatSubstate
 		if (position >= realWord.length) {
 			close();
 			win();
-			FlxG.sound.play(Paths.sound('CORRECT', 'shared'));
+			FlxG.sound.play(Paths.sound('monochromesounds/CORRECT', 'shared'));
 		}
 	}
 	override function update(elapsed:Float)
@@ -221,17 +221,17 @@ class UnownSubState extends MusicBeatSubstate
 				if (FlxG.keys.justPressed.SLASH && FlxG.keys.pressed.SHIFT)
 					correctLetter();
 				else if (!FlxG.keys.justPressed.SHIFT)
-					FlxG.sound.play(Paths.sound('BUZZER', 'shared'));
+					FlxG.sound.play(Paths.sound('monochromesounds/BUZZER', 'shared'));
 			} else if (realWord.charAt(position) == '!') {
 				if (FlxG.keys.justPressed.ONE && FlxG.keys.pressed.SHIFT)
 					correctLetter();
 				else if (!FlxG.keys.justPressed.SHIFT)
-					FlxG.sound.play(Paths.sound('BUZZER', 'shared'));
+					FlxG.sound.play(Paths.sound('monochromesounds/BUZZER', 'shared'));
 			} else {
 				if (FlxG.keys.anyJustPressed([FlxKey.fromString(realWord.charAt(position))])) {
 					correctLetter();
 				} else
-					FlxG.sound.play(Paths.sound('BUZZER', 'shared'));
+					FlxG.sound.play(Paths.sound('monochromesounds/BUZZER', 'shared'));
 			}
 		}
 		/*if (FlxG.keys.justPressed.Z) {

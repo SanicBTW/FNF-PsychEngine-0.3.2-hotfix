@@ -1979,7 +1979,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (FlxG.keys.justPressed.SEVEN && !endingSong)
+		if (FlxG.keys.justPressed.SEVEN && !endingSong && !unowning)
 		{
             persistentUpdate = false;
             paused = true;
@@ -2419,7 +2419,7 @@ class PlayState extends MusicBeatState
 		//super.update(elapsed); //TEST
 		
 		#if debug
-		if(!endingSong && !startingSong) {
+		if(!endingSong && !startingSong && !unowning) {
 			if (FlxG.keys.justPressed.ONE)
 				FlxG.sound.music.onComplete();
 			if(FlxG.keys.justPressed.TWO) { //Go 10 seconds into the future :O
