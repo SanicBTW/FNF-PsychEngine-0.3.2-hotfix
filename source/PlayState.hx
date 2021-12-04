@@ -252,6 +252,7 @@ class PlayState extends MusicBeatState
 	var keyboardoverlayLEFTKEY:FlxSprite;
 	var keyboardoverlayLEFTKEYTEXT:FlxText;
 
+	//feel like i should make them flxsprite instead of bgsprite
 	var nevada_stage:BGSprite;
 	var nevada_tracer:BGSprite;
 	var nevada_yeetgf:BGSprite; //should i put it as a bgsprite??
@@ -972,7 +973,7 @@ class PlayState extends MusicBeatState
 		}
 
 		//layering or something idk uhhhhhhhhhhhhhh
-		if(ClientPrefs.strumbackground){
+		if(ClientPrefs.strumbackground && ClientPrefs.middleScroll){
 			notesbackgroundshit.cameras = [camHUD];
 		}
 

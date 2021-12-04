@@ -340,19 +340,19 @@ class FreeplayState extends MusicBeatState
 			}
 			LoadingState.loadAndSwitchState(new PlayState());
 
-			FlxG.sound.music.volume = 0;
-					
 			destroyFreeplayVocals();
 		}
 		else if(controls.RESET || FlxG.mouse.overlaps(pritext) && FlxG.mouse.justPressed)
 		{
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
+			FlxTween.tween(FlxG.sound, {volume: 0.3}, 0.5);
 		}
 		else if(FlxG.mouse.overlaps(secondtext) && FlxG.mouse.justPressed)
 		{
 			openSubState(new DiffSongsSubstate(true));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
+			FlxTween.tween(FlxG.sound, {volume: 0.3}, 0.5);
 		}
 		super.update(elapsed);
 	}

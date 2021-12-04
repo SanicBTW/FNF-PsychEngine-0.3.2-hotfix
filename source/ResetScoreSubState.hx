@@ -3,6 +3,7 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.util.FlxColor;
 import flixel.input.mouse.FlxMouseEventManager;
+import flixel.tweens.FlxTween;
 
 using StringTools;
 
@@ -104,16 +105,20 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 		if(controls.BACK || FlxG.mouse.overlaps(bg) && FlxG.mouse.justPressed && !FlxG.mouse.overlaps(yesText) && !FlxG.mouse.overlaps(noText)) { //useless "!" ig
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+			FlxTween.tween(FlxG.sound, {volume: 1.0}, 0.5);
 			close();
 		} else if(controls.ACCEPT || FlxG.mouse.overlaps(yesText) && FlxG.mouse.justPressed) {
 			if(onYes) {
 				if(week == -1) {
 					Highscore.resetSong(song, difficulty);
+					FlxTween.tween(FlxG.sound, {volume: 1.0}, 0.5);
 				} else {
 					Highscore.resetWeek(week, difficulty);
+					FlxTween.tween(FlxG.sound, {volume: 1.0}, 0.5);
 				}
 			} else {
 				FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+				FlxTween.tween(FlxG.sound, {volume: 1.0}, 0.5);
 				close();
 			}
 		}

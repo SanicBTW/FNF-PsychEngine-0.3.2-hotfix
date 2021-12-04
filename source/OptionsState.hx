@@ -762,6 +762,7 @@ class DiffSongsSubstate extends MusicBeatSubstate
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					if(infreeplay){
 						FreeplayState.RestartFreeplay();
+						FlxTween.tween(FlxG.sound, {volume: 1.0}, 0.5);
 					}
 					close();
 				case 1:
@@ -769,6 +770,7 @@ class DiffSongsSubstate extends MusicBeatSubstate
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					if(infreeplay){
 						FreeplayState.RestartFreeplay();
+						FlxTween.tween(FlxG.sound, {volume: 1.0}, 0.5);
 					}
 					close();
 			}

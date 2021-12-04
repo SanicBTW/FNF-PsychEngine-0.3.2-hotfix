@@ -8,6 +8,8 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import lime.app.Application;
+import flixel.tweens.FlxTween;
 
 class Main extends Sprite
 {
@@ -16,9 +18,11 @@ class Main extends Sprite
 	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
+	var lowframerate:Int = 20;
 	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPS;
+	var focusMusicTween:FlxTween;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -71,20 +75,46 @@ class Main extends Sprite
 		#end
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		addChild(new Overlay(0, 0));
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = true;
+		Application.current.window.onFocusOut.add(onWindowFocusOut);
+		Application.current.window.onFocusIn.add(onWindowFocusIn);
 
+		/*
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
-		#end
+		#end*/
 
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = true;
 		#end
+	}
+
+	function onWindowFocusOut() 
+	{
+		trace("Window not focused");
+
+		if(focusMusicTween != null)
+			focusMusicTween.cancel();
+		focusMusicTween = FlxTween.tween(FlxG.sound, {volume: 0.3}, 0.5);
+
+		FlxG.drawFramerate = lowframerate;
+	}
+
+	function onWindowFocusIn() 
+	{
+		trace("Window Focused");
+	
+		if(focusMusicTween != null)
+			focusMusicTween.cancel();
+		focusMusicTween = FlxTween.tween(FlxG.sound, {volume: 1.0}, 0.5);
+	
+		FlxG.drawFramerate = ClientPrefs.framerate;
 	}
 }
