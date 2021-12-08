@@ -1922,6 +1922,23 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 
+		if(FlxG.keys.justPressed.SPACE)
+		{
+			for(i in 0...playerStrums.length)
+			{
+				FlxTween.tween(playerStrums.members[i], {alpha: 0.1}, 0.1, { ease: FlxEase.linear});
+			}
+			boyfriend.stunned = true;
+		}
+		else if(FlxG.keys.justReleased.SPACE)
+		{
+			for(i in 0...playerStrums.length)
+			{
+				FlxTween.tween(playerStrums.members[i], {alpha: 1}, 0.1, { ease: FlxEase.linear});
+			}
+			boyfriend.stunned = false;
+		}
+
 		callOnLuas('onUpdate', [elapsed]);
 
 		if(ClientPrefs.songbackgrounds){
@@ -2242,68 +2259,9 @@ class PlayState extends MusicBeatState
 						daNote.clipRect = swagRect;
 					}
 				}
-
-				if (!daNote.mustPress && daNote.wasGoodHit && !daNote.ignoreNote)
+				if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 				{
-					if (SONG.song != 'Tutorial')
-						camZooming = true;
-
-					var isAlt:Bool = false;
-
-					if(daNote.noteType == 2 && dad.animOffsets.exists('hey')) {
-						dad.playAnim('hey', true);
-						dad.specialAnim = true;
-						dad.heyTimer = 0.6;
-					} else {
-						var altAnim:String = "";
-
-						if (SONG.notes[Math.floor(curStep / 16)] != null)
-						{
-							if (SONG.notes[Math.floor(curStep / 16)].altAnim || daNote.noteType == 1) {
-								altAnim = '-alt';
-								isAlt = true;
-							}
-						}
-
-						var animToPlay:String = '';
-						switch (Math.abs(daNote.noteData))
-						{
-							case 0:
-								animToPlay = 'singLEFT';
-							case 1:
-								animToPlay = 'singDOWN';
-							case 2:
-								animToPlay = 'singUP';
-							case 3:
-								animToPlay = 'singRIGHT';
-						}
-						if(daNote.noteType == 6) {
-							gf.playAnim(animToPlay + altAnim, true);
-							gf.holdTimer = 0;
-						} else {
-							dad.playAnim(animToPlay + altAnim, true);
-							dad.holdTimer = 0;
-						}
-					}
-
-					dad.holdTimer = 0;
-
-					if (SONG.needsVoices)
-						vocals.volume = 1;
-
-					var time:Float = 0.15;
-					if(daNote.isSustainNote && !daNote.animation.curAnim.name.endsWith('end')) {
-						time += 0.15;
-					}
-					StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
-					daNote.ignoreNote = true;
-
-					if (!daNote.isSustainNote)
-					{
-						daNote.kill();
-						notes.remove(daNote, true);
-						daNote.destroy();
-					}
+					opponentNoteHit(daNote);
 				}
 
 				if(daNote.mustPress && cpuControlled) {
@@ -3399,7 +3357,69 @@ class PlayState extends MusicBeatState
 				vocals.volume = 0;
 			}
 		}	
+	function opponentNoteHit(note:Note):Void
+	{		
+		switch(note.noteType){
+			case 3:
+				if(boyfriend.stunned && FlxG.keys.pressed.SPACE)
+				{
+					if(boyfriend.animation.getByName('bfdodge') != null) {
+						boyfriend.playAnim('bfdodge', true);
+						boyfriend.specialAnim = true;
+					}
+				}
+				else
+				{
+					health -= 0.3;
+					if(boyfriend.animation.getByName('hurt') != null) {
+						boyfriend.playAnim('hurt', true);
+						boyfriend.specialAnim = true;
+					}
+				}
+				return;
+		}
+		if(note.noteType == 2 && dad.animOffsets.exists('hey')) {
+			dad.playAnim('hey', true);
+			dad.specialAnim = true;
+			dad.heyTimer = 0.6;
+		} else {
+			var daAlt = '';
+			if(note.noteType == 1) daAlt = '-alt';
 
+			var animToPlay:String = '';
+			switch (Std.int(Math.abs(note.noteData)))
+			{
+				case 0:
+					animToPlay = 'singLEFT';
+				case 1:
+					animToPlay = 'singDOWN';
+				case 2:
+					animToPlay = 'singUP';
+				case 3:
+					animToPlay = 'singRIGHT';
+			}
+			dad.playAnim(animToPlay + daAlt, true);
+		}
+
+		
+		if (SONG.needsVoices)
+			vocals.volume = 1;
+		
+		var time:Float = 0.15;
+		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
+			time += 0.15;
+		}
+		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
+		note.hitByOpponent = true;
+		
+		if (!note.isSustainNote)
+		{
+			note.kill();
+			notes.remove(note, true);
+			note.destroy();
+		}
+	}
+	
 	function goodNoteHit(note:Note):Void
 	{
 		if (!note.wasGoodHit)

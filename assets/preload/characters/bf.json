@@ -164,6 +164,17 @@
 			"fps": 24,
 			"name": "BF Dead confirm",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-10,
+				-20
+			],
+			"anim": "bfdodge",
+			"fps": 24,
+			"name": "boyfriend dodge",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
