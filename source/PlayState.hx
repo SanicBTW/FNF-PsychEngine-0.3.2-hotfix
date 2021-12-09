@@ -3358,8 +3358,26 @@ class PlayState extends MusicBeatState
 			}
 		}	
 	function opponentNoteHit(note:Note):Void
-	{		
+	{
 		switch(note.noteType){
+			case 6:
+				var altAnim:String = "";
+				var animToPlay:String = '';
+				switch (Math.abs(note.noteData))
+				{
+					case 0:
+						animToPlay = 'singLEFT';
+					case 1:
+						animToPlay = 'singDOWN';
+					case 2:
+						animToPlay = 'singUP';
+					case 3:
+						animToPlay = 'singRIGHT';
+				}
+				gf.playAnim(animToPlay + altAnim, true);
+				gf.holdTimer = 0;
+
+				return;
 			case 3:
 				if(boyfriend.stunned && FlxG.keys.pressed.SPACE)
 				{
@@ -3378,16 +3396,25 @@ class PlayState extends MusicBeatState
 				}
 				return;
 		}
+		var isAlt:Bool = false;
+
 		if(note.noteType == 2 && dad.animOffsets.exists('hey')) {
 			dad.playAnim('hey', true);
 			dad.specialAnim = true;
 			dad.heyTimer = 0.6;
 		} else {
-			var daAlt = '';
-			if(note.noteType == 1) daAlt = '-alt';
+			var altAnim:String = "";
+
+			if (SONG.notes[Math.floor(curStep / 16)] != null)
+			{
+				if (SONG.notes[Math.floor(curStep / 16)].altAnim || note.noteType == 1) {
+					altAnim = '-alt';
+					isAlt = true;
+				}
+			}
 
 			var animToPlay:String = '';
-			switch (Std.int(Math.abs(note.noteData)))
+			switch (Math.abs(note.noteData))
 			{
 				case 0:
 					animToPlay = 'singLEFT';
@@ -3398,20 +3425,22 @@ class PlayState extends MusicBeatState
 				case 3:
 					animToPlay = 'singRIGHT';
 			}
-			dad.playAnim(animToPlay + daAlt, true);
+			dad.playAnim(animToPlay + altAnim, true);
+			dad.holdTimer = 0;
 		}
 
-		
+		dad.holdTimer = 0;
+
 		if (SONG.needsVoices)
 			vocals.volume = 1;
-		
+
 		var time:Float = 0.15;
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
-		note.hitByOpponent = true;
-		
+		note.ignoreNote = true;
+
 		if (!note.isSustainNote)
 		{
 			note.kill();
