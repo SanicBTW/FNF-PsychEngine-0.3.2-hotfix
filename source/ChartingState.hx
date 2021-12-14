@@ -71,7 +71,8 @@ class ChartingState extends MusicBeatState
 		['Alt Idle Animation', "Sets a speciied suffix after the idle animation name.\nYou can use this to trigger 'idle-alt' if you set\nValue 2 to -alt\n\nValue 1: Character to set (0 = Dad, 1 = BF, 2 = GF)\nValue 2: New suffix (Leave it blank to disable)"],
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.1\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change\nValue 2: New character's name\n\nOn Value 1, Boyfriend is 0,\nDad is 1 and Girlfriend is 2"],
-		['Unown', "Value 1: Time\nValue 2: Word something\nDoubt this works"]
+		['Unown', "Value 1: Time\nValue 2: Word something\nDoubt this works"],
+		['QTDodge', "Value 1: what\nValue 2: what again\nI don't know what to type here"]
 	];
 
 	var _file:FileReference;

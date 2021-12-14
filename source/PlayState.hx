@@ -2733,6 +2733,12 @@ class PlayState extends MusicBeatState
 				}
 			case 'Unown':
 					startUnown(Std.parseInt(value1), value2);
+			case 'QTDodge':
+				if(FlxG.keys.justPressed.SPACE){
+					trace("xd");
+				} else {
+					trace("bruh");
+				}
 		}
 		if(!onLua) {
 			callOnLuas('onEvent', [eventName, value1, value2]);
@@ -3160,7 +3166,7 @@ class PlayState extends MusicBeatState
 			var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
 			var controlHoldArray:Array<Bool> = [left, down, up, right];
 	
-			if (!boyfriend.stunned && generatedMusic)
+			if (!boyfriend.stunned && generatedMusic && !unowning)
 			{
 				if(ClientPrefs.showkeyboardoverlay){
 					//BRO HOLY FUCK THIS TOOK ME SO MUCH FUCKING TIME TO FIGURE OUT DUDEEEEEEEEE
