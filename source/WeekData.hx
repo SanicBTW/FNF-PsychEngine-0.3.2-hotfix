@@ -15,12 +15,14 @@ class WeekData {
 		['foolhardy', 'bushwhack', 'accelerant'],
 		['infinigger', 'target-practice', 'sporting'],
 		['termination', 'bullet-note-tst', 'monochrome'],
-		['8-28-63', 'expurgation']
+		['8-28-63', 'expurgation', 'erect-dadbattle'],
+		['erect-south']
 	];
 
 	public static var easysongNames:Array<Dynamic> = [
 		['Tutorial'],
 		
+		[],
 		[],
 		[],
 		[],
