@@ -271,17 +271,6 @@ class FreeplayState extends MusicBeatState
 		var accepted = controls.ACCEPT;
 		var space = FlxG.keys.justPressed.SPACE;
 
-		if(FlxG.mouse.wheel != 0)
-		{
-			if(FlxG.mouse.wheel > 0)
-			{
-				changeSelection(-1);
-			}
-			else 
-			{
-				changeSelection(1);
-			}
-		}
 		if (upP)
 		{
 			changeSelection(-1);
@@ -342,18 +331,19 @@ class FreeplayState extends MusicBeatState
 
 			destroyFreeplayVocals();
 		}
-		else if(controls.RESET || FlxG.mouse.overlaps(pritext) && FlxG.mouse.justPressed)
+		else if(controls.RESET)
 		{
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 			FlxTween.tween(FlxG.sound, {volume: 0.3}, 0.5);
 		}
+		/*
 		else if(FlxG.mouse.overlaps(secondtext) && FlxG.mouse.justPressed)
 		{
 			openSubState(new DiffSongsSubstate(true));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 			FlxTween.tween(FlxG.sound, {volume: 0.3}, 0.5);
-		}
+		}*/
 		super.update(elapsed);
 	}
 

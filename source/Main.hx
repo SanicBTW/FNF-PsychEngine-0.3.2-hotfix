@@ -71,13 +71,13 @@ class Main extends Sprite
 
 		#if !debug
 		initialState = TitleState;
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = false;
 		#end
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 		addChild(new Overlay(0, 0));
 		FlxG.autoPause = false;
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = false;
 		Application.current.window.onFocusOut.add(onWindowFocusOut);
 		Application.current.window.onFocusIn.add(onWindowFocusIn);
 
@@ -92,7 +92,7 @@ class Main extends Sprite
 
 		#if html5
 		FlxG.autoPause = false;
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = false;
 		#end
 	}
 

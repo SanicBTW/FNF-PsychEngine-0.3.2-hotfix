@@ -157,18 +157,6 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (FlxG.mouse.wheel != 0)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				if(FlxG.mouse.wheel > 0)
-				{
-					changeItem(-1);
-				}
-				else 
-				{
-					changeItem(1);
-				}
-			}
 			if (controls.UI_UP_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -187,7 +175,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}*/
 
-			if (controls.ACCEPT || FlxG.mouse.justPressed) //I have to fix this sorry guys
+			if (controls.ACCEPT) //I have to fix this sorry guys
 			{
 				if (optionShit[curSelected] == 'donate')
 				{
