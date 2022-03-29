@@ -264,6 +264,11 @@ class PlayState extends MusicBeatState
 	var isDead:Bool = false;
 	var isMonoDead:Bool = false;
 
+	var campointX:Float = 0;
+	var campointY:Float = 0;
+	var bfturn:Bool = false;
+	var camMov:Int = 30;
+
 	override public function create()
 	{
 		if (FlxG.sound.music != null)
@@ -2750,12 +2755,18 @@ class PlayState extends MusicBeatState
 		{
 			moveCamera(true);
 			callOnLuas('onMoveCamera', ['dad']);
+			campointX = camFollow.x;
+			campointY = camFollow.y;
+			bfturn = false;
 		}
 
 		if (SONG.notes[id] != null && SONG.notes[id].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100)
 		{
 			moveCamera(false);
 			callOnLuas('onMoveCamera', ['boyfriend']);
+			campointX = camFollow.x;
+			campointY = camFollow.y;
+			bfturn = true;
 		}
 	}
 
@@ -3592,14 +3603,18 @@ class PlayState extends MusicBeatState
 				var animToPlay:String = '';
 				switch (Std.int(Math.abs(note.noteData)))
 				{
-					case 0:
-						animToPlay = 'singLEFT';
-					case 1:
-						animToPlay = 'singDOWN';
-					case 2:
-						animToPlay = 'singUP';
-					case 3:
-						animToPlay = 'singRIGHT';
+				case 0:
+					snapCamFollowToPos(campointX - camMov, campointY);
+					animToPlay = 'singLEFT';
+				case 1:
+					snapCamFollowToPos(campointX, campointY + camMov);
+					animToPlay = 'singDOWN';
+				case 2:
+					snapCamFollowToPos(campointX, campointY - camMov);
+					animToPlay = 'singUP';
+				case 3:
+					snapCamFollowToPos(campointX + camMov, campointY);
+					animToPlay = 'singRIGHT';
 				}
 				boyfriend.playAnim(animToPlay + daAlt, true);
 			}
