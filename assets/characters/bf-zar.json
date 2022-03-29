@@ -1,0 +1,235 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-5,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "BF idle dance instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				12,
+				-6
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "BF NOTE LEFT instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-10,
+				-50
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "BF NOTE DOWN instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-29,
+				27
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "BF NOTE UP instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-38,
+				-7
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "BF NOTE RIGHT instance",
+			"indices": []
+		},
+
+		{
+			"loop": false,
+			"offsets": [
+				12,
+				24
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "BF NOTE LEFT MISS instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-11,
+				-19
+			],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "BF NOTE DOWN MISS instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-29,
+				27
+			],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "BF NOTE UP MISS instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-30,
+				21
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "BF NOTE RIGHT MISS instance",
+			"indices": []
+		},
+
+		{
+			"loop": false,
+			"offsets": [
+				7,
+				4
+			],
+			"anim": "hey",
+			"fps": 24,
+			"name": "BF HEY",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-10,
+				-20
+			],
+			"anim": "dodge",
+			"fps": 24,
+			"name": "boyfriend dodge instance 1",
+			"indices": []
+		},
+		
+		{
+			"loop": false,
+			"offsets": [
+				37,
+				11
+			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "BF dies instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				37,
+				5
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "BF Dead Loop instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				37,
+				69
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "BF Dead confirm instance",
+			"indices": []
+		},
+
+		{
+			"loop": false,
+			"offsets": [
+				-50,
+				50
+			],
+			"anim": "heldByVine",
+			"fps": 24,
+			"name": "BF hit instance 1",
+			"indices": [4,5,6,7,8,9,10,12,13,14,15,16,17,18]
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-50,
+				50
+			],
+			"anim": "deadInVine",
+			"fps": 24,
+			"name": "BF hit instance 1",
+			"indices": [18,19,20,21,22,23,24]
+		},
+		{
+			"loop": false,
+			"offsets": [
+			],
+			"anim": "dead",
+			"fps": 24,
+			"name": "BF hit instance 1",
+			"indices": [19,20,21,22,23,24]
+		},
+
+		{
+			"loop": false,
+			"offsets": [
+				220,
+				180
+			],
+			"anim": "axe",
+			"fps": 24,
+			"name": "Holding Axe instance",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-40,
+				-40
+			],
+			"anim": "fall",
+			"fps": 24,
+			"name": "bf pre attack instance",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/foolhardy/ZardyWeek2_BoyFriend",
+	"position": [
+		80,
+		490
+	],
+	"healthicon": "bf",
+	"flip_x": true,
+	"healthbar_colors": [
+		49,
+		176,
+		209
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1
+}
