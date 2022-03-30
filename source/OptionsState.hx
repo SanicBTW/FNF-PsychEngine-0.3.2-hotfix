@@ -1487,7 +1487,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Note Hit Volume',
 		'Show Keyboard Overlay',
 		'Keyboard Overlay Alpha',
-		//'Ghost Tapping',
+		'Ghost Tapping',
 		//'Note Delay',
 		//'Note Splashes',
 		//'Hide HUD',
