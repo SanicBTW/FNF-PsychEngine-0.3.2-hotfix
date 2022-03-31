@@ -1470,8 +1470,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 	static var options:Array<String> = [
 		'Graphics',
-		//'Low Quality',
-		//'Anti-Aliasing',
+		'Low Quality',
+		'Anti-Aliasing',
 		//'Persistent Cached Data',
 		//'Vertical Health Bar',
 		'Song Backgrounds',
@@ -1488,12 +1488,12 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Show Keyboard Overlay',
 		'Keyboard Overlay Alpha',
 		'Ghost Tapping',
-		//'Note Delay',
-		//'Note Splashes',
-		//'Hide HUD',
-		//'Hide Song Length',
+		'Note Delay',
+		'Note Splashes',
+		'Hide HUD',
+		'Hide Song Length',
 		//'Flashing Lights',
-		//'Camera Zooms',
+		'Camera Zooms',
 		#if !mobile
 		'FPS Counter',
 		#end
