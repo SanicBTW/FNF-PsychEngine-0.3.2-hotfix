@@ -1,4 +1,4 @@
-name: buildweb
+name: buildhtml
   
  on: [push, pull_request, workflow_dispatch] 
   
@@ -7,7 +7,7 @@ name: buildweb
      runs-on: ubuntu-latest 
      steps: 
        - name: Checkout 
-         uses: actions/checkout@v2.3.1
+         uses: actions/checkout@v2.3.1  
   
        - name: Setup Haxe 
          uses: krdlab/setup-haxe@v1.1.5 
@@ -25,13 +25,13 @@ name: buildweb
            haxelib install flixel-tools 
            haxelib install flixel-ui 
            haxelib install flixel-addons 
-           haxelib list 
- 
+           haxelib list  
+  
        - name: Compile 
          run: haxelib run lime build html5 -final 
   
        - name: Publish Artifact 
          uses: actions/upload-artifact@v2.2.4 
          with: 
-           name: htmlbuild
+           name: html5Build 
            path: export/release/html5/bin
